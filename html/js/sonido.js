@@ -4,6 +4,7 @@ audioCtx = new AudioContext()
 let randomNoiseNode;
 let sineNode; 
 let microphone; 
+let video = document.getElementById('videoElement');; 
 
 const activar = document.getElementById( 'activar' );
 activar.addEventListener( 'click', init );
@@ -29,6 +30,11 @@ reproducirMic.addEventListener( 'click', reproducirMicFunc );
 const detenerMic = document.getElementById( 'detenerMic' );
 detenerMic.addEventListener( 'click', detenerMicFunc );
 
+const encenderCamara = document.getElementById( 'encenderCamara' );
+encenderCamara.addEventListener( 'click', encenderCamaraFunc );
+
+const detenerCamara = document.getElementById( 'detenerCamara' );
+detenerCamara.addEventListener( 'click', detenerCamaraFunc );
 
 function init(){
     // audioCtx = new AudioContext();
@@ -105,4 +111,20 @@ function reproducirMicFunc(){
 function detenerMicFunc(){
     microphone.disconnect(audioCtx.destination);
     console.log("detener mic"); 
+}
+
+function encenderCamaraFunc(){
+    if (navigator.mediaDevices.getUserMedia) {
+	navigator.mediaDevices.getUserMedia({ video: true })
+	    .then(function (stream) {
+		video.srcObject = stream;
+	    })
+	    .catch(function (err0r) {
+		console.log("Something went wrong!");
+	    });
+    }
+}
+
+function detenerCamaraFunc(){
+    video.srcObject = null; 
 }
