@@ -4,19 +4,20 @@ audioCtx = new AudioContext()
 let randomNoiseNode;
 let sineNode; 
 let microphone; 
-let video = document.getElementById('videoElement');; 
+let video = document.getElementById('videoElement');
+let sources = []; 
 
-const activar = document.getElementById( 'activar' );
-activar.addEventListener( 'click', init );
+const activar = document.getElementById( 'activar');
+activar.addEventListener('click', init);
 
-const desactivar = document.getElementById( 'desactivar' );
-desactivar.addEventListener( 'click', suspend );
+const desactivar = document.getElementById( 'desactivar');
+desactivar.addEventListener('click', suspend);
 
-const reproducirRuido = document.getElementById( 'reproducirRuido' );
-reproducirRuido.addEventListener( 'click', reproducirRuidoFunc );
+const reproducirRuido = document.getElementById( 'reproducirRuido');
+reproducirRuido.addEventListener('click', reproducirRuidoFunc);
 
-const detenerRuido = document.getElementById( 'detenerRuido' );
-detenerRuido.addEventListener( 'click', detenerRuidoFunc );
+const detenerRuido = document.getElementById( 'detenerRuido');
+detenerRuido.addEventListener('click', detenerRuidoFunc);
 
 const reproducirSine = document.getElementById( 'reproducirSine' );
 reproducirSine.addEventListener( 'click', reproducirSineFunc );
@@ -33,8 +34,12 @@ detenerMic.addEventListener( 'click', detenerMicFunc );
 const encenderCamara = document.getElementById( 'encenderCamara' );
 encenderCamara.addEventListener( 'click', encenderCamaraFunc );
 
-const detenerCamara = document.getElementById( 'detenerCamara' );
-detenerCamara.addEventListener( 'click', detenerCamaraFunc );
+const detenerCamara = document.getElementById('detenerCamara');
+detenerCamara.addEventListener( 'click', detenerCamaraFunc);
+
+const audioFile1 = document.getElementById('audio_file1');
+
+const audioFile2 = document.getElementById( 'audio_file2');
 
 function init(){
     // audioCtx = new AudioContext();
@@ -60,10 +65,19 @@ function init(){
 	// browser unable to access media devices
 	// (update your browser)
 	}
-
-   
+    
     start();
-    startSine(); 
+    startSine();
+    
+    audioFile1.onchange = function(){
+	iniciarAF1(); 
+    };
+
+    
+    audioFile2.onchange = function(){
+	iniciarAF2(); 
+    };
+    
 }
 
 async function start(){
@@ -127,4 +141,36 @@ function encenderCamaraFunc(){
 
 function detenerCamaraFunc(){
     video.srcObject = null; 
+}
+
+function iniciarAF1(){
+
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+	audioCtx.decodeAudioData(ev.target.result).then(function(buffer) {
+	    sources[0] = audioCtx.createBufferSource();
+	    sources[0].buffer = buffer;
+	    console.log("audiofile1");
+	    sources[0].connect(audioCtx.destination);
+	    sources[0].start(0); 
+	});
+    };
+    reader.readAsArrayBuffer(audioFile1.files[0]);
+    
+}
+
+function iniciarAF2(){
+
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+	audioCtx.decodeAudioData(ev.target.result).then(function(buffer) {
+	    sources[1] = audioCtx.createBufferSource();
+	    sources[1].buffer = buffer;
+	    console.log("audiofile2");
+	    sources[1].connect(audioCtx.destination);
+	    sources[1].start(0); 
+	});
+    };
+    reader.readAsArrayBuffer(audioFile2.files[0]);
+    
 }
