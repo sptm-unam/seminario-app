@@ -1,3 +1,13 @@
+import {EditorView, keymap} from '@codemirror/view';
+import {defaultKeymap} from '@codemirror/commands';
+
+let myView = new EditorView({
+  doc: 'console.log("hello")\n\n\n',
+  extensions: [keymap.of(defaultKeymap)],
+    parent: document.querySelector('#editor'),
+    darktheme: true
+})
+
 var AudioContext = window.AudioContext || window.webkitAudioContext; // esto será importante ? 
 audioCtx = new AudioContext()
 

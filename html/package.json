@@ -1,0 +1,26 @@
+{
+  "name": "seminario-app",
+  "version": "1.0.0",
+  "description": "Planes y temario del primer proyecto de desarrollo de software: Diseño de una librería de programación.",
+  "main": "js/sonido.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sptm-unam/seminario-app.git"
+  },
+  "author": "SPTM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sptm-unam/seminario-app/issues"
+  },
+  "homepage": "https://github.com/sptm-unam/seminario-app#readme",
+  "dependencies": {
+    "codemirror": "^6.0.1",
+    "parcel-reporter-static-files-copy": "^1.5.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.3"
+  }
+}
