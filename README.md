@@ -30,4 +30,13 @@ Para visualizar la página en algún navegador: http://localhost:1234
 - https://stackoverflow.com/questions/64713341/how-do-i-include-asset-files-with-parcel-js
 - https://www.freecodecamp.org/espanol/news/gitignore-explicado-que-es-y-como-agregar-a-tu-repositorio/
 
-Mexico 2023
+México, 2023.  
+Esta app es desarrollada en el marco del Seminario Permanente de Tecnología Musical del Posgrado en Música UNAM.  
+Participan:  
+- Cristian Bañuelos  
+- Xavier Góngora
+- Emilio Ocelotl
+- Elliot Hernánedez
+- Marianne Teixido
+- Hernani Villaseñor
+- Otros miembros del Posgrado.
