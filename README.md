@@ -1,6 +1,6 @@
 # Proyecto de desarrollo de software del SPTM
 
-Aplicación web para explorar las funcionalidades de audio en el navegador.
+Aplicación web desarrollada en el marco del Seminario Permanente de Tecnología Musical del Posgrado en Música UNAM. El objetivo es explorar las funcionalidades de audio en el navegador.
 
 ## Ejecución
 
@@ -36,10 +36,8 @@ Para visualizar la página en algún navegador: http://localhost:1234/sonido.htm
 - https://www.freecodecamp.org/espanol/news/gitignore-explicado-que-es-y-como-agregar-a-tu-repositorio/
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
-## Participantes 
+## Desarrollo y participación 
 
-Esta app es desarrollada en el marco del Seminario Permanente de Tecnología Musical del Posgrado en Música UNAM.  
-Participan:  
 - Cristian Bañuelos  
 - Xavier Góngora
 - Emilio Ocelotl
