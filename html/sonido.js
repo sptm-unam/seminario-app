@@ -17,6 +17,8 @@ let microphone;
 let video = document.getElementById('videoElement');
 let sources = []; 
 
+let gainNoise, gainSine; 
+
 const activar = document.getElementById( 'activar');
 activar.addEventListener('click', init);
 
@@ -50,6 +52,9 @@ detenerCamara.addEventListener( 'click', detenerCamaraFunc);
 const audioFile1 = document.getElementById('audio_file1');
 
 const audioFile2 = document.getElementById( 'audio_file2');
+
+const sliderRuidoBlanco = document.getElementById('sliderRuidoBlanco');
+const sliderSine = document.getElementById('sliderSine');
 
 function init(){
     // audioCtx = new AudioContext();
@@ -87,17 +92,31 @@ function init(){
     audioFile2.onchange = function(){
 	iniciarAF2(); 
     };
+
+    sliderRuidoBlanco.onchange = function(){
+	gainNoise.setValueAtTime(sliderRuidoBlanco.value, audioCtx.currentTime);
+	//console.log(sliderRuidoBlanco.value); 
+    }
+    
+    sliderSine.onchange = function(){
+	gainSine.setValueAtTime(sliderSine.value, audioCtx.currentTime);
+	console.log(sliderSine.value); 
+    }
     
 }
 
 async function start(){
     await audioCtx.audioWorklet.addModule('js/random-noise-processor.js');
     randomNoiseNode = new AudioWorkletNode(audioCtx, 'random-noise-processor')
+    gainNoise = randomNoiseNode.parameters.get("customGain");
+    gainNoise.setValueAtTime(0, audioCtx.currentTime);
 }
 
 async function startSine(){
     await audioCtx.audioWorklet.addModule('js/sine-processor.js');
     sineNode = new AudioWorkletNode(audioCtx, 'sine-processor');
+    gainSine = sineNode.parameters.get("customGain");
+    gainSine.setValueAtTime(0, audioCtx.currentTime);
 }
 
 function suspend(){
