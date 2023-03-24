@@ -6,9 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  <title>SPTM</title>
+  <title>Test SPTM</title>
 </head>
 
 <body>
@@ -24,7 +25,7 @@
             <span class="bar"></span>
             <span class="bar"></span>
           </div>
-          <ul class="nav no-search">
+          <ul class="nav">
             <li class="nav-item"><a href="#inicio">inicio</a></li>
             <li class="nav-item"><a href="#sonido">sonido</a></li>
             <li class="nav-item"><a href="#acerca">acerca</a></li>
@@ -37,39 +38,43 @@
         <button class="comenzar"><a href="#sonido">Comenzar</a></button>
       </div>
       <div class="arrow arrow-first"></div>
-<div class="arrow arrow-second"></div>
+      <div class="arrow arrow-second"></div>
+    </div>
   </header>
   <section id="sonido" class="sonido">
+    <a id="button-top"></a>
     <div class="contenido-sonido">
       <div class="separador">
-      <h2>Sonido</h2>
-      <p>
-        En algunos navegadores como chorme/chromium es necesario iniciar el audio con un gesto del usuario. Para este
-        fin se puede usar un botón.
-      </p>
-      <button type="button" id="activar">Activar sonido</button>
-      <button type="button" id="desactivar">Desactivar sonido</button>
-    </div>
-    <div class="separador">
-      <h2>Ruido blanco</h2>
-      <button type="button" id="reproducirRuido">Reproducir</button>
-      <button type="button" id="detenerRuido">Detener</button>
-    </div>
-    <div class="separador">
-      <h2>Sinusoidal</h2>
-      <button type="button" id="reproducirSine">Reproducir</button>
-      <button type="button" id="detenerSine">Detener</button>
-    </div>
-    <div class="separador">
-      <h2>Acceder micrófono</h2>
-      <p>La señal del mic sale por los parlantes de la computadora. Por favor, usa audífonos.</p>
-      <button type="button" id="reproducirMic">Reproducir</button>
-      <button type="button" id="detenerMic">Detener</button>
-    </div>
-    <div class="separador">
-      <h2>Acceder cámara</h2>
+        <h2>Sonido</h2>
+        <p>
+          En algunos navegadores como chorme/chromium es necesario iniciar el audio con un gesto del usuario. Para este
+          fin se puede usar un botón.
+        </p>
+        <button type="button" id="activar">Activar sonido</button>
+        <button type="button" id="desactivar">Desactivar sonido</button>
+      </div>
+      <div class="separador">
+        <h2>Ruido blanco</h2>
+        <button type="button" id="reproducirRuido">Reproducir</button>
+        <button type="button" id="detenerRuido">Detener</button>
+      </div>
+      <div class="separador">
+        <h2>Sinusoidal</h2>
+        <button type="button" id="reproducirSine">Reproducir</button>
+        <button type="button" id="detenerSine">Detener</button>
+      </div>
+      <div class="separador">
+        <h2>Acceder micrófono</h2>
+        <p>La señal del mic sale por los parlantes de la computadora. Por favor, usa audífonos.</p>
+        <button type="button" id="reproducirMic">Reproducir</button>
+        <button type="button" id="detenerMic">Detener</button>
+      </div>
+      <div class="separador">
+        <h2>Acceder cámara</h2>
         <p>---</p>
-    </div>
+      </div>
+      <div>
+      </div>
       <!--Necesitamos poner por aquí una caja de texto para escribir el código para live codear-->
     </div>
   </section>
@@ -112,6 +117,28 @@
     $('.menu-toggle').click(function () {
       $(".nav").toggleClass("mobile-nav");
       $(this).toggleClass("is-active");
+    });
+
+    $('.nav').click(function () {
+      $(".menu-toggle").removeClass("is-active");
+      $(this).removeClass("mobile-nav");
+    });
+  </script>
+
+  <script>
+    var btn = $('#button-top');
+
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 300) {
+        btn.addClass('show');
+      } else {
+        btn.removeClass('show');
+      }
+    });
+
+    btn.on('click', function (e) {
+      e.preventDefault();
+      $('html, body').animate({ scrollTop: 0 }, '300');
     });
   </script>
 </body>
