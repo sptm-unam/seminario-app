@@ -2,59 +2,118 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="no index, nofollow">
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Test SPTM</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <title>Test SPTM</title>
 </head>
 
 <body>
-    <header id="inicio">
-        <div class="nav-wrapper">
-            <nav class="navbar">
-              <h1>SPTM</h1>
-              <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-              </div>
-              <ul>
-                <li class="nav-item"><a href="#inicio">inicio</a></li>
-                <li class="nav-item"><a href="#sonido">sonido</a></li>
-                <li class="nav-item"><a href="#acerca">acerca</a></li>
-                <li class="nav-item"><a href="#contacto">contacto</a></li>
-              </ul>
-            </nav>
+  <header id="inicio">
+    <div class="page-wrapper">
+      <div class="nav-wrapper">
+        <nav class="navbar">
+          <div class="nav-title">
+            <h1>SPTM</h1>
           </div>
-		
-          <div class="titulo">
-            <h1>TITULO DEL PROYECTO</h1>
-            <button class="comenzar"><a href="#sonido">Comenzar</a></button>
-        </div>
-    </header>
-	
-	<!--Necesitamos poner por aquí una caja de texto para escribir el código para live codear-->
-	
-    <section id="sonido" class="sonido">
-    </section>
-    <section id="acerca" class="acerca">
-      <h2>acerca de nosotros</h2>
+          <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+          <ul class="nav no-search">
+            <li class="nav-item"><a href="#inicio">inicio</a></li>
+            <li class="nav-item"><a href="#sonido">sonido</a></li>
+            <li class="nav-item"><a href="#acerca">acerca</a></li>
+            <li class="nav-item"><a href="#contacto">contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="titulo">
+        <h1>TITULO DEL PROYECTO</h1>
+        <button class="comenzar"><a href="#sonido">Comenzar</a></button>
+      </div>
+      <div class="arrow arrow-first"></div>
+<div class="arrow arrow-second"></div>
+  </header>
+  <section id="sonido" class="sonido">
+    <div class="contenido-sonido">
+      <div class="separador">
+      <h2>Sonido</h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pellentesque, arcu ac sodales pellentesque, lacus justo bibendum elit, sit amet commodo nunc libero eget lorem. In hac habitasse platea dictumst. Nulla molestie, urna nec vulputate fringilla, lectus lorem tempor erat, vitae interdum felis elit ut eros. Mauris pellentesque finibus eros eu consectetur. Cras non urna sem. Morbi eu neque ex. Aenean at pretium ex, eget luctus velit. Nam vel faucibus diam, sed eleifend nibh. Proin non dolor ipsum. Aenean felis augue, vestibulum ut imperdiet in, viverra eget purus. Proin a egestas dolor. Ut facilisis malesuada augue, fermentum tempor urna interdum ut. Aliquam erat volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi vehicula nibh quis luctus posuere. Nulla facilisi.
-
-Mauris molestie nunc et tortor tempor vulputate. Nam dui sem, porttitor a lectus vitae, scelerisque accumsan mi. Maecenas egestas diam ut pretium feugiat. Vestibulum sed lacinia quam. Proin eu ipsum odio. Ut vel feugiat turpis. Vivamus nec eleifend libero. Duis dapibus dui quis ligula convallis cursus. Sed eu nisl fringilla, sagittis sapien a, elementum ante. Nam eleifend libero nec nulla viverra, eget tincidunt metus viverra. Vestibulum risus erat, lobortis blandit posuere vel, lacinia et odio. Nulla at ante lectus.
-
-Nam et dui quam. Nulla posuere dictum dui placerat commodo. Nam dapibus luctus nisl et placerat. Phasellus lectus nisl, sagittis ut fermentum et, lacinia finibus eros. Etiam nec odio vulputate, imperdiet leo quis, eleifend diam. Sed eleifend urna a velit iaculis, sit amet hendrerit ligula scelerisque. Integer auctor vitae diam sed efficitur. Nulla luctus eros et iaculis interdum. Aenean sit amet massa purus. Etiam nulla libero, faucibus vel euismod sed, tristique sed ex. Sed hendrerit, arcu in bibendum eleifend, leo ex vestibulum orci, a imperdiet ipsum purus euismod neque. Aenean vehicula quam vel ex pellentesque, tincidunt fermentum leo convallis. Etiam ligula mi, ultrices id enim nec, aliquam sodales ex.
+        En algunos navegadores como chorme/chromium es necesario iniciar el audio con un gesto del usuario. Para este
+        fin se puede usar un botón.
       </p>
-    </section>
-    <section id="contacto" class="contacto">
-    </section>
+      <button type="button" id="activar">Activar sonido</button>
+      <button type="button" id="desactivar">Desactivar sonido</button>
+    </div>
+    <div class="separador">
+      <h2>Ruido blanco</h2>
+      <button type="button" id="reproducirRuido">Reproducir</button>
+      <button type="button" id="detenerRuido">Detener</button>
+    </div>
+    <div class="separador">
+      <h2>Sinusoidal</h2>
+      <button type="button" id="reproducirSine">Reproducir</button>
+      <button type="button" id="detenerSine">Detener</button>
+    </div>
+    <div class="separador">
+      <h2>Acceder micrófono</h2>
+      <p>La señal del mic sale por los parlantes de la computadora. Por favor, usa audífonos.</p>
+      <button type="button" id="reproducirMic">Reproducir</button>
+      <button type="button" id="detenerMic">Detener</button>
+    </div>
+    <div class="separador">
+      <h2>Acceder cámara</h2>
+        <p>---</p>
+    </div>
+      <!--Necesitamos poner por aquí una caja de texto para escribir el código para live codear-->
+    </div>
+  </section>
+  <section id="acerca" class="acerca">
+    <h2>acerca de nosotros</h2>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pellentesque, arcu ac sodales pellentesque, lacus
+      justo bibendum elit, sit amet commodo nunc libero eget lorem. In hac habitasse platea dictumst. Nulla molestie,
+      urna nec vulputate fringilla, lectus lorem tempor erat, vitae interdum felis elit ut eros. Mauris pellentesque
+      finibus eros eu consectetur. Cras non urna sem. Morbi eu neque ex. Aenean at pretium ex, eget luctus velit. Nam
+      vel faucibus diam, sed eleifend nibh. Proin non dolor ipsum. Aenean felis augue, vestibulum ut imperdiet in,
+      viverra eget purus. Proin a egestas dolor. Ut facilisis malesuada augue, fermentum tempor urna interdum ut.
+      Aliquam erat volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+      Morbi vehicula nibh quis luctus posuere. Nulla facilisi.
 
-    <footer>
-      &copy; SPTM <script>document.write(new Date().getFullYear())</script>
-    </footer>
+      Mauris molestie nunc et tortor tempor vulputate. Nam dui sem, porttitor a lectus vitae, scelerisque accumsan mi.
+      Maecenas egestas diam ut pretium feugiat. Vestibulum sed lacinia quam. Proin eu ipsum odio. Ut vel feugiat turpis.
+      Vivamus nec eleifend libero. Duis dapibus dui quis ligula convallis cursus. Sed eu nisl fringilla, sagittis sapien
+      a, elementum ante. Nam eleifend libero nec nulla viverra, eget tincidunt metus viverra. Vestibulum risus erat,
+      lobortis blandit posuere vel, lacinia et odio. Nulla at ante lectus.
+
+      Nam et dui quam. Nulla posuere dictum dui placerat commodo. Nam dapibus luctus nisl et placerat. Phasellus lectus
+      nisl, sagittis ut fermentum et, lacinia finibus eros. Etiam nec odio vulputate, imperdiet leo quis, eleifend diam.
+      Sed eleifend urna a velit iaculis, sit amet hendrerit ligula scelerisque. Integer auctor vitae diam sed efficitur.
+      Nulla luctus eros et iaculis interdum. Aenean sit amet massa purus. Etiam nulla libero, faucibus vel euismod sed,
+      tristique sed ex. Sed hendrerit, arcu in bibendum eleifend, leo ex vestibulum orci, a imperdiet ipsum purus
+      euismod neque. Aenean vehicula quam vel ex pellentesque, tincidunt fermentum leo convallis. Etiam ligula mi,
+      ultrices id enim nec, aliquam sodales ex.
+    </p>
+  </section>
+  <section id="contacto" class="contacto">
+  </section>
+
+  <footer>
+    &copy; SPTM
+    <script>document.write(new Date().getFullYear())</script>
+  </footer>
+  <script src="html/js/sonido.js"></script>
+  <script>
+    $('.menu-toggle').click(function () {
+      $(".nav").toggleClass("mobile-nav");
+      $(this).toggleClass("is-active");
+    });
+  </script>
 </body>
 
 </html>
