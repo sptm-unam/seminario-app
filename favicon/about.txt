@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Goldman
+- Font Author: Copyright 2018 The Goldman Project Authors (https://github.com/magictype/goldman)
+- Font Source: http://fonts.gstatic.com/s/goldman/v15/pe0uMIWbN4JFplR2LDJ4Bt-7G98.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
