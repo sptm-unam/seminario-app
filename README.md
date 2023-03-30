@@ -4,21 +4,17 @@ Aplicación web desarrollada en el marco del Seminario Permanente de Tecnología
 
 ## Ejecución
 
-Estas instrucciones solamente activan la página sonido.html. Para ejecutar la página en modo local:
-
-```
-cd html
-```
+Para ejecutar la página en modo local:
 
 ```
 npm install
 ```
 
 ```
-npx parcel sonido.html
+npx parcel index.html
 ```
 
-Para visualizar la página en algún navegador: http://localhost:1234/sonido.html
+Para visualizar la página en algún navegador: http://localhost:1234/
 
 ## Recursos
 
