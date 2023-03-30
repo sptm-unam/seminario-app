@@ -1,4 +1,7 @@
 html/dist
 html/node_modules
 html/.parcel-cache
+dist
+node_modules
+.parcel-cache
 .DS_Store

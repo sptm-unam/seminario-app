@@ -1,12 +1,10 @@
-import {EditorView, keymap} from '@codemirror/view';
 import {defaultKeymap} from '@codemirror/commands';
-
-let myView = new EditorView({
-  doc: 'console.log("hello")\n\n\n',
-  extensions: [keymap.of(defaultKeymap)],
-    parent: document.querySelector('#editor'),
-    darktheme: true
-})
+import {EditorState, Prec, Compartment} from '@codemirror/state'; 
+import {EditorView, basicSetup} from "codemirror"
+import {defaultHighlightStyle, HighlightStyle, syntaxHighlighting} from "@codemirror/language";
+import {tags} from "@lezer/highlight"
+import {javascript} from "@codemirror/lang-javascript"
+import {keymap, KeyBinding} from "@codemirror/view"
 
 var AudioContext = window.AudioContext || window.webkitAudioContext; // esto será importante ? 
 audioCtx = new AudioContext()
@@ -55,6 +53,29 @@ const audioFile2 = document.getElementById( 'audio_file2');
 
 const sliderRuidoBlanco = document.getElementById('sliderRuidoBlanco');
 const sliderSine = document.getElementById('sliderSine');
+
+
+const keymaps = []
+keymaps.push(keymap.of({key: 'Ctrl-Enter', run: () => evaluar(), preventDefault: true}))
+keymaps.push(keymap.of(defaultKeymap))
+
+let language = new Compartment;
+
+let startState = EditorState.create({
+    doc: "// ¡Hola mundo!\n\n// El editor ya tiene highlighter y un estilo génerico (hereda características del estilo general de la página también) \n//También es posible evaluar líneas de código en JS con ctrl+enter\n\nconsole.log(\"control+e y ver en consola (f12)\");\n\n //Por último ya es posible controlar las variables globales de ganancia para la sinusoide y el noise. Primero hay que inicializar el audio (chrome) e iniciar la reproducción de noise o sin según el caso. Por el momento se evalúa todo el código entonces las indicaciones se pueden contradecir \n\n//gainNoise.setValueAtTime(0, audioCtx.currentTime);// activar o desactivar según sea el caso\ngainNoise.setValueAtTime(0.1, audioCtx.currentTime);\n//gainSine.setValueAtTime(0, audioCtx.currentTime);//activar o desactivar según sea el caso\ngainSine.setValueAtTime(0.1, audioCtx.currentTime);",
+    extensions: [
+	keymaps,
+	basicSetup,
+	language.of(javascript()),
+	EditorView.lineWrapping
+    ]
+})
+
+let view = new EditorView({
+    state: startState,
+    parent: document.querySelector('#editor')
+})
+
 
 function init(){
     // audioCtx = new AudioContext();
@@ -202,4 +223,11 @@ function iniciarAF2(){
     };
     reader.readAsArrayBuffer(audioFile2.files[0]);
     
+}
+
+function evaluar(){
+    const code = view.state.doc.toString()
+    console.log(code)
+    eval(code); 
+    return true
 }
