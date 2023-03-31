@@ -7,7 +7,7 @@ import {javascript} from "@codemirror/lang-javascript"
 import {keymap, KeyBinding} from "@codemirror/view"
 
 var AudioContext = window.AudioContext || window.webkitAudioContext; // esto será importante ? 
-audioCtx = new AudioContext()
+let audioCtx = new AudioContext()
 
 let randomNoiseNode;
 let sineNode; 
@@ -78,7 +78,7 @@ let view = new EditorView({
 
 
 function init(){
-    // audioCtx = new AudioContext();
+    audioCtx = new AudioContext();
 
     if(audioCtx.state === "suspended"){
 	audioCtx.resume();
