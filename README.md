@@ -16,6 +16,12 @@ npm start
 
 Para visualizar la página en algún navegador: http://localhost:1234/
 
+Para crear un build la instrucción es:
+
+```
+npm run build
+```
+
 ## Recursos
 
 - https://www.w3schools.com/howto/howto_js_rangeslider.asp
