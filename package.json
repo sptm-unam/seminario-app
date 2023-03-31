@@ -25,7 +25,6 @@
     "@codemirror/view": "^6.9.3",
     "@lezer/highlight": "^1.1.4",
     "codemirror": "^6.0.1",
-    "lazer": "^0.0.1",
     "lezer": "^0.13.5",
     "parcel-reporter-static-files-copy": "^1.5.0"
   },

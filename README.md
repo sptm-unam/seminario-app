@@ -11,7 +11,7 @@ npm install
 ```
 
 ```
-npx parcel index.html
+npm start
 ```
 
 Para visualizar la página en algún navegador: http://localhost:1234/
