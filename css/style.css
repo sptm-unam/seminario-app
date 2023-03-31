@@ -46,8 +46,7 @@ header h1 {
   text-align: center;
 }
 
-.contenido-sonido h2,
-p {
+.contenido-sonido h2, p, button {
   margin: 0.5em;
 }
 
