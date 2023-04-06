@@ -2,9 +2,9 @@
 
 Aplicación web desarrollada en el marco del Seminario Permanente de Tecnología Musical del Posgrado en Música UNAM. El objetivo es explorar las funcionalidades de audio en el navegador.
 
-## Ejecución
+## Ejecución local
 
-Para ejecutar la página en modo local:
+Ejecuta los siguientes comandos en la terminal para obtener un "build":
 
 ```
 npm install
@@ -14,7 +14,8 @@ npm install
 npm start
 ```
 
-Para visualizar la página en algún navegador: http://localhost:1234/
+Para visualizar la página en algún navegador coloca la dirección: http://localhost:1234/  
+Hemos detectado que las versiones de NODE instaladas en los sistemas operativos GNU/LINUX pueden llegar a marcar errores si son instalados con el comando $ sudo apt install nodejs. Para lidiar con ello sugerimos instalar node con NVM.  
 
 Para crear un build la instrucción es:
 
