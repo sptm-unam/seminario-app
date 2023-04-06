@@ -1,7 +1,7 @@
 # Created by MichaelCurrin
 # https://gist.github.com/MichaelCurrin/a698731096f78240f653faf9a9127cba
 
-name: Build and deploy 
+name: SPTM Build and deploy 
 
 on:
   push:
