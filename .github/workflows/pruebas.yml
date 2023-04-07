@@ -2,7 +2,7 @@ name: Pruebas automatizadas
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
