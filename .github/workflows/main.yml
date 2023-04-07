@@ -3,7 +3,11 @@
 
 name: SPTM Build and deploy 
 
-on: [push]
+on: 
+  push:
+    branches:
+      - develop
+
 permissions:
   contents: write
 jobs:
