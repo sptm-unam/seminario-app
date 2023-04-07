@@ -1,16 +1,18 @@
 # Created by MichaelCurrin
 # https://gist.github.com/MichaelCurrin/a698731096f78240f653faf9a9127cba
 
-name: SPTM Build and deploy 
+name: SPTM Build and deploy
 
-on: 
+on:
   push:
     branches:
       - develop
 
 permissions:
   contents: write
+
 jobs:
+  # Build job
   build:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
@@ -25,10 +27,12 @@ jobs:
 
       # Upload Artifact
       - name: Upload production-ready build files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-pages-artifact@v1
         with:
           name: production
           path: ./dist
+    # <Not provided for brevity>
+    # At a minimum this job should upload artifacts using actions/upload-pages-artifact
 
   # Deploy job
   deploy:
@@ -37,8 +41,8 @@ jobs:
 
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
 
     # Deploy to the github-pages environment
     environment:
@@ -51,34 +55,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-
-
-# on:
-#   push:
-#     branches:
-#       - develop
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Checkout 🛎️
-#         uses: actions/checkout@master
-#         with:
-#           persist-credentials: false
-
-#       - name: Install 🔧
-#         run: npm install
-
-#       - name: Build 🏗️
-#         run: |
-#           npm run build
-#           ls -la
-
-
-#       - name: Deploy to GH Pages 🚀
-#         uses: peaceiris/actions-gh-pages@v3
-#         with:
-#           github_token: ${{ secrets.GITHUB_TOKEN }}
-#           publish_dir: dist
