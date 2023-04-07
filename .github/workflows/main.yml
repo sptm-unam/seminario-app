@@ -29,7 +29,7 @@ jobs:
       - name: Upload production-ready build files
         uses: actions/upload-pages-artifact@v1
         with:
-          name: production
+          name: github-pages
           path: ./dist
     # <Not provided for brevity>
     # At a minimum this job should upload artifacts using actions/upload-pages-artifact
