@@ -22,7 +22,7 @@ const SptmAudio = function () {
         .getUserMedia({ audio: true })
         .then((stream) => {
           microphone = audioCtx.createMediaStreamSource(stream)
-          samples()
+          // samples()
           // `microphone` can now act like any other AudioNode
         })
         .catch((err) => {
@@ -130,6 +130,17 @@ const SptmAudio = function () {
     }
     reader.readAsArrayBuffer(audioFile2.files[0])
   }
+    
+    function chgainNoise(value){
+	gainNoise.setValueAtTime(value, audioCtx.currentTime);
+    }
+
+    function chgainSine(value){
+	gainSine.setValueAtTime(value, audioCtx.currentTime);
+    }
+
+    
+    
   return {
     init,
     start,
@@ -144,7 +155,9 @@ const SptmAudio = function () {
     encenderCamaraFunc,
     detenerCamaraFunc,
     iniciarAF1,
-    iniciarAF2
+    iniciarAF2,
+      chgainNoise,
+      chgainSine
   }
 }
 

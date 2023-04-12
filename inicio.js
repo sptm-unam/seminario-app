@@ -21,8 +21,10 @@ const {
     encenderCamaraFunc,
     detenerCamaraFunc,
     iniciarAF1,
-    iniciarAF2
- } = SptmAudio()
+    iniciarAF2,
+    chgainNoise,
+    chgainSine
+} = SptmAudio()
 
 start()
 startSine()
@@ -91,7 +93,7 @@ keymaps.push(keymap.of(defaultKeymap))
 let language = new Compartment;
 
 let startState = EditorState.create({
-    doc: "// ¡Hola mundo!\n\n// El editor ya tiene highlighter y un estilo génerico (hereda características del estilo general de la página también) \n//También es posible evaluar líneas de código en JS con ctrl+enter\n\nconsole.log(\"control+e y ver en consola (f12)\");\n\n //Por último ya es posible controlar las variables globales de ganancia para la sinusoide y el noise. Primero hay que inicializar el audio (chrome) e iniciar la reproducción de noise o sine. Por el momento se evalúa todo el código (y no línea por línea) entonces las indicaciones se pueden contradecir \n\n//gainNoise.setValueAtTime(0, audioCtx.currentTime);// comentar o descomentar según sea el caso \ngainNoise.setValueAtTime(0.1, audioCtx.currentTime);\n//gainSine.setValueAtTime(0, audioCtx.currentTime);//comentar o descomentar según sea el caso\ngainSine.setValueAtTime(0.1, audioCtx.currentTime);",
+    doc: "// ¡Hola mundo!\n\n//Ya no hay eval, ahora es posible cambiar las ganancias con la siguiente sintaxis:\n\n//noise gain 0\n//noise gain 0.2\n\n//sine gain 0\n//sine gain 0.2\n\n//Por alguna extraña razón hay que escribir y declarar manualmente\n//Ahora es necesario seleccionar la línea a declarar y ctrl + enter",
     extensions: [
 	keymaps,
 	basicSetup,
@@ -107,8 +109,26 @@ let view = new EditorView({
 
 
 function evaluar(){
-    const code = view.state.doc.toString()
-    console.log(code)
-    eval(code); 
+    
+    //const code = view.state.doc.toString()
+    //console.log(code)
+    // eval(code);
+
+    let firstRange = view.state.selection.ranges.at(0);
+    let selectedText = view.state.doc.toString().substring(firstRange.from,firstRange.to);
+    console.log(selectedText); 
+    const str = selectedText.split(' ');
+
+    
+    if(str[0] == "noise" && str[1] == "gain"){
+	chgainNoise(str[2]);
+	console.log("noise");
+    }
+
+    if(str[0] == "sine" && str[1] == "gain"){
+	chgainSine(str[2]);
+	console.log("sine");
+    }
+    
     return true
 }
