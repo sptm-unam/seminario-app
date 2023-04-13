@@ -3,12 +3,12 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  scroll-behavior: smooth;
 }
 
 header {
   height: 100vh;
-  background-image: url(../imgs/ng.jpg);
-  background-size: cover;
+  background-color: #000000;
 }
 
 header h1 {
@@ -28,11 +28,33 @@ header h1 {
   margin: 40vh 0 0 0;
 }
 
-.comenzar {
-  margin-top: 5vh;
+.comenzar2 {
+  margin-top: 1em;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: rgb(72, 76, 122);
+  font-size: 14px;
+  height: 38px;
+  padding: 8px 24px;
+  border-radius: 50px;
+  background-image: linear-gradient(180deg,#fff,#6c6c6c45);
+  box-shadow: 0 4px 11px 0 rgb(37 44 97 / 15%), 0 1px 3px 0 rgb(93 100 148 / 20%);
+  transition: all .2s ease-out;
 }
 
-.comenzar a {
+.comenzar2:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px 0 rgb(37 44 97 / 15%), 0 4px 6px 0 rgb(93 100 148 / 20%);
+  -webkit-transform: translateY(-3px);
+  -moz-transform: translateY(-3px);
+  -ms-transform: translateY(-3px);
+  -o-transform: translateY(-3px);
+}
+
+.comenzar2 a {
   text-decoration: none;
 }
 
@@ -50,6 +72,24 @@ header h1 {
   margin: 0.5em;
 }
 
+.botones-sonido {
+  display: inline-block;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 4px;
+  font-size: 13px;
+  height: 30px;
+  background-color: #0000000d;
+  color: #0e0e10;
+  padding: 0 20px;
+}
+
+.botones-sonido:hover {
+  background-color: #0000001a;
+}
+
 .separador {
   margin: 5em;
 }
@@ -61,7 +101,7 @@ header h1 {
   place-items: center;
   padding: 10%;
   height: 100vh;
-  background-color: #d1d1d1;
+  background-color: #f3f3f3;
 }
 
 .acerca h2 {
