@@ -39,6 +39,13 @@ npm run build
 - https://www.freecodecamp.org/espanol/news/gitignore-explicado-que-es-y-como-agregar-a-tu-repositorio/
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
+## Diagrama del Repositorio
+
+Generado desde [JSON Crack](https://jsoncrack.com/editor) con `diagrama.json`.
+
+![Representación en árbol del código de este repositorio](/imgs/diagrama.png)
+
+
 ## Desarrollo y participación 
 
 - Cristian Bañuelos  
