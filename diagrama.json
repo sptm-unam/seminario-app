@@ -1,0 +1,107 @@
+{
+  "Componentes de código": [
+    {
+      "Dependencias Externas": [
+        "Archivo: ./package.json",
+        "Comando: npm install <package>",
+        {
+          "Node": [
+            {
+              "Repositorio": [
+                "parcel-reporter-static-file-copy",
+                "lezer",
+                "codemirror"
+              ]
+            },
+            {
+              "Desarrollo": [
+                "jest",
+                "parcel",
+                "process"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Librería Local": [
+        "Directorio: ./static/js/",
+        {
+          "Módulos": [
+            {
+              "Secuenciamiento": [
+                "bjorklund.js"
+              ]
+            },
+            {
+              "AudioWorkletProcessor": [
+                "random-noise-processor.js",
+                "sine-processor.js"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Sitio": [
+        {
+          "Estructura: ./index.html": [
+            {
+              "Diseño": [
+                "Framework: Vanilla CSS",
+                "Archivo: ./css/style.css",
+                "Íconos: ./favicons/"
+              ]
+            },
+            {
+              "Interactividad": [
+                {
+                  "inicio.js": [
+                    "<< Dependencias externas",
+                    {
+                      "./controlador.js": [
+                        {
+                          "WebAudioAPI": [
+                            "Nodos",
+                            "Conexiones"
+                          ]
+                        },
+                        "<< Librería Local"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Build": [
+        "Herramienta: Parcel",
+        "Comando: npm run build",
+        "Configuración: ./.parcelrc",
+        "Entrada: ./index.html",
+        "Salida: ./dist/"
+      ]
+    },
+    {
+      "Pruebas": [
+        "Herramienta: Jest",
+        "Comando: npm run test",
+        "Configuración: ./jest.config.js"
+      ]
+    },
+    {
+      "Despliegue": [
+        "Herramienta: Github Actions",
+        "Configuración: ./.github/workflows/main.yml",
+        "Entrada: ./dist/ (Generado por Parcel)",
+        "Salida: https://sptm-unam.github.io/seminario-app/"
+      ]
+    }
+  ]
+}
