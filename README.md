@@ -15,7 +15,7 @@ npm start
 ```
 
 Para visualizar la página en algún navegador coloca la dirección: http://localhost:1234/  
-Hemos detectado que las versiones de NODE instaladas en los sistemas operativos GNU/LINUX pueden llegar a marcar errores si son instalados con el comando $ sudo apt install nodejs. Para lidiar con ello sugerimos instalar node con NVM.  
+Hemos detectado que las versiones de NODE instaladas en los sistemas operativos GNU/LINUX pueden llegar a marcar errores si son instalados con el comando $ sudo apt install nodejs. Para lidiar con ello sugerimos instalar node con NVM, sugerimos (18.12.0) 
 
 Para crear un build la instrucción es:
 
