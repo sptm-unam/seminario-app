@@ -18,6 +18,11 @@
 </head>
 
 <body>
+  <!-- <ul id="lang">
+    <li><a href="?lang=es">es</a></li>
+    <li><a href="/?lang=en">en</a></li>
+    <li><a href="/?lang=fr">fr</a></li>
+  </ul> -->
   <header id="inicio">
     <div class="page-wrapper">
       <div class="nav-wrapper">
@@ -32,16 +37,16 @@
           </div>
           <ul class="nav">
 
-            <li class="nav-item"><a href="#inicio">inicio</a></li>
-            <li class="nav-item"><a href="#sonido">sonido</a></li>
-            <li class="nav-item"><a href="#acerca">acerca</a></li>
-            <li class="nav-item"><a href="#contacto">contacto</a></li>
+            <li for="link_inicio"class="nav-item"><a href="#inicio">inicio</a></li>
+            <li for="link_sonido"class="nav-item"><a href="#sonido">sonido</a></li>
+            <li for="link_acerca"class="nav-item"><a href="#acerca">acerca</a></li>
+            <li for="link_contacto"class="nav-item"><a href="#contacto">contacto</a></li>
           </ul>
         </nav>
       </div>
       <div class="titulo">
-        <h1>TITULO DEL PROYECTO</h1>
-        <button onclick="location.href='#sonido'" type="button" class="comenzar2">Comenzar</button>
+        <h1 for="tituloproyecto">TITULO DEL PROYECTO</h1>
+        <button for="comenzar" onclick="location.href='#sonido'" type="button" class="comenzar2">Comenzar</button>
       </div>
       <div class="arrow arrow-first"></div>
       <div class="arrow arrow-second"></div>
@@ -52,35 +57,35 @@
     <!-- <a id="button-top"></a> -->
     <div class="contenido-sonido">
       <div class="separador">
-        <h2>Sonido</h2>
-        <p>
+        <h2 for="h2_sonido">Sonido</h2>
+        <p for="descripcion_sonido">
           En algunos navegadores como chorme/chromium es necesario iniciar el audio con un gesto del usuario. Para este
           fin se puede usar un botón.
         </p>
-        <button type="button" id="activar" class="botones-sonido">Activar sonido</button>
-        <button type="button" id="desactivar" class="botones-sonido">Desactivar sonido</button>
+        <button for="boton_activar_sonido"type="button" id="activar" class="botones-sonido">Activar sonido</button>
+        <button for="boton_desactivar_sonido"type="button" id="desactivar" class="botones-sonido">Desactivar sonido</button>
       </div>
       <div class="separador">
-        <h2>Ruido blanco</h2>
-        <button type="button" id="reproducirRuido" class="botones-sonido">Reproducir</button>
-        <button type="button" id="detenerRuido" class="botones-sonido">Detener</button>
-        <input id="sliderRuidoBlanco" type="range" min="0" max="1" step="0.01" value="0" title="Slider de volumen de ruido blanco">
+        <h2 for="header_ruido_blanco">Ruido blanco</h2>
+        <button for="boton_reproducir" type="button" id="reproducirRuido" class="botones-sonido">Reproducir</button>
+        <button for="boton_detener" type="button" id="detenerRuido" class="botones-sonido">Detener</button>
+        <input for="slider_ruido" id="sliderRuidoBlanco" type="range" min="0" max="1" step="0.01" value="0" title="Slider de volumen de ruido blanco">
       </div>
       <div class="separador">
-        <h2>Sinusoidal</h2>
-        <button type="button" id="reproducirSine" class="botones-sonido">Reproducir</button>
-        <button type="button" id="detenerSine" class="botones-sonido">Detener</button>
-        <input id="sliderSine" type="range" min="0" max="1" step="0.01" value="0" title="Slider de volumen de onda sinusoidal">
+        <h2 for="h2_sinusoidal">Sinusoidal</h2>
+        <button for="boton_reproducir"  type="button" id="reproducirSine" class="botones-sonido">Reproducir</button>
+        <button for="boton_detener" type="button" id="detenerSine" class="botones-sonido">Detener</button>
+        <input   id="sliderSine" type="range" min="0" max="1" step="0.01" value="0" title="Slider de volumen de onda sinusoidal">
       </div>
       <div class="separador">
-        <h2>Acceder micrófono</h2>
-        <p>La señal del mic sale por los parlantes de la computadora. Por favor, usa audífonos.</p>
-        <button type="button" id="reproducirMic" class="botones-sonido">Reproducir</button>
-        <button type="button" id="detenerMic" class="botones-sonido">Detener</button>
+        <h2 for="header_mic">Acceder micrófono</h2>
+        <p for="desc_mic">La señal del mic sale por los parlantes de la computadora. Por favor, usa audífonos.</p>
+        <button for="boton_reproducir"type="button" id="reproducirMic" class="botones-sonido">Reproducir</button>
+        <button for="boton_detener" type="button" id="detenerMic" class="botones-sonido">Detener</button>
       </div>
       <div class="separador">
-        <h2>Acceder cámara</h2>
-        <p> Esto no es sonido XP pero ahí va</p>
+        <h2 for="header_camara">Acceder cámara</h2>
+        <p for="desc_camara">Esto no es sonido XP pero ahí va</p>
         <div>
           <button type="button" id="encenderCamara" class="botones-sonido">Encender</button>
           <button type="button" id="detenerCamara" class="botones-sonido">Detener</button>
@@ -90,8 +95,8 @@
         <!-- esto podría enviar un valor para que fuera leído por algo tipo switch-->
       </div>
       <div class="separador">
-        <h2>Múltiples muestras en un arreglo</h2>
-        <p>Ejemplo para relacionar carga y reproducción de archivos locales.</p>
+        <h2 for="header_muestras">Múltiples muestras en un arreglo</h2>
+        <p for="desc_muestras">Ejemplo para relacionar carga y reproducción de archivos locales.</p>
         <div>
           <input id="audio_file1" type="file" accept="audio/*" title="Cargar archivo"/>
         </div>
@@ -101,14 +106,14 @@
         <!--Necesitamos poner por aquí una caja de texto para escribir el código para live codear-->
       </div>
       <div class="separador">
-        <h2>Editor sencillo</h2>
+        <h2 for="header_editor">Editor sencillo</h2>
         <div id="editor">
         </div>
       </div>
   </section>
   <section id="acerca" class="acerca">
-    <h2>acerca de nosotros</h2>
-    <p>El equipo de desarrollo e investigación de esta app forma parte del Seminario Permanente de Tecnología Musical
+    <h2 for="header_acerca">acerca de nosotros</h2>
+    <p for="desc_acerca">El equipo de desarrollo e investigación de esta app forma parte del Seminario Permanente de Tecnología Musical
       del Posgrado en Música UNAM. Sus integrantes tienen diferentes perfiles e intereses alrededor de la tecnología
       musical lo que hace de este desarrollo un campo interdisciplinario para construir una tecnología de sonido
       aplicada a la web.
@@ -128,6 +133,7 @@
     <script>document.write(new Date().getFullYear())</script>
   </footer>
   <script type="module" src="./inicio.js"></script>
+  <script type="module" src="./traducciones.js"></script>
   <script>
     $('.menu-toggle').click(function () {
       $(".nav").toggleClass("mobile-nav");
