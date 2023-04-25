@@ -4,7 +4,7 @@ $.i18n = function (options) {
   options = $.extend(
     {},
     {
-      lang: 'en',
+      lang: 'es',
       data: $.i18n,
       sliceLang: false
     },
