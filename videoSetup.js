@@ -1,0 +1,5 @@
+
+function VideoSetup(){
+}
+
+export { VideoSetup } 
