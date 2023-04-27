@@ -99,16 +99,15 @@ header h1 {
   overflow: auto;
   display: grid;
   place-items: center;
-  padding: 10%;
-  height: 100vh;
-  background-color: #f3f3f3;
+  padding: 5%;
+  background-color: #fafafa;
 }
 
 .acerca h2 {
   text-transform: uppercase;
 }
 
-.acerca p {
+.acerca>p {
   text-align: justify;
   margin: 2em;
   color: #000000;
@@ -463,4 +462,88 @@ footer {
 #button-top.show {
   opacity: 1;
   visibility: visible;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.integrantes {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  text-align:center;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 1em;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.card img {
+  width:100%;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.type {
+  text-align: center;
+  color: #6a6a6a;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.name {
+  margin-top: 0.7em;
+  text-align: center;
+}
+
+.description {
+  text-align: justify;
+  margin: 1em 0 0 0;
+}
+
+.mail {
+  margin: 1.5em 0 1em 0;
+}
+
+.mail a {
+  color: #000;
+  text-decoration: none;
+}
+
+.mail a:hover {
+  color: #001687;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 650px) {
+  .row {
+    width: 80%;
+    display: block;
+  }
 }
