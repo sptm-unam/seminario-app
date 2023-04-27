@@ -1,71 +1,58 @@
+// import { AudioSetup } from "./audioSetup"
+
+import {AudioSetup} from "./audioSetup" 
+
 const SptmAudio = function () {
-  var AudioContext = window.AudioContext || window.webkitAudioContext // esto será importante ?
-  let audioCtx = new AudioContext()
 
-  let randomNoiseNode
-  let sineNode
-  let microphone
-  let video = document.getElementById('videoElement')
-  let sources = []
-  let gainNoise, gainSine
-
+    //let aCtx = new AudioSetup();
+    // console.log(aCtx.audioCtx) 
+    let randomNoiseNode
+    let sineNode
+    let microphone
+    let video = document.getElementById('videoElement')
+    let sources = []
+    let gainNoise, gainSine
+    
   function init() {
-    audioCtx = new AudioContext()
+   
 
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume()
-      console.log('iniciar')
-    }
+      let sine = aCtx.sine(440);
+      let noise = aCtx.noise();
+      
+      //start()
+      // startSine()
 
-    if (navigator.mediaDevices) {
-      navigator.mediaDevices
-        .getUserMedia({ audio: true })
-        .then((stream) => {
-          microphone = audioCtx.createMediaStreamSource(stream)
-          // samples()
-          // `microphone` can now act like any other AudioNode
-        })
-        .catch((err) => {
-          console.log(err)
-          // browser unable to access microphone
-        })
-    } else {
-      // browser unable to access media devices
-      // (update your browser)
-    }
-
-    start()
-    startSine()
-
-    sliderRuidoBlanco.onchange = function () {
-      gainNoise.setValueAtTime(sliderRuidoBlanco.value, audioCtx.currentTime)
-    }
-
-    sliderSine.onchange = function () {
-      gainSine.setValueAtTime(sliderSine.value, audioCtx.currentTime)
-    }
+      sliderRuidoBlanco.onchange = function () {
+	  gainNoise.setValueAtTime(sliderRuidoBlanco.value, audioCtx.currentTime)
+      }
+      
+      sliderSine.onchange = function () {
+	  gainSine.setValueAtTime(sliderSine.value, audioCtx.currentTime)
+      }
   }
 
+    /*
   async function start() {
-    await audioCtx.audioWorklet.addModule('js/random-noise-processor.js')
+    await aCtx.audioCtx.audioWorklet.addModule('js/random-noise-processor.js')
     randomNoiseNode = new AudioWorkletNode(audioCtx, 'random-noise-processor')
     gainNoise = randomNoiseNode.parameters.get('customGain')
     gainNoise.setValueAtTime(0, audioCtx.currentTime)
   }
 
   async function startSine() {
-    await audioCtx.audioWorklet.addModule('js/sine-processor.js')
+    await aCtx.audioCtx.audioWorklet.addModule('js/sine-processor.js')
     sineNode = new AudioWorkletNode(audioCtx, 'sine-processor')
     gainSine = sineNode.parameters.get('customGain')
     gainSine.setValueAtTime(0, audioCtx.currentTime)
-  }
+    }
+    */
 
   function suspend() {
-    audioCtx.suspend()
+    aCtx.suspend()
   }
 
   function reproducirRuidoFunc() {
-    randomNoiseNode.connect(audioCtx.destination)
+    noise.randomNoiseNode.connect(aCtx.audioCtx.destination)
   }
 
   function detenerRuidoFunc() {
@@ -80,8 +67,25 @@ const SptmAudio = function () {
     sineNode.disconnect(audioCtx.destination)
   }
 
-  function reproducirMicFunc() {
-    microphone.connect(audioCtx.destination)
+    function reproducirMicFunc() {
+
+	if (navigator.mediaDevices) {
+	    navigator.mediaDevices
+		.getUserMedia({ audio: true })
+		.then((stream) => {
+		    microphone = self.audioCtx.createMediaStreamSource(stream)
+		    microphone.connect(audioCtx.destination)
+		    // `microphone` can now act like any other AudioNode
+		})
+		.catch((err) => {
+		    console.log(err)
+		    // browser unable to access microphone
+		})
+	} else {
+	    // browser unable to access media devices
+	    // (update your browser)
+	}
+
   }
 
   function detenerMicFunc() {
@@ -142,9 +146,6 @@ const SptmAudio = function () {
     
     
   return {
-    init,
-    start,
-    startSine,
     suspend,
     reproducirRuidoFunc,
     detenerRuidoFunc,

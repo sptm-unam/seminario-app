@@ -67,15 +67,20 @@
       </div>
       <div class="separador">
         <h2 for="header_ruido_blanco">Ruido blanco</h2>
+	<p>Agregué un botón para iniciar la variable, esto pensando en el livecodeo. El primer botón inicializa</p>
+	<button for="boton_variable" type="button" id="variableRuido" class="botones-sonido">Variable</button>
         <button for="boton_reproducir" type="button" id="reproducirRuido" class="botones-sonido">Reproducir</button>
         <button for="boton_detener" type="button" id="detenerRuido" class="botones-sonido">Detener</button>
         <input for="slider_ruido" id="sliderRuidoBlanco" type="range" min="0" max="1" step="0.01" value="0" title="Slider de volumen de ruido blanco">
       </div>
       <div class="separador">
         <h2 for="h2_sinusoidal">Sinusoidal</h2>
+	<p>También agregué una variable y un slider más para controlar la frecuencia.</p>
+	<button for="boton_variable" type="button" id="variableSine" class="botones-sonido">Variable</button>
         <button for="boton_reproducir"  type="button" id="reproducirSine" class="botones-sonido">Reproducir</button>
         <button for="boton_detener" type="button" id="detenerSine" class="botones-sonido">Detener</button>
         <input   id="sliderSine" type="range" min="0" max="1" step="0.01" value="0" title="Slider de volumen de onda sinusoidal">
+	<input   id="sliderFreq" type="range" min="1" max="2000" step="1" value="440" title="Slider de frecuencia de onda sinusoidal">
       </div>
       <div class="separador">
         <h2 for="header_mic">Acceder micrófono</h2>

@@ -6,52 +6,63 @@ import {tags} from "@lezer/highlight"
 import {javascript} from "@codemirror/lang-javascript"
 import {keymap, KeyBinding} from "@codemirror/view"
 import { SptmAudio } from "./controlador"
+import { AudioSetup, Sine, Noise } from "./audioSetup"
 
 const { 
-    init,
-    start,
-    startSine,
-    suspend,
-    reproducirRuidoFunc,
-    detenerRuidoFunc,
-    reproducirSineFunc,
-    detenerSineFunc,
-    reproducirMicFunc,
-    detenerMicFunc,
     encenderCamaraFunc,
     detenerCamaraFunc,
     iniciarAF1,
     iniciarAF2,
-    chgainNoise,
-    chgainSine
 } = SptmAudio()
 
-start()
-startSine()
+let a = new AudioSetup;
+let sine, noise; 
 
 const activar = document.getElementById( 'activar');
-activar.addEventListener('click', init);
+activar.addEventListener('click', a.initAudio ); // init audio también inicializa el mic, ver si esto se puede quitar 
 
 const desactivar = document.getElementById( 'desactivar');
-desactivar.addEventListener('click', suspend);
+desactivar.addEventListener('click',  a.suspend );
+
+const variableRuido = document.getElementById( 'variableRuido');
+variableRuido.addEventListener('click', function(){noise = new Noise(a.audioCtx)});
 
 const reproducirRuido = document.getElementById( 'reproducirRuido');
-reproducirRuido.addEventListener('click', reproducirRuidoFunc);
+reproducirRuido.addEventListener('click', function(){noise.start()});
 
 const detenerRuido = document.getElementById( 'detenerRuido');
-detenerRuido.addEventListener('click', detenerRuidoFunc);
+detenerRuido.addEventListener('click', function(){noise.stop()} );
+
+const variableSine = document.getElementById( 'variableSine');
+variableSine.addEventListener('click', function(){sine = new Sine(a.audioCtx)});
 
 const reproducirSine = document.getElementById( 'reproducirSine' );
-reproducirSine.addEventListener( 'click', reproducirSineFunc );
+reproducirSine.addEventListener( 'click', function(){sine.start()} );
 
 const detenerSine = document.getElementById( 'detenerSine' );
-detenerSine.addEventListener( 'click', detenerSineFunc );
+detenerSine.addEventListener( 'click', function(){sine.stop()} );
 
+const sliderRuidoBlanco = document.getElementById('sliderRuidoBlanco');
+const sliderSine = document.getElementById('sliderSine');
+const sliderFreq = document.getElementById('sliderFreq');
+
+sliderRuidoBlanco.onchange = function () {
+    noise.gain(sliderRuidoBlanco.value); // aquí se va el problema del audio ctx en estas funciones 
+}
+
+sliderSine.onchange = function () {
+    sine.gain(sliderSine.value); // lo mismo 
+}
+
+sliderFreq.onchange = function () {
+    sine.freq(sliderFreq.value); // lo mismo 
+}
+  
 const reproducirMic = document.getElementById( 'reproducirMic' );
-reproducirMic.addEventListener( 'click', reproducirMicFunc );
+reproducirMic.addEventListener( 'click', function(){a.startMic()} );
 
 const detenerMic = document.getElementById( 'detenerMic' );
-detenerMic.addEventListener( 'click', detenerMicFunc );
+detenerMic.addEventListener( 'click', function(){a.stopMic()} );
 
 const encenderCamara = document.getElementById( 'encenderCamara' );
 encenderCamara.addEventListener( 'click', encenderCamaraFunc );
@@ -70,20 +81,6 @@ audioFile1.onchange = function () {
 audioFile2.onchange = function () {
   iniciarAF2(audioFile2)
 }
-
-const sliderRuidoBlanco = document.getElementById('sliderRuidoBlanco');
-const sliderSine = document.getElementById('sliderSine');
-
-sliderRuidoBlanco.onchange = function () {
-  gainNoise.setValueAtTime(sliderRuidoBlanco.value, audioCtx.currentTime)
-  //console.log(sliderRuidoBlanco.value);
-}
-
-sliderSine.onchange = function () {
-  gainSine.setValueAtTime(sliderSine.value, audioCtx.currentTime)
-  console.log(sliderSine.value)
-}
-
 
 // TODO: Mover esto a un modulo nuevo
 const keymaps = []
@@ -121,14 +118,16 @@ function evaluar(){
 
     
     if(str[0] == "noise" && str[1] == "gain"){
-	chgainNoise(str[2]);
+	noise.gain(str[2]); 
 	console.log("noise");
     }
 
     if(str[0] == "sine" && str[1] == "gain"){
-	chgainSine(str[2]);
+	sine.gain(str[2]);
 	console.log("sine");
     }
     
     return true
+
 }
+
