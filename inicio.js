@@ -1,11 +1,5 @@
-import {defaultKeymap} from '@codemirror/commands';
-import {EditorState, Prec, Compartment} from '@codemirror/state'; 
-import {EditorView, basicSetup} from "codemirror"
-import {defaultHighlightStyle, HighlightStyle, syntaxHighlighting} from "@codemirror/language";
-import {tags} from "@lezer/highlight"
-import {javascript} from "@codemirror/lang-javascript"
-import {keymap, KeyBinding} from "@codemirror/view"
 import { SptmAudio } from "./controlador"
+import { EditorParser } from "./editorParser"
 import { AudioSetup, Sine, Noise } from "./audioSetup"
 
 const { 
@@ -17,6 +11,8 @@ const {
 
 let a = new AudioSetup;
 let sine, noise; 
+let parent =  document.querySelector('#editor')
+let editor = new EditorParser({ noise,sine, parent });
 
 const activar = document.getElementById( 'activar');
 activar.addEventListener('click', a.initAudio ); // init audio también inicializa el mic, ver si esto se puede quitar 
@@ -25,37 +21,43 @@ const desactivar = document.getElementById( 'desactivar');
 desactivar.addEventListener('click',  a.suspend );
 
 const variableRuido = document.getElementById( 'variableRuido');
-variableRuido.addEventListener('click', function(){noise = new Noise(a.audioCtx)});
+variableRuido.addEventListener('click', function () {
+    console.log('Setup noise')
+    editor.setNoise(new Noise(a.audioCtx))
+});
 
 const reproducirRuido = document.getElementById( 'reproducirRuido');
-reproducirRuido.addEventListener('click', function(){noise.start()});
+reproducirRuido.addEventListener('click', function(){editor.getNoise().start()});
 
 const detenerRuido = document.getElementById( 'detenerRuido');
-detenerRuido.addEventListener('click', function(){noise.stop()} );
+detenerRuido.addEventListener('click', function(){editor.getNoise().stop()} );
 
 const variableSine = document.getElementById( 'variableSine');
-variableSine.addEventListener('click', function(){sine = new Sine(a.audioCtx)});
+variableSine.addEventListener('click', function () {
+    console.log('Setup sinej')
+    editor.setSine(new Sine(a.audioCtx))
+});
 
 const reproducirSine = document.getElementById( 'reproducirSine' );
-reproducirSine.addEventListener( 'click', function(){sine.start()} );
+reproducirSine.addEventListener( 'click', function(){editor.getSine().start()} );
 
 const detenerSine = document.getElementById( 'detenerSine' );
-detenerSine.addEventListener( 'click', function(){sine.stop()} );
+detenerSine.addEventListener( 'click', function(){sine.setSine().stop()} );
 
 const sliderRuidoBlanco = document.getElementById('sliderRuidoBlanco');
 const sliderSine = document.getElementById('sliderSine');
 const sliderFreq = document.getElementById('sliderFreq');
 
 sliderRuidoBlanco.onchange = function () {
-    noise.gain(sliderRuidoBlanco.value); // aquí se va el problema del audio ctx en estas funciones 
+    editor.getNoise().gain(sliderRuidoBlanco.value); // aquí se va el problema del audio ctx en estas funciones 
 }
 
 sliderSine.onchange = function () {
-    sine.gain(sliderSine.value); // lo mismo 
+    editor.getSine().gain(sliderSine.value); // lo mismo 
 }
 
 sliderFreq.onchange = function () {
-    sine.freq(sliderFreq.value); // lo mismo 
+    editor.getSine().freq(sliderFreq.value); // lo mismo 
 }
   
 const reproducirMic = document.getElementById( 'reproducirMic' );
@@ -81,53 +83,3 @@ audioFile1.onchange = function () {
 audioFile2.onchange = function () {
   iniciarAF2(audioFile2)
 }
-
-// TODO: Mover esto a un modulo nuevo
-const keymaps = []
-keymaps.push(keymap.of({key: 'Ctrl-Enter', run: () => evaluar(), preventDefault: true}))
-keymaps.push(keymap.of(defaultKeymap))
-
-let language = new Compartment;
-
-let startState = EditorState.create({
-    doc: "// ¡Hola mundo!\n\n//Ya no hay eval, ahora es posible cambiar las ganancias con la siguiente sintaxis:\n\n//noise gain 0\n//noise gain 0.2\n\n//sine gain 0\n//sine gain 0.2\n\n//Por alguna extraña razón hay que escribir y declarar manualmente\n//Ahora es necesario seleccionar la línea a declarar y ctrl + enter",
-    extensions: [
-	keymaps,
-	basicSetup,
-	language.of(javascript()),
-	EditorView.lineWrapping
-    ]
-})
-
-let view = new EditorView({
-    state: startState,
-    parent: document.querySelector('#editor')
-})
-
-
-function evaluar(){
-    
-    //const code = view.state.doc.toString()
-    //console.log(code)
-    // eval(code);
-
-    let firstRange = view.state.selection.ranges.at(0);
-    let selectedText = view.state.doc.toString().substring(firstRange.from,firstRange.to);
-    console.log(selectedText); 
-    const str = selectedText.split(' ');
-
-    
-    if(str[0] == "noise" && str[1] == "gain"){
-	noise.gain(str[2]); 
-	console.log("noise");
-    }
-
-    if(str[0] == "sine" && str[1] == "gain"){
-	sine.gain(str[2]);
-	console.log("sine");
-    }
-    
-    return true
-
-}
-
