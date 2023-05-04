@@ -37,7 +37,7 @@
             <li for="link_acerca" class="nav-item"><a href="#acerca">acerca</a></li>
             <!-- <li for="link_" class="nav-item"><a href="#contacto">contacto</a></li> -->
           </ul>
-          <div class="switch-lang">
+          <div id="lang" class="switch-lang">
             <div class="current-lang">
               <img src="imgs/mex_icon.png" class="lang-flag" alt="bandera de México">
             <p class="lang-text"><a href="?lang=es">Esp</a></p>
@@ -243,7 +243,7 @@
     <script>document.write(new Date().getFullYear())</script>
   </footer>
   <script type="module" src="./inicio.js"></script>
-  <!-- <script type="module" src="./traducciones.js"></script> -->
+  <script type="module" src="./traducciones.js"></script>
   <script>
     $('.menu-toggle').click(function () {
       $(".nav").toggleClass("mobile-nav");
