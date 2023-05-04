@@ -147,6 +147,7 @@ footer {
   align-items: center;
   height: 50px;
   overflow: hidden;
+  margin-right: 10vw;
 }
 
 .nav-title h1 {
@@ -154,10 +155,9 @@ footer {
 }
 
 .navbar ul {
-  margin-right: 1vw;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 100px repeat(auto-fill, 100px) 100px;
   justify-self: end;
 }
 
@@ -290,6 +290,18 @@ footer {
 /* Media Queries */
 /* Mobile Devices - Phones/Tablets */
 
+@media only screen and (min-width: 768px) {
+  .navbar {
+    margin-right: 11vw;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .navbar {
+    margin-right: 5vw;
+  }
+}
+
 @media only screen and (max-width: 720px) {
   .features {
     flex-direction: column;
@@ -311,6 +323,10 @@ footer {
   }
 
   /* MOBILE NAVIGATION */
+
+  .navbar {
+    margin-right: 15vw;
+  }
 
   .navbar ul {
     display: flex;
@@ -342,6 +358,7 @@ footer {
   .bar {
     display: block;
     cursor: pointer;
+    margin-right: 14vw;
   }
 
   .mobile-nav {
@@ -546,4 +563,96 @@ footer {
     width: 80%;
     display: block;
   }
+}
+
+
+.switch-lang {
+  width: 80px;
+  text-align: left;
+  cursor: pointer;
+  z-index: 50;
+  position: absolute;
+  top: 12px;
+  right: 14px;
+}
+
+.switch-lang:hover .lang-dropdown {
+  display: block;
+}
+
+.switcher-link {
+  color: #fff;
+}
+
+.switcher-link:hover {
+  color: #fff;
+}
+
+.current-lang {
+  background: #ffffff;
+  padding: 3px 5px 0px 5px;
+  border-radius: 5px;
+  color: #000;
+  /* border: 1px solid #000; */
+}
+
+.lang-flag {
+  width: 20px;
+  display: inline-block;
+}
+
+.lang-text {
+  display: inline-block;
+  margin-left: 5px;
+  vertical-align: top;
+  margin-top: 1px;
+}
+
+.lang-text > a {
+  text-decoration: none;
+}
+
+.lang-dropdown {
+  display: none;
+  background: #ffffff;
+  border-radius: 5px;
+  margin-top: 2px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.selecting-lang {
+  padding: 3px 5px 3px 5px;
+  cursor: pointer;
+}
+
+.selecting-lang > a{
+  text-decoration: none;
+}
+
+.selecting-lang:hover {
+  background: #e8e8e8;
+  border-radius: 5px;
+}
+
+ul > :first-child {
+  border-radius: 5px 5px 0px 0px;
+}
+
+ul > :last-child {
+  border-radius: 0px 0px 5px 5px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.menu-arrow {
+  display: inline-block;
+  width: 10px;
+  margin-left: 10px;
+  vertical-align: top;
+  margin-top: 6px;
 }
