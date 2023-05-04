@@ -1,15 +1,14 @@
 import { SptmAudio } from "./controlador"
 import { EditorParser } from "./editorParser"
-import { AudioSetup, Sine, Noise } from "./audioSetup"
+import { AudioSetup, Sine, Noise, Sample } from "./audioSetup"
 
 const { 
     encenderCamaraFunc,
-    detenerCamaraFunc,
-    iniciarAF1,
-    iniciarAF2,
+    detenerCamaraFunc
 } = SptmAudio()
 
-let a = new AudioSetup;
+let a = new AudioSetup; // checar si esto no se contradice con algunas as que aparecen en Hydra
+
 let sine, noise; 
 let parent =  document.querySelector('#editor')
 let editor = new EditorParser({ noise,sine, parent });
@@ -73,13 +72,14 @@ const detenerCamara = document.getElementById('detenerCamara');
 detenerCamara.addEventListener( 'click', detenerCamaraFunc);
 
 const audioFile1 = document.getElementById('audio_file1');
-
 const audioFile2 = document.getElementById( 'audio_file2');
 
 audioFile1.onchange = function () {
-  iniciarAF1(audioFile1)
+    let aF1 = new Sample(a.audioCtx, audioFile1);
+    aF1.load(); 
 }
 
 audioFile2.onchange = function () {
-  iniciarAF2(audioFile2)
+    let aF2 = new Sample(a.audioCtx, audioFile2);
+    aF2.load(); 
 }
