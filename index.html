@@ -126,13 +126,14 @@
       </div>
       <div class="separador">
         <h2 for="header_muestras">Múltiples muestras en un arreglo</h2>
-        <p for="desc_muestras">Ejemplo para relacionar carga y reproducción de archivos locales.</p>
+        <p for="desc_muestras">Ejemplo para relacionar carga y reproducción de archivos locales. Por el momento no pueden coexistir, como que se cancelan, el secuenciador está dentro del mismo módulo de audio</p>
         <div>
           <input id="audio_file1" type="file" accept="audio/*" title="Cargar archivo" />
         </div>
         <div>
           <input id="audio_file2" type="file" accept="audio/*" title="Cargar archivo" />
-        </div>
+        </div> 
+	<button type="button" id="detenerSeq" class="botones-sonido">Detener secuencia</button>
         <!--Necesitamos poner por aquí una caja de texto para escribir el código para live codear-->
       </div>
       <div class="separador">
