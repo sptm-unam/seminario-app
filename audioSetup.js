@@ -4,6 +4,7 @@
 function AudioSetup(){
     
     var self = this;
+	this.library = {}
 
     self.randomNoiseNode = 0; 
     self.initAudio = 0; 
@@ -136,4 +137,4 @@ function Sine(aCtx){
     
 }
 
-export { AudioSetup, Sine, Noise }
+module.exports ={ AudioSetup, Sine, Noise }
