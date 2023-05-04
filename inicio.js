@@ -12,6 +12,7 @@ let a = new AudioSetup; // checar si esto no se contradice con algunas as que ap
 let sine, noise; 
 let parent =  document.querySelector('#editor')
 let editor = new EditorParser({ noise,sine, parent });
+let aF1; 
 
 const activar = document.getElementById( 'activar');
 activar.addEventListener('click', a.initAudio ); // init audio también inicializa el mic, ver si esto se puede quitar 
@@ -75,11 +76,12 @@ const audioFile1 = document.getElementById('audio_file1');
 const audioFile2 = document.getElementById( 'audio_file2');
 
 audioFile1.onchange = function () {
-    let aF1 = new Sample(a.audioCtx, audioFile1);
-    aF1.load(); 
+    aF1 = new Sample(a.audioCtx, audioFile1);
+    aF1.load(a.audioCtx, audioFile1); 
+    let seq = [1, 0, 1, 0, 1, 0, 1, 0]; 
+    aF1.sequence(seq); 
 }
 
 audioFile2.onchange = function () {
-    let aF2 = new Sample(a.audioCtx, audioFile2);
-    aF2.load(); 
+    let aF2 = new Sample(a.audioCtx, audioFile2); 
 }
