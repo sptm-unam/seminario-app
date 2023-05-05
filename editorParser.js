@@ -10,7 +10,7 @@ import { tags } from '@lezer/highlight'
 import { javascript } from '@codemirror/lang-javascript'
 import { keymap, KeyBinding } from '@codemirror/view'
 
-function EditorParser({ noise, sine, parent }) {
+function EditorParser({ noise, sine, parent }) { // llaves? 
   this.noiseObject
   this.sineObject
   console.log('Construct parser')

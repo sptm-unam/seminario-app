@@ -1,18 +1,18 @@
 import { SptmAudio } from "./controlador"
 import { EditorParser } from "./editorParser"
-import { AudioSetup, Sine, Noise } from "./audioSetup"
+import { AudioSetup, Sine, Noise, Sample } from "./audioSetup"
 
 const { 
     encenderCamaraFunc,
-    detenerCamaraFunc,
-    iniciarAF1,
-    iniciarAF2,
+    detenerCamaraFunc
 } = SptmAudio()
 
-let a = new AudioSetup;
+let a = new AudioSetup; // checar si esto no se contradice con algunas as que aparecen en Hydra
+
 let sine, noise; 
 let parent =  document.querySelector('#editor')
 let editor = new EditorParser({ noise,sine, parent });
+let aF1; 
 
 const activar = document.getElementById( 'activar');
 activar.addEventListener('click', a.initAudio ); // init audio también inicializa el mic, ver si esto se puede quitar 
@@ -73,13 +73,15 @@ const detenerCamara = document.getElementById('detenerCamara');
 detenerCamara.addEventListener( 'click', detenerCamaraFunc);
 
 const audioFile1 = document.getElementById('audio_file1');
-
 const audioFile2 = document.getElementById( 'audio_file2');
 
 audioFile1.onchange = function () {
-  iniciarAF1(audioFile1)
+    aF1 = new Sample(a.audioCtx, audioFile1);
+    aF1.load(a.audioCtx, audioFile1); 
+    let seq = [1, 0, 1, 0, 1, 0, 1, 0]; 
+    aF1.sequence(seq); 
 }
 
 audioFile2.onchange = function () {
-  iniciarAF2(audioFile2)
+    let aF2 = new Sample(a.audioCtx, audioFile2); 
 }
