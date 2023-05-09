@@ -36,10 +36,10 @@ const execute = function executeCommand(input) {
   } else if (input === "github") {
     open("https://github.com/terminal-js");
   } else {
-    parser.parseString(input)
+    const command = parser.parseString(input)
     output = `<div class="terminal-line"><span class="success">➜</span> <span class="directory">~</span> ${input}</div>`;
     if (!COMMANDS.hasOwnProperty(input)) {
-      output += `<div class="terminal-line">command not found: ${input}</div>`;
+      output += `<div class="terminal-line">${command}</div>`;
     } else {
       output += COMMANDS[input];
     }
@@ -117,8 +117,7 @@ class Terminal extends HTMLElement {
       <div class="terminal-window primary-bg" onclick="document.getElementById('dummyKeyboard').focus();">
         <div class="terminal-output" id="terminalOutput">
           <div class="terminal-line">
-            <span class="help-msg">Type <span class="help">command1</span> to get started</span>
-              commands.<br>
+            <span class="help-msg">Lily live</span><br>
           </div>
         </div>
         <div class="terminal-line">
