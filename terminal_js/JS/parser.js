@@ -20,7 +20,7 @@ class Parser {
   parseString(inStr) {
     console.log('>>> Parsing')
     let str = inStr.trim()
-    let command = "N/A"
+    let command = 'N/A'
 
     // Single number in midi range
     // Single number in frequency range
@@ -81,12 +81,13 @@ class Parser {
     if (sampleSingle) {
       console.log(sampleSingle)
       const [_, sample, duration, rate] = sampleSingle
-      command = `playSample(${JSON.stringify({sample, duration,rate})})`
+      command = `playSample(${JSON.stringify({ sample, duration, rate })})`
     }
 
 
     // Sequence of numbers in midi range without modifiers
     console.log(command)
+    alert(command)
     // Sound wave change
     return command
   }
