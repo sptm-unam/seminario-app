@@ -4,6 +4,7 @@
   "description": "Planes y temario del primer proyecto de desarrollo de software: Diseño de una librería de programación.",
   "scripts": {
     "start": "parcel ./index.html",
+    "repl": "parcel ./terminal_js/dark.html",
     "build": "parcel build ./index.html --public-url ./",
     "test": "jest"
   },

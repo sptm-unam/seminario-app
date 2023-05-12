@@ -1,3 +1,4 @@
+import Parser from "./terminal_js/JS/parser"
 import { defaultKeymap } from '@codemirror/commands'
 import { EditorState, Prec, Compartment } from '@codemirror/state'
 import { EditorView, basicSetup } from 'codemirror'
@@ -10,6 +11,7 @@ import { tags } from '@lezer/highlight'
 import { javascript } from '@codemirror/lang-javascript'
 import { keymap, KeyBinding } from '@codemirror/view'
 
+const parser = new Parser();
 function EditorParser({ noise, sine, parent }) { // llaves? 
   this.noiseObject
   this.sineObject
@@ -68,6 +70,8 @@ function EditorParser({ noise, sine, parent }) { // llaves?
     const str = selectedText.split(' ')
 
     console.log('Eval', str)
+    console.log(selectedText)
+    parser.parseString(selectedText)
     if (str[0] == 'noise' && str[1] == 'gain') {
       this.getNoise().gain(str[2])
       console.log('noise')
