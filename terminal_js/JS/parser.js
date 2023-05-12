@@ -20,7 +20,7 @@ class Parser {
   parseString(inStr) {
     console.log('>>> Parsing')
     let str = inStr.trim()
-    let command
+    let command = "N/A"
 
     // Single number in midi range
     // Single number in frequency range
@@ -28,7 +28,7 @@ class Parser {
     if (midiMatch) {
       console.log(midiMatch)
       if (parseFloat(midiMatch[0]) < 128) {
-        console.log(`playMidi(${midiMatch[0]})`)
+        command = `playMidi(${midiMatch[0]})`
       } else {
         command = `playFrequency(${midiMatch[0]})`
       }
@@ -54,7 +54,7 @@ class Parser {
         return prev
       }, [])
       console.table(notesList)
-      command = `playMultiple(${notesList.length})`
+      command = `playMultipleMidiNum(${notesList.length})`
     }
 
     // period (stop)
@@ -73,11 +73,20 @@ class Parser {
     let bpmMatchB = str.match(/^(BPM|bpm)\s?(\d+)$/m)
     if (bpmMatch) {
       console.log(bpmMatchB)
-      command = console.log(`bpmChange(${bpmMatchB[1]})`)
+      command = `bpmChange(${bpmMatchB[1]})`
     }
 
-    // Sequence of numbers in midi range without modifiers
+    // Sample play, with duration and rate
+    let sampleSingle = str.match(/^#(\w+)\s?(\d)?\|?(\d)?$/m)
+    if (sampleSingle) {
+      console.log(sampleSingle)
+      const [_, sample, duration, rate] = sampleSingle
+      command = `playSample(${JSON.stringify({sample, duration,rate})})`
+    }
 
+
+    // Sequence of numbers in midi range without modifiers
+    console.log(command)
     // Sound wave change
     return command
   }
