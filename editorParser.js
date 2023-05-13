@@ -30,7 +30,8 @@ function EditorParser({ noise, sine, parent }) { // llaves?
   let language = new Compartment()
 
   let startState = EditorState.create({
-    doc: `c
+    doc: `// Presiona ctrl+enter para correr la linea donde esta el cursor
+c
 cis
 cis2
 ces,8
