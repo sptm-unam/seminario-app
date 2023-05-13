@@ -31,6 +31,8 @@ function EditorParser({ noise, sine, parent }) { // llaves?
 
   let startState = EditorState.create({
     doc: `// Presiona ctrl+enter para correr la linea donde esta el cursor
+60
+440
 c
 cis
 cis2
@@ -39,7 +41,7 @@ a b c d e
 .
 #samp 1|2
 #samp
-    `,
+120bpm`,
 
     extensions: [
       keymaps,
