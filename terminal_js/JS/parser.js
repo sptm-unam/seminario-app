@@ -1,7 +1,4 @@
-const regex = {
-  lilyNote: /^([abcdefg])(es|is)?(\'+|\,+)?(\d)?$/m,
-  lilyNoteMulti: /^(([abcdefg])(es|is)?(\'+|\,+)?(\d)?\s?)*$/gm
-}
+import checks from './conditionsCheck'
 
 class Parser {
   constructor(params) {
@@ -22,73 +19,29 @@ class Parser {
     let str = inStr.trim()
     let command = 'N/A'
 
-    // Single number in midi range
-    // Single number in frequency range
-    let midiMatch = str.match(/^(\d{1,3})$/gm)
-    if (midiMatch) {
-      console.log(midiMatch)
-      if (parseFloat(midiMatch[0]) < 128) {
-        command = `playMidi(${midiMatch[0]})`
-      } else {
-        command = `playFrequency(${midiMatch[0]})`
-      }
-    }
-
-    // Single lilypond note
-    let lilyOctaveUp = str.match(regex.lilyNote)
-    if (lilyOctaveUp) {
-      console.log(lilyOctaveUp)
-      const [_, note, modifier, octave, duration] = lilyOctaveUp
-      command = `playLilypond(${note},${modifier},${octave},${duration})`
-    }
-
+    // Single number in midi or range
+    command = checks.checkMidiMatch(
+      str,
+      () => console.log('handler midi'),
+      () => console.log('handler freq')
+    )
+    // Single lily note
+    command = checks.checkLilyNote(str, () =>
+      console.log('handler single lily')
+    )
     // Multiple lilypond note
-    let lilyMelodyMatch = str.match(regex.lilyNoteMulti)
-    if (lilyMelodyMatch) {
-      const notesList = str.split(' ').reduce((prev, current) => {
-        let lilyOctaveUp = current.match(regex.lilyNote)
-        if (lilyOctaveUp) {
-          const [_, note, modifier, octave, duration] = lilyOctaveUp
-          prev.push({ note, modifier, octave, duration })
-        }
-        return prev
-      }, [])
-      console.table(notesList)
-      command = `playMultipleMidiNum(${notesList.length})`
-    }
-
-    // period (stop)
-    let stopMatch = str.match(/^\.?$/gm)
-    if (stopMatch) {
-      console.log(stopMatch)
-      command = `stopSound()`
-    }
-
+    command = checks.checkMultipleLily(str, () =>
+      console.log('handler multiple lily')
+    )
+    // Multiple lilypond note
+    command = checks.checkStop(str, () => console.log('handler stop'))
     // change BPM
-    let bpmMatch = str.match(/^(\d+)\s?(BPM|bpm)$/m)
-    if (bpmMatch) {
-      console.log(bpmMatch)
-      command = `bpmChange(${bpmMatch[1]})`
-    }
-    let bpmMatchB = str.match(/^(BPM|bpm)\s?(\d+)$/m)
-    if (bpmMatch) {
-      console.log(bpmMatchB)
-      command = `bpmChange(${bpmMatchB[1]})`
-    }
-
+    command = checks.changeBPM(str, () => console.log('handler bpm'))
     // Sample play, with duration and rate
-    let sampleSingle = str.match(/^#(\w+)\s?(\d)?\|?(\d)?$/m)
-    if (sampleSingle) {
-      console.log(sampleSingle)
-      const [_, sample, duration, rate] = sampleSingle
-      command = `playSample(${JSON.stringify({ sample, duration, rate })})`
-    }
+    command = checks.samplePlay(str, () => console.log('handler samplePlay'))
 
-
-    // Sequence of numbers in midi range without modifiers
     console.log(command)
     alert(command)
-    // Sound wave change
     return command
   }
 }
