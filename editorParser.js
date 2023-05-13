@@ -30,7 +30,16 @@ function EditorParser({ noise, sine, parent }) { // llaves?
   let language = new Compartment()
 
   let startState = EditorState.create({
-    doc: '// ¡Hola mundo!\n\n//Ya no hay eval, ahora es posible cambiar las ganancias con la siguiente sintaxis:\n\n//noise gain 0\n//noise gain 0.2\n\n//sine gain 0\n//sine gain 0.2\n\n//Por alguna extraña razón hay que escribir y declarar manualmente\n//Ahora es necesario seleccionar la línea a declarar y ctrl + enter',
+    doc: `c
+cis
+cis2
+ces,8
+a b c d e
+.
+#samp 1|2
+#samp
+    `,
+
     extensions: [
       keymaps,
       basicSetup,
@@ -63,15 +72,19 @@ function EditorParser({ noise, sine, parent }) { // llaves?
     // eval(code);
 
     let firstRange = view.state.selection.ranges.at(0)
+
     let selectedText = view.state.doc
       .toString()
       .substring(firstRange.from, firstRange.to)
     console.log(selectedText)
     const str = selectedText.split(' ')
 
+    const currentLine = view.state.doc.lineAt(view.state.selection.main.head).number
+    console.log({currentLine})
+    const cursorText = view.state.doc.text[currentLine-1]
     console.log('Eval', str)
-    console.log(selectedText)
-    parser.parseString(selectedText)
+    console.log(cursorText)
+    parser.parseString(cursorText)
     if (str[0] == 'noise' && str[1] == 'gain') {
       this.getNoise().gain(str[2])
       console.log('noise')
