@@ -20,39 +20,39 @@ describe('Check midi match', () => {
 
 describe('Checky Lily match', () => {
   it('should call lily handler if passed simple lily note without modifier', () => {
-    const expectObj = { note: 'c' }
+    const expectObj = [{ note: 'c' }]
     const handlerLily = jest.fn()
-    checks.lilyNoteMatch('c', handlerLily)
+    checks.multipleLily('c', handlerLily)
     expect(handlerLily).toHaveBeenCalledWith(expectObj)
   })
   it('should call lily handler if passed simple lily note with modifier', () => {
-    const expectObj = { note: 'c', modifier: 'is' }
+    const expectObj = [{ note: 'c', modifier: 'is' }]
     const handlerLily = jest.fn()
-    checks.lilyNoteMatch('cis', handlerLily)
+    checks.multipleLily('cis', handlerLily)
     expect(handlerLily).toHaveBeenCalledWith(expectObj)
   })
   it('should call lily handler if passed simple lily note with modifier "is" and octave up', () => {
-    const expectObj = { note: 'c', modifier: 'is', octave: "'" }
+    const expectObj = [{ note: 'c', modifier: 'is', octave: "'" }]
     const handlerLily = jest.fn()
-    checks.lilyNoteMatch("cis'", handlerLily)
+    checks.multipleLily("cis'", handlerLily)
     expect(handlerLily).toHaveBeenCalledWith(expectObj)
   })
   it('should call lily handler if passed simple lily note with modifier "is" and two octave up', () => {
-    const expectObj = { note: 'c', modifier: 'is', octave: "''" }
+    const expectObj = [{ note: 'c', modifier: 'is', octave: "''" }]
     const handlerLily = jest.fn()
-    checks.lilyNoteMatch("cis''", handlerLily)
+    checks.multipleLily("cis''", handlerLily)
     expect(handlerLily).toHaveBeenCalledWith(expectObj)
   })
   it('should call lily handler if passed simple lily note without modifier "is" and octave up', () => {
-    const expectObj = { note: 'c', octave: "''" }
+    const expectObj = [{ note: 'c', octave: "''" }]
     const handlerLily = jest.fn()
-    checks.lilyNoteMatch("c''", handlerLily)
+    checks.multipleLily("c''", handlerLily)
     expect(handlerLily).toHaveBeenCalledWith(expectObj)
   })
   it('should call lily handler if passed simple lily note with modifier "is", octave up and duration', () => {
-    const expectObj = { note: 'c', modifier: 'is', octave: "'", duration: '8' }
+    const expectObj = [{ note: 'c', modifier: 'is', octave: "'", duration: '8' }]
     const handlerLily = jest.fn()
-    checks.lilyNoteMatch("cis'8", handlerLily)
+    checks.multipleLily("cis'8", handlerLily)
     expect(handlerLily).toHaveBeenCalledWith(expectObj)
   })
 })

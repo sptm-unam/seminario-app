@@ -18,23 +18,11 @@ function midiMatch(str, handlerMidi, handlerFreq) {
   return command
 }
 
-function lilyNoteMatch(str, handler) {
-  // Single lilypond note
-  let command
-  let lilyOctaveUp = str.match(regex.lilyNote)
-  if (lilyOctaveUp) {
-    const [_, note, modifier, octave, duration] = lilyOctaveUp
-    command = `playLilypond(${note},${modifier},${octave},${duration})`
-    handler({ note, modifier, octave, duration })
-  }
-}
-
 function multipleLily(str, handler) {
   let command
   // Multiple lilypond note
   let lilyMelodyMatch = str.match(regex.lilyNoteMulti)
   if (lilyMelodyMatch) {
-    console.log('enter melody')
     const notesList = str.split(' ').reduce((prev, current) => {
       let lilyOctaveUp = current.match(regex.lilyNote)
       if (lilyOctaveUp) {
@@ -43,10 +31,6 @@ function multipleLily(str, handler) {
       }
       return prev
     }, [])
-    console.log('>>>>>>>')
-    console.log({
-      notesList
-    })
     command = `playMultipleMidiNum(${notesList.length})`
     handler(notesList)
   }
@@ -84,11 +68,11 @@ function sampleMatch(str, handler) {
     command = `playSample(${JSON.stringify({ sample, duration, rate })})`
     handler({ sample, duration, rate })
   }
+  return command
 }
 
 module.exports = {
   midiMatch,
-  lilyNoteMatch,
   multipleLily,
   stopMatch,
   bpmMatch,

@@ -26,8 +26,6 @@ class Parser {
     let command = ''
     // Single number in midi or range
     command = command || checks.midiMatch(str, this.state.handlerMidi, this.state.handlerFreq)
-    // Single lily note
-    command = command || checks.lilyNoteMatch(str, this.state.handlerLilySingle)
     // Multiple lilypond note
     command = command || checks.multipleLily(str, this.state.handlerLilyMultiple)
     // Multiple lilypond note
@@ -36,7 +34,6 @@ class Parser {
     command = command || checks.bpmMatch(str, this.state.handlerBpm)
     // Sample play, with duration and rate
     command = command || checks.sampleMatch(str, this.state.handlerSamplePlay)
-    console.log(command)
     return command
   }
 }

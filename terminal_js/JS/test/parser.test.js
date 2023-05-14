@@ -14,12 +14,12 @@ it('should parse a stop string', () => {
     handlerLilyMultiple: jest.fn(),
     handlerStop: jest.fn(),
     handlerBpm: jest.fn(),
-    handlerSamplePla: jest.fn()
+    handlerSamplePlay: jest.fn()
   }
+
   const parser = new Parser(handlers)
   // Act
   const command = parser.parseString('.')
-  console.log({command})
   // Assert
 
   expect(handlers.handlerStop).toHaveBeenCalled()
@@ -34,12 +34,11 @@ it('should parse a lily string', () => {
     handlerLilyMultiple: jest.fn(),
     handlerStop: jest.fn(),
     handlerBpm: jest.fn(),
-    handlerSamplePla: jest.fn()
+    handlerSamplePlay: jest.fn()
   }
   const parser = new Parser(handlers)
   // Act
   const command = parser.parseString('a b c')
-  console.log({command})
   // Assert
 
   expect(handlers.handlerLilyMultiple).toHaveBeenCalled()
@@ -54,13 +53,11 @@ it.only('should parse a sample sinlge string', () => {
     handlerLilyMultiple: jest.fn(),
     handlerStop: jest.fn(),
     handlerBpm: jest.fn(),
-    handlerSamplePla: jest.fn()
+    handlerSamplePlay: jest.fn()
   }
   const parser = new Parser(handlers)
   // Act
   const command = parser.parseString('#sample 2|2')
-  console.log({command})
   // Assert
-
-  expect(handlers.handlerSamplePla).toHaveBeenCalled()
+  expect(handlers.handlerSamplePlay).toHaveBeenCalled()
 })
