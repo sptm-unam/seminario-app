@@ -25,6 +25,7 @@
     "@codemirror/state": "^6.2.0",
     "@codemirror/view": "^6.9.3",
     "@lezer/highlight": "^1.1.4",
+    "@types/jest": "^29.5.1",
     "codemirror": "^6.0.1",
     "lezer": "^0.13.5",
     "parcel-reporter-static-files-copy": "^1.5.0"

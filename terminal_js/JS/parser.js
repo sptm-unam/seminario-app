@@ -1,47 +1,42 @@
-import checks from './conditionsCheck'
+const checks = require('./conditionsCheck')
 
 class Parser {
-  constructor(params) {
+  constructor({
+    handlerMidi,
+    handlerFreq,
+    handlerLilySingle,
+    handlerLilyMultiple,
+    handlerStop,
+    handlerBpm,
+    handlerSamplePlay
+  }={}) {
     this.state = {
-      synth: 'sine',
-      duration: 1,
-      bpm: 60,
-      octave: 4,
-      note: 60,
-      lastPulse: 0,
-      nextPulse: 0,
-      metronomeOn: false
+      handlerMidi,
+      handlerFreq,
+      handlerLilySingle,
+      handlerLilyMultiple,
+      handlerStop,
+      handlerBpm,
+      handlerSamplePlay
     }
   }
 
   parseString(inStr) {
-    console.log('>>> Parsing')
     let str = inStr.trim()
-    let command = 'N/A'
-
+    let command = ''
     // Single number in midi or range
-    command = checks.checkMidiMatch(
-      str,
-      () => console.log('handler midi'),
-      () => console.log('handler freq')
-    )
+    command = command || checks.midiMatch(str, this.state.handlerMidi, this.state.handlerFreq)
     // Single lily note
-    command = checks.checkLilyNote(str, () =>
-      console.log('handler single lily')
-    )
+    command = command || checks.lilyNoteMatch(str, this.state.handlerLilySingle)
     // Multiple lilypond note
-    command = checks.checkMultipleLily(str, () =>
-      console.log('handler multiple lily')
-    )
+    command = command || checks.multipleLily(str, this.state.handlerLilyMultiple)
     // Multiple lilypond note
-    command = checks.checkStop(str, () => console.log('handler stop'))
+    command = command || checks.stopMatch(str, this.state.handlerStop)
     // change BPM
-    command = checks.changeBPM(str, () => console.log('handler bpm'))
+    command = command || checks.bpmMatch(str, this.state.handlerBpm)
     // Sample play, with duration and rate
-    command = checks.samplePlay(str, () => console.log('handler samplePlay'))
-
+    command = command || checks.sampleMatch(str, this.state.handlerSamplePlay)
     console.log(command)
-    alert(command)
     return command
   }
 }
