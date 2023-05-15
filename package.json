@@ -5,6 +5,7 @@
   "scripts": {
     "start": "parcel ./index.html",
     "playground": "parcel ./playground.html",
+    "repl": "parcel ./terminal_js/dark.html",
     "build": "parcel build ./index.html --public-url ./",
     "test": "jest --watch"
   },
