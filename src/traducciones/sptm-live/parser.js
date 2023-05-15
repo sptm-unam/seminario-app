@@ -1,33 +1,31 @@
 const checks = require('./conditionsCheck')
 
+/*
+Handlers expected
+  handlerMidi,
+  handlerFreq,
+  handlerLilySingle,
+  handlerLilyMultiple,
+  handlerStop,
+  handlerBpm,
+  handlerSamplePlay
+*/
+
 class Parser {
-  constructor({
-    handlerMidi,
-    handlerFreq,
-    handlerLilySingle,
-    handlerLilyMultiple,
-    handlerStop,
-    handlerBpm,
-    handlerSamplePlay
-  }={}) {
-    this.state = {
-      handlerMidi,
-      handlerFreq,
-      handlerLilySingle,
-      handlerLilyMultiple,
-      handlerStop,
-      handlerBpm,
-      handlerSamplePlay
-    }
+  constructor(handlers = {}) {
+    this.state = handlers
   }
 
   parseString(inStr) {
     let str = inStr.trim()
     let command = ''
     // Single number in midi or range
-    command = command || checks.midiMatch(str, this.state.handlerMidi, this.state.handlerFreq)
+    command =
+      command ||
+      checks.midiMatch(str, this.state.handlerMidi, this.state.handlerFreq)
     // Multiple lilypond note
-    command = command || checks.multipleLily(str, this.state.handlerLilyMultiple)
+    command =
+      command || checks.multipleLily(str, this.state.handlerLilyMultiple)
     // Multiple lilypond note
     command = command || checks.stopMatch(str, this.state.handlerStop)
     // change BPM
