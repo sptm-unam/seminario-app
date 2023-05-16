@@ -3,8 +3,10 @@ import { EditorParser } from './editorCodeMirror/editorParser'
 import { AudioSetup, Sine, Noise, Sample } from './audioSetup'
 import { SPTMController } from './traducciones/sptm-live/SPTMController'
 
+var AudioContext = window.AudioContext || window.webkitAudioContext // esto será importante ?
+const audioCtx = new AudioContext()
 
-let { parser } = SPTMController()
+let { parser } = SPTMController(audioCtx)
 const { encenderCamaraFunc, detenerCamaraFunc } = SptmAudio()
 
 let a = new AudioSetup() // checar si esto no se contradice con algunas as que aparecen en Hydra

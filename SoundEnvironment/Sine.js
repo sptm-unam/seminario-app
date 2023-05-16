@@ -1,50 +1,54 @@
-function Sine(aCtx, type = 'sine') {
-  this.audioCtx = aCtx
-  this.oscillator = this.audioCtx.createOscillator()
-  this.gainNode = this.audioCtx.createGain()
-  this.oscillator.type = type
-  this.oscillator.connect(this.gainNode)
+class Sine {
+  constructor(aCtx, type = 'sine') {
+    aCtx.resume()
+    this.audioCtx = aCtx
+    console.log(aCtx)
+    this.oscillator = this.audioCtx.createOscillator()
+    this.gainNode = this.audioCtx.createGain()
+    this.oscillator.type = type
+    this.oscillator.connect(this.gainNode)
 
-  this.gainNode.connect(this.audioCtx.destination)
-  this.gainNode.gain.setValueAtTime(1, this.audioCtx.currentTime)
+    this.gainNode.connect(this.audioCtx.destination)
+    this.gainNode.gain.setValueAtTime(1, this.audioCtx.currentTime)
 
-  this.gainNode.connect(this.audioCtx.destination)
-  this.oscillator.start(this.audioCtx.currentTime)
+    this.gainNode.connect(this.audioCtx.destination)
+  }
 
-  this.gain = function (gain) {
+  gain = function (gain) {
     this.gainNode.gain.setValueAtTime(gain, this.audioCtx.currentTime)
   }
 
-  this.start = function () {
+  start = function () {
     console.log('START')
     // this.oscillator.start(0)
     this.oscillator.start(this.audioCtx.currentTime)
     this.oscillator.stop(this.audioCtx.currentTime + 1)
   }
 
-  this.freq = function (freq) {
+  freq = function (freq) {
     this.oscillator.frequency.setValueAtTime(freq, this.audioCtx.currentTime)
   }
 
-  this.stop = function () {
+  stop = function () {
     this.oscillator.stop()
   }
-  this.gain = function (gain) {
-    this.gainNode.gain.setValueAtTime(0,this.audioCtx.currentTime)
+  gain = function (gain) {
+    this.gainNode.gain.setValueAtTime(0, this.audioCtx.currentTime)
   }
 
-  this.playDuration = function (freq = 440, dur = 0.5, gain = 0.5) {
+  playDuration = function (freq = 440, dur = 0.5, gain = 0.5) {
+    console.log('Play duration')
     this.oscillator.frequency.setValueAtTime(freq, this.audioCtx.currentTime)
     this.gainNode.gain.setValueAtTime(gain, this.audioCtx.currentTime)
     this.oscillator.start(this.audioCtx.currentTime)
     this.oscillator.stop(this.audioCtx.currentTime + dur)
   }
 
-  this.playSeq = function (freq = 440, seq = [1], dur = 0.25, gain = 0.5) {
+  playSeq = function (freq = 440, seq = [1], dur = 0.25, gain = 0.5) {
     console.log('start play seq')
     let time = this.audioCtx.currentTime
     for (let index = 0; index < 100 * seq.length; index++) {
-      console.log({index, time})
+      console.log({ index, time })
       let e = seq[index % seq.length]
       this.oscillator.frequency.setValueAtTime(freq, time)
       this.gainNode.gain.setValueAtTime(gain, time)
