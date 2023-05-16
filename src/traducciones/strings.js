@@ -11,6 +11,7 @@ const sp = {
   boton_activar_sonido: 'Activar sonido',
   boton_desactivar_sonido: 'Desctivar sonido',
   header_ruido_blanco: 'Ruido blanco',
+  boton_variable: 'Variable',
   boton_reproducir: 'Reproducir',
   boton_detener: 'Detener',
   slider_ruido: 'Slider de volumen de ruido blanco',
@@ -52,6 +53,7 @@ const en = {
   boton_activar_sonido: 'Activar sonido',
   boton_desactivar_sonido: 'Desctivar sonido',
   header_ruido_blanco: 'Ruido blanco',
+  boton_variable: 'Variable',
   boton_reproducir: 'Reproducir',
   boton_detener: 'Detener',
   slider_ruido: 'Slider de volumen de ruido blanco',
@@ -78,7 +80,6 @@ const en = {
 
       De esta manera el quehacer artístico de sus integrantes encuentra una metodología de desarrollo que integra
       preguntas que vienen de la práctica musical.`
-
 }
 const fr = {
   tituloproyecto: 'le TITULO DEL PROYECTO',
@@ -93,6 +94,7 @@ const fr = {
   boton_activar_sonido: 'Activar sonido',
   boton_desactivar_sonido: 'Desctivar sonido',
   header_ruido_blanco: 'Ruido blanco',
+  boton_variable: 'Variable',
   boton_reproducir: 'Reproducir',
   boton_detener: 'Detener',
   slider_ruido: 'Slider de volumen de ruido blanco',
@@ -119,9 +121,7 @@ const fr = {
 
       De esta manera el quehacer artístico de sus integrantes encuentra una metodología de desarrollo que integra
       preguntas que vienen de la práctica musical.`
-
-
-} 
+}
 
 module.exports = {
   sp,

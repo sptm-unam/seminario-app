@@ -9,8 +9,10 @@ const { encenderCamaraFunc, detenerCamaraFunc } = SptmAudio()
 
 let a = new AudioSetup() // checar si esto no se contradice con algunas as que aparecen en Hydra
 
+let sine, noise
 let parent = document.querySelector('#editor')
-let editor = new EditorParser({ parent, parser })
+let editor = new EditorParser({ noise, sine, parent, parser })
+let aF1
 
 const activar = document.getElementById('activar')
 activar.addEventListener('click', a.initAudio) // init audio también inicializa el mic, ver si esto se puede quitar
