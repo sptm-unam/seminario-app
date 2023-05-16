@@ -2,7 +2,6 @@ class Sine {
   constructor(aCtx, type = 'sine') {
     aCtx.resume()
     this.audioCtx = aCtx
-    console.log(aCtx)
     this.oscillator = this.audioCtx.createOscillator()
     this.gainNode = this.audioCtx.createGain()
     this.oscillator.type = type

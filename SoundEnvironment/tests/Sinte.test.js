@@ -6,6 +6,7 @@ const { Sine } = require('../Sine.js')
 window.AudioContext = jest.fn().mockReturnValue({
   suspend: jest.fn(),
   currentTime: 0,
+  resume: jest.fn(),
   createOscillator: jest.fn().mockReturnValue({ type: '', connect: jest.fn() }),
   createGain: jest.fn().mockReturnValue({
     connect: jest.fn(),
