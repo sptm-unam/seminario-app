@@ -1,4 +1,3 @@
-import Parser from './terminal_js/JS/parser'
 import { defaultKeymap } from '@codemirror/commands'
 import { EditorState, Prec, Compartment } from '@codemirror/state'
 import { EditorView, basicSetup } from 'codemirror'
@@ -10,18 +9,10 @@ import {
 import { tags } from '@lezer/highlight'
 import { javascript } from '@codemirror/lang-javascript'
 import { keymap, KeyBinding } from '@codemirror/view'
+import { SPTMController } from '../traducciones/sptm-live/SPTMController'
+import { tutorialString } from './tutorialString'
 
-const handlers = {
-  handlerMidi: () => alert('midi'),
-  handlerFreq: () => alert('freq'),
-  handlerLilySingle: () => alert('lily single'),
-  handlerLilyMultiple: () => alert('lily multiple'),
-  handlerStop: () => alert('stop'),
-  handlerBpm: () => alert('bpm'),
-  handlerSamplePlay: () => alert('sample')
-}
-const parser = new Parser(handlers)
-function EditorParser({ noise, sine, parent }) {
+function EditorParser({ noise, sine, parent, parser }) {
   // llaves?
   this.noiseObject
   this.sineObject
@@ -40,19 +31,7 @@ function EditorParser({ noise, sine, parent }) {
   let language = new Compartment()
 
   let startState = EditorState.create({
-    doc: `// Presiona ctrl+enter para correr la linea donde esta el cursor
-60
-440
-c
-cis
-cis2
-ces,8
-a b c d e
-.
-#samp 1|2
-#samp
-120bpm`,
-
+    doc: tutorialString,
     extensions: [
       keymaps,
       basicSetup,
@@ -80,26 +59,23 @@ a b c d e
     return this.sineObject
   }
   this.evaluar = function () {
+    const currentLine = view.state.doc.lineAt(
+      view.state.selection.main.head
+    ).number
+    const cursorText = view.state.doc.text[currentLine - 1]
+    parser.parseString(cursorText)
     //const code = view.state.doc.toString()
     //console.log(code)
     // eval(code);
 
     let firstRange = view.state.selection.ranges.at(0)
-
     let selectedText = view.state.doc
       .toString()
       .substring(firstRange.from, firstRange.to)
     console.log(selectedText)
     const str = selectedText.split(' ')
 
-    const currentLine = view.state.doc.lineAt(
-      view.state.selection.main.head
-    ).number
-    console.log({ currentLine })
-    const cursorText = view.state.doc.text[currentLine - 1]
     console.log('Eval', str)
-    console.log(cursorText)
-    parser.parseString(cursorText)
     if (str[0] == 'noise' && str[1] == 'gain') {
       this.getNoise().gain(str[2])
       console.log('noise')
