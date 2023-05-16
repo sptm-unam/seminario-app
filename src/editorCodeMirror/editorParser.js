@@ -9,8 +9,11 @@ import {
 import { tags } from '@lezer/highlight'
 import { javascript } from '@codemirror/lang-javascript'
 import { keymap, KeyBinding } from '@codemirror/view'
+import { SPTMController } from '../traducciones/sptm-live/SPTMController'
+import { tutorialString } from './tutorialString'
 
-function EditorParser({ noise, sine, parent }) { // llaves? 
+function EditorParser({ noise, sine, parent, parser }) {
+  // llaves?
   this.noiseObject
   this.sineObject
   console.log('Construct parser')
@@ -28,7 +31,7 @@ function EditorParser({ noise, sine, parent }) { // llaves?
   let language = new Compartment()
 
   let startState = EditorState.create({
-    doc: '// ¡Hola mundo!\n\n//Ya no hay eval, ahora es posible cambiar las ganancias con la siguiente sintaxis:\n\n//noise gain 0\n//noise gain 0.2\n\n//sine gain 0\n//sine gain 0.2\n\n//Por alguna extraña razón hay que escribir y declarar manualmente\n//Ahora es necesario seleccionar la línea a declarar y ctrl + enter',
+    doc: tutorialString,
     extensions: [
       keymaps,
       basicSetup,
@@ -41,21 +44,26 @@ function EditorParser({ noise, sine, parent }) { // llaves?
 
   this.setNoise = function (noiseVar) {
     this.noiseObject = noiseVar
-	console.log('set noise')
-	console.log(this.noiseObject)
+    console.log('set noise')
+    console.log(this.noiseObject)
   }
   this.setSine = function (sineVar) {
     this.sineObject = sineVar
-	console.log('set sine')
-	console.log(this.sineObject)
+    console.log('set sine')
+    console.log(this.sineObject)
   }
-	this.getNoise = function () {
-		return this.noiseObject
-	}
-	this.getSine = function () {
-		return this.sineObject
-	}
+  this.getNoise = function () {
+    return this.noiseObject
+  }
+  this.getSine = function () {
+    return this.sineObject
+  }
   this.evaluar = function () {
+    const currentLine = view.state.doc.lineAt(
+      view.state.selection.main.head
+    ).number
+    const cursorText = view.state.doc.text[currentLine - 1]
+    parser.parseString(cursorText)
     //const code = view.state.doc.toString()
     //console.log(code)
     // eval(code);
@@ -71,7 +79,7 @@ function EditorParser({ noise, sine, parent }) { // llaves?
     if (str[0] == 'noise' && str[1] == 'gain') {
       this.getNoise().gain(str[2])
       console.log('noise')
-   }
+    }
 
     if (str[0] == 'sine' && str[1] == 'gain') {
       this.getSine().gain(str[2])

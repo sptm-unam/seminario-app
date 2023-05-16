@@ -656,3 +656,7 @@ li {
   vertical-align: top;
   margin-top: 6px;
 }
+
+div#editor{
+  text-align: left;
+}
