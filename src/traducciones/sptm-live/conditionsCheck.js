@@ -5,7 +5,7 @@ const regex = {
 
 function midiMatch(str, handlerMidi, handlerFreq) {
   let command = ''
-  let midiMatch = str.match(/^(\d{1,3})$/gm)
+  let midiMatch = str.match(/^(\d{1,5})$/gm)
   if (midiMatch) {
     console.log('midi match')
     if (parseFloat(midiMatch[0]) < 128) {
