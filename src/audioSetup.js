@@ -4,6 +4,7 @@
 function AudioSetup(){
     
     var self = this;
+	this.library = {}
 
     self.randomNoiseNode = 0; 
     self.initAudio = 0;

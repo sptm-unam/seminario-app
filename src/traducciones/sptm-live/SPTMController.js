@@ -2,7 +2,7 @@ const Parser = require('./parser')
 const AudioEngine = require('./AudioEngine')
 
 const SPTMController = function (audioContext) {
-  const engine = AudioEngine()
+  const engine = AudioEngine(audioContext)
   const handlers = {
     handlerMidi: engine.playMidi,
     handlerFreq: engine.playFreq,
