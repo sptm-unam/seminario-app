@@ -10,7 +10,7 @@ const AudioEngine = function (audioContext) {
     octave: '2',
     bpm: '60',
     gain: 0.5,
-    lastOsc:null
+    lastOsc: null
   }
 
   const hashNodes = {}
@@ -39,7 +39,7 @@ const AudioEngine = function (audioContext) {
       // add osc to hash and stack
       // setup timeout to clear element
       // remove element from hash and stock after timeout
-      lastOsc = osc
+      state.lastOsc = osc
     },
     playLilyMultiple: function (notesList) {
       console.table(notesList)
@@ -52,10 +52,10 @@ const AudioEngine = function (audioContext) {
       console.log({ durationList })
       osc.playList(freqList, durationList)
       osc.gain(state.gain)
-      lastOsc = osc
+      state.lastOsc = osc
     },
     stopAll: function () {
-      lastOsc.stop()
+      state.lastOsc.stop()
     },
     changeBPM: function () {
       alert('bpm engine')
