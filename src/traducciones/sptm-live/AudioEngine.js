@@ -1,6 +1,5 @@
 const { Sine } = require('../../../SoundEnvironment/Sine')
-
-const midiToFrequency = (m) => Math.pow(2, (m - 69) / 12) * 440
+const { midiToFrequency, letterToNote, durationToTime } = require('./utils')
 
 const AudioEngine = function (audioContext) {
   console.log('audio engine')
@@ -10,7 +9,8 @@ const AudioEngine = function (audioContext) {
     duration: '1',
     octave: '2',
     bpm: '60',
-    gain: 0.5
+    gain: 0.5,
+    lastOsc:null
   }
 
   const hashNodes = {}
@@ -26,30 +26,36 @@ const AudioEngine = function (audioContext) {
       const freq = midiToFrequency(parseInt(midiNum))
       // set duration
       // start playing
-      osc.playDuration(freq,parseInt(state.duration))
+      osc.playDuration(freq, parseInt(state.duration))
       // add osc to hash and stack
       // setup timeout to clear element
       // remove element from hash and stock after timeout
     },
     playFreq: function (freqStr) {
-      // Check current oscilator in state
-      // create oscilator with current kind
       const osc = new Sine(audioContext)
       osc.gain(state.gain)
-      // set frequency with midi num
       const freq = parseInt(freqStr)
-      // set duration
-      // start playing
-      osc.playDuration(freq,parseInt(state.duration))
+      osc.playDuration(freq, parseInt(state.duration))
       // add osc to hash and stack
       // setup timeout to clear element
       // remove element from hash and stock after timeout
+      lastOsc = osc
     },
-    playLilyMultiple: function () {
-      alert('lily multi engine')
+    playLilyMultiple: function (notesList) {
+      console.table(notesList)
+      const osc = new Sine(audioContext)
+      const freqList = notesList.map((e) =>
+        midiToFrequency(60 + letterToNote(e.note))
+      )
+      const durationList = notesList.map((e) => durationToTime(e.duration))
+      console.log({ freqList })
+      console.log({ durationList })
+      osc.playList(freqList, durationList)
+      osc.gain(state.gain)
+      lastOsc = osc
     },
     stopAll: function () {
-      alert('stop engine')
+      lastOsc.stop()
     },
     changeBPM: function () {
       alert('bpm engine')
