@@ -1,5 +1,10 @@
 const { Sine } = require('../../../SoundEnvironment/Sine')
-const { midiToFrequency, letterToNote, durationToTime } = require('./utils')
+const {
+  midiToFrequency,
+  letterToNote,
+  durationToTime,
+  createTimeId
+} = require('./utils')
 
 const AudioEngine = function (audioContext) {
   console.log('audio engine')
@@ -16,6 +21,29 @@ const AudioEngine = function (audioContext) {
   const hashNodes = {}
   const stackNodes = []
 
+  function printState() {
+    console.log('===> State')
+    console.log(hashNodes)
+    console.log(stackNodes)
+  }
+
+  function addElementToEngine(element) {
+    const id = createTimeId()
+    console.log({ id })
+    hashNodes[id] = element
+    stackNodes.push(id)
+  }
+  
+  function stopAndRemoveLast() {
+    if (stackNodes.length > 0) {
+      const idPop = stackNodes.pop()
+      hashNodes[idPop].stop()
+      delete hashNodes[idPop]
+    } else {
+      console.log('Engine empty')
+    }
+  }
+
   return {
     playMidi: function (midiNum) {
       // Check current oscilator in state
@@ -30,6 +58,8 @@ const AudioEngine = function (audioContext) {
       // add osc to hash and stack
       // setup timeout to clear element
       // remove element from hash and stock after timeout
+      addElementToEngine(osc)
+      printState()
     },
     playFreq: function (freqStr) {
       const osc = new Sine(audioContext)
@@ -40,6 +70,8 @@ const AudioEngine = function (audioContext) {
       // setup timeout to clear element
       // remove element from hash and stock after timeout
       state.lastOsc = osc
+      addElementToEngine(osc)
+      printState()
     },
     playLilyMultiple: function (notesList) {
       console.table(notesList)
@@ -53,9 +85,12 @@ const AudioEngine = function (audioContext) {
       osc.playList(freqList, durationList)
       osc.gain(state.gain)
       state.lastOsc = osc
+      addElementToEngine(osc)
+      printState()
     },
     stopAll: function () {
-      state.lastOsc.stop()
+      stopAndRemoveLast()
+      printState()
     },
     changeBPM: function () {
       alert('bpm engine')

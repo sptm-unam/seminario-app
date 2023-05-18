@@ -35,7 +35,7 @@ class Sine {
     this.gainNode.gain.setValueAtTime(0, this.audioCtx.currentTime)
   }
 
-  playDuration = function (freq = 440, dur = 0.5, gain = 0.5) {
+  playDuration = function (freq = 440, dur = 0.5, gain = 0.2) {
     console.log('Play duration')
     this.oscillator.frequency.setValueAtTime(freq, this.audioCtx.currentTime)
     this.gainNode.gain.setValueAtTime(gain, this.audioCtx.currentTime)
@@ -43,7 +43,7 @@ class Sine {
     this.oscillator.stop(this.audioCtx.currentTime + dur)
   }
 
-  playList = function (freqList = [440], durationList = [1], gain = 1) {
+  playList = function (freqList = [440], durationList = [1], gain = 0.2) {
     let time = this.audioCtx.currentTime
     const elementsNum = freqList.length
     this.oscillator.frequency.setValueAtTime(freqList[0], time)
@@ -52,19 +52,14 @@ class Sine {
     time = time + durationList[0]
     this.oscillator.start(time)
     console.log('start play list')
-    for (let index = 1; index < 100*elementsNum; index++) {
+    for (let index = 1; index < 100 * elementsNum; index++) {
       let freq = freqList[index % elementsNum]
       let duration = durationList[index % elementsNum]
       this.oscillator.frequency.setValueAtTime(freq, time)
       this.gainNode.gain.setValueAtTime(gain, time)
       this.gainNode.gain.setValueAtTime(0, time + duration)
       time = time + duration
-      console.log({
-        index,
-        time,
-        freq,
-        duration
-      })
+      // console.log({ index, time, freq, duration })
     }
     this.oscillator.stop(time)
   }
@@ -72,7 +67,7 @@ class Sine {
     console.log('start play seq')
     let time = this.audioCtx.currentTime
     for (let index = 0; index < 100 * seq.length; index++) {
-      console.log({ index, time })
+      // console.log({ index, time })
       let e = seq[index % seq.length]
       this.oscillator.frequency.setValueAtTime(freq, time)
       this.gainNode.gain.setValueAtTime(gain, time)

@@ -3,8 +3,10 @@ const tutorialString = `// Presiona ctrl+enter para correr la linea donde esta e
 60
 // Implementado frequencia simple
 440
-a4 b4 c2 d4 e4 b8 c8 d8 e8
+c a e
+a2 b2 e2 g2
 a4 b4 c4 d4 e4
+// el punto detiene la ultima secuencia reproducida
 .
 // Falta implementar los siguientes
 c
