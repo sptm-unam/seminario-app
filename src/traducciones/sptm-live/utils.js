@@ -52,12 +52,14 @@ const calculateOctave = (octaveModifier) => {
   return upOctave - downOctave
 }
 
-const durationToTime = (durationString=1) => 1 / parseInt(durationString)
+const durationToTime = (durationString = 1) => 1 / parseInt(durationString)
 
+const createTimeId = () => `${new Date().getTime()}`
 module.exports = {
   midiToFrequency,
   letterToNote,
   modifierToNumeric,
   calculateOctave,
-  durationToTime
+  durationToTime,
+  createTimeId
 }
