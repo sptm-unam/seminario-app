@@ -244,7 +244,7 @@ function Sample (aCtx, audioFile){ // aquí hace falta poner la secuencia, audio
     }
 
     self.stop = function(){
-	        clearTimeout(timerID);
+	clearTimeout(timerID);
     }
 
     // console.log(self.buffer); 

@@ -73,31 +73,21 @@ function sampleMatch(str, handler) {
   return command
 }
 
-function smplMatch(str, handler){
-    let command
-    let smpl = str.match(/^smpl\s([+-]?([0-9]*[.])?[0-9]+\s[+-]?([0-9]*[.])?[0-9]+)$/);
-      
-    if(smpl){
-	  console.log("si cuadra el sample"); 
-	console.log(smpl[1].split(' '))
-    }else{
-	console.log("no cuadra el sample"); 
-    }
-    command = `comando`
-    return command
-}
-
-function smplsqMatch(str){
+function smplsqMatch(str, handler){
     let command
     let smpl = str.match(/smplsq\s((?:\d+(?:\.\d*)?|\.\d+)(?:\s(?:\d+(?:\.\d*)?|\.\d+))*)$/);
+    let sq = []; 
     if(smpl){
-	console.log("si cuadra la seq");
 
-	console.log(smpl[1].split(' '));
-	
+	sq = smpl[1].split(' '); 
+	console.log("si cuadra la seq");
+        // console.log(smpl[1].split(' '));
+	handler(sq); 
     }else{
     console.log("no cuadra la seq"); 
     }
+    command = `smplsq(${sq})`
+    return command
 }
 
 module.exports = {
@@ -106,6 +96,5 @@ module.exports = {
   stopMatch,
   bpmMatch,
   sampleMatch,
-  smplMatch,
   smplsqMatch
 }

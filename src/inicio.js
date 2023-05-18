@@ -90,12 +90,12 @@ const audioFile1 = document.getElementById('audio_file1')
 const audioFile2 = document.getElementById('audio_file2')
 
 audioFile1.onchange = function () {
-  aF1 = new Sample(a.audioCtx, audioFile1)
-  aF1.load(a.audioCtx, audioFile1)
-  let seq = [1, 0, 1, 0, 1, 0, 1, 0]
-  aF1.sequence(seq)
+  //aF1 = new Sample(a.audioCtx, audioFile1)
+  //aF1.load(a.audioCtx, audioFile1)
+  //let seq = [1, 0, 1, 0, 1, 0, 1, 0]
+  //aF1.sequence(seq)
 }
 
 audioFile2.onchange = function () {
-  let aF2 = new Sample(a.audioCtx, audioFile2)
+  //let aF2 = new Sample(a.audioCtx, audioFile2)
 }

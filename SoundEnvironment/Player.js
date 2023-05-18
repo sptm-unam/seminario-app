@@ -1,103 +1,110 @@
-class Player{
-    constructor(aCtx, type= 'player'){
-	aCtx.resume()
-	this.audioCtx = aCtx
-	this.source = this.audioCtx.createBufferSource() // si se elimina cada vez que termina de reproducirse entonces será relevante ponerlo aquí? 
-	this.gainNode = this.audioCtx.createGain()
-	this.source.type = type // repetir esto cada vez que se genera una nueva instancia? 
-	this.source.connect(this.gainNode)
 
-	this.gainNode.connect(this.audioCtx.destination)
-	this.gainNode.gain.setValueAtTime(1, this.audioCtx.currentTime)
+function Player (aCtx, audioFile){ // aquí hace falta poner la secuencia, audiofile está en html 
 
-	this.gainNode.connect(this.audioCtx.destination)
+    self = this; 
+    self.audioFile = audioFile;
 
-	
-	this.buffer = 0
-	this.futureTickTime = this.audioCtx.currentTime
-	this.counter = 1
-	this.tempo = 120
-	this.secondsPerBeat = 60 / this.tempo
-	this.counterTimeValue = (this.secondsPerBeat / 4)
-	this.timerID = undefined
-	this.isPlaying = false
-	this.seq = [0, 0, 0, 0, 0, 0, 0, 0] 
-	
-	
-    }
+    self.audioCtx = aCtx;
+    
+    // self.startTime = self.audioCtx.currentTime; // para medir
 
-    load = function(sample) { // mientras podría ser un archivo
-	this.reader = new FileReader();
-        this.reader.onload = function (ev) {
-	    this.audioCtx.decodeAudioData(ev.target.result).then(function (buffer) {
-		this.buffer = buffer; 
-		console.log("loaded");
-		//this.counter = 0;
-		//this.futureTickTime = this.audioCtx.currentTime;
-		//this.scheduler(); 	
+    // si no hay argumentos, entonces reproduce el audio una sola vez
+
+    // separar load al menos para conceptualmente tener claro que primero se tiene que cargar el archivo. Esto sucede en cada evento
+    // self.source;
+
+    self.buffer = 0;
+
+    self.futureTickTime = self.audioCtx.currentTime,
+    self.counter = 1,
+    self.tempo = 120,
+    self.secondsPerBeat = 60 / self.tempo,
+    self.counterTimeValue = (self.secondsPerBeat / 4),
+    self.timerID = undefined,
+    self.isPlaying = false;
+    self.seq = [0, 0, 0, 0, 0, 0, 0, 0]; 
+    
+    self.load = function(){
+
+	self.reader = new FileReader();
+        self.reader.onload = function (ev) {
+	    // self.audioCtx = aCtx;
+	    // console.log(self.audioCtx); 
+	    self.audioCtx.decodeAudioData(ev.target.result).then(function (buffer) {
+		//self.source = self.audioCtx.createBufferSource()
+		//self.source.buffer = buffer; // este estaba antes, ahora solamente queremos que se guarde
+		self.buffer = buffer; 
+		//self.source.connect(self.audioCtx.destination) // Pregunta: una vez que termina, también se desconecta? 
+		//self.source.start() // no es necesario reproducirlo aqui
+		console.log("sample");
+		// console.log(self.buffer);
+		self.counter = 0;
+		self.futureTickTime = self.audioCtx.currentTime;
+		self.scheduler(); 
+   
 	    })
 	}
-	this.reader.readAsArrayBuffer(this.audioFile.files[0]); 
+
+	self.reader.readAsArrayBuffer(self.audioFile.files[0]); 
+	// aquí se reproduce la secuencia 
     }
 
-    gain = function (gain) {
-	this.gainNode.gain.setValueAtTime(gain, this.audioCtx.currentTime)
-    }
+    self.load();
 
-    start = function(time) { // puede tener un parámetro
-	console.log('START');
-	this.source = this.audioCtx.createBufferSource();
-	this.source.connect(this.audioCtx.destination);
-	this.source.buffer = this.buffer;
-	this.source.start(self.audioCtx.currentTime + time);
+    self.startSeq = function(){
+	self.counter = 0;
+	self.futureTickTime = self.audioCtx.currentTime;
+	self.scheduler(); 
     }
-
-    stop = function(){ // también puede llevar algo 
-	this.source.stop(); 
-    }
-
-    // De aquí en adelante tiene que estar en otro lado 
-    // Primero aquí y luego ver si se puede independizar 
     
-    startSeq = function() {
-	this.counter = 0;
-	this.futureTickTime = this.audioCtx.currentTime;
-	this.scheduler(); 	
+    self.playSource = function(time){
+	console.log("algo"); 
+	self.source = self.audioCtx.createBufferSource();
+	self.source.connect(self.audioCtx.destination);
+	self.source.buffer = self.buffer;
+	self.source.start(self.audioCtx.currentTime + time);
     }
 
-    schedule = function(time){
-	if(this.seq[this.counter] != 0){
-	    this.start(time); 
+    self.schedule = function(time){
+	if(self.seq[self.counter] == 1){
+	    self.playSource(time);
+	    console.log("otro algo"); 
 	}
     }
 
-    playTick = function(){
-	console.log(this.counter);
-	this.secondsPerBeat = 60 / this.tempo;
-	this.counterTimeValue = (this.secondsPerBeat / 1);
-	this.counter += 1;
-	this.futureTickTime += this.counterTimeValue;
-	if(this.counter == this.seq.length){
-	    this.counter = 0; 
+    self.playTick = function() {
+	console.log(self.counter);
+	self.secondsPerBeat = 60 / self.tempo;
+	self.counterTimeValue = (self.secondsPerBeat / 1);
+	self.counter += 1;
+	self.futureTickTime += self.counterTimeValue;
+	if(self.counter == self.seq.length){
+	    self.counter = 0; 
 	}
+
     }
 
-    scheduler = function(){
-	if (this.futureTickTime < this.audioCtx.currentTime + 0.1) {
-            this.schedule(this.futureTickTime - this.audioCtx.currentTime);
-            this.playTick();
+    
+    self.scheduler = function() {
+	if (self.futureTickTime < self.audioCtx.currentTime + 0.1) {
+            self.schedule(self.futureTickTime - self.audioCtx.currentTime);
+            self.playTick();
 	}
-	this.timerID = setTimeout(this.scheduler, 0);
+
+	self.timerID = setTimeout(self.scheduler, 0);
     }
 
-    sequence = function(seq){
+    self.sequence = function(seq){
 	self.seq = seq; 
     }
 
-    stopSeq = function(){
-	clearTimeout(this.timerID); 
+    self.stop = function(){
+	        clearTimeout(self.timerID);
     }
-     
+
+    // console.log(self.buffer); 
+    // self.load(); // esto es mandatory 
+   
 }
 
-module.exports = { Player } 
+export { Player }
