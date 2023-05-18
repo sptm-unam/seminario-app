@@ -1,4 +1,6 @@
 const { Sine } = require('../../../SoundEnvironment/Sine')
+const { Player } = require('../../../SoundEnvironment/Player')
+
 const {
   midiToFrequency,
   letterToNote,
@@ -97,7 +99,12 @@ const AudioEngine = function (audioContext) {
     },
     samplePlay: function () {
       alert('sample engine')
+    },
+    
+    smplsq: function() {
     }
+
+      
   }
 }
 

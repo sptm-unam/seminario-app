@@ -32,6 +32,8 @@ class Parser {
     command = command || checks.bpmMatch(str, this.state.handlerBpm)
     // Sample play, with duration and rate
     command = command || checks.sampleMatch(str, this.state.handlerSamplePlay)
+    // smplsq
+    command = command || checks.smplsqMatch(str, this.state.handlerSmplsq);  
     return command
   }
 }

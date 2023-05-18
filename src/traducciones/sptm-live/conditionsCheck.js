@@ -73,10 +73,39 @@ function sampleMatch(str, handler) {
   return command
 }
 
+function smplMatch(str, handler){
+    let command
+    let smpl = str.match(/^smpl\s([+-]?([0-9]*[.])?[0-9]+\s[+-]?([0-9]*[.])?[0-9]+)$/);
+      
+    if(smpl){
+	  console.log("si cuadra el sample"); 
+	console.log(smpl[1].split(' '))
+    }else{
+	console.log("no cuadra el sample"); 
+    }
+    command = `comando`
+    return command
+}
+
+function smplsqMatch(str){
+    let command
+    let smpl = str.match(/smplsq\s((?:\d+(?:\.\d*)?|\.\d+)(?:\s(?:\d+(?:\.\d*)?|\.\d+))*)$/);
+    if(smpl){
+	console.log("si cuadra la seq");
+
+	console.log(smpl[1].split(' '));
+	
+    }else{
+    console.log("no cuadra la seq"); 
+    }
+}
+
 module.exports = {
   midiMatch,
   multipleLily,
   stopMatch,
   bpmMatch,
-  sampleMatch
+  sampleMatch,
+  smplMatch,
+  smplsqMatch
 }
