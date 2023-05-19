@@ -2,9 +2,10 @@
 
 //FUNCIONES AUXILIARES
 
-// Calcula la duración de cada pulso, en microsegundos, en un ritmo euclidiano.
+// Calcula la duración de cada pulso (isócrono) en microsegundos
+// a partir de los ciclos por segundo y el número de pulsos.
 function eventDurationMs(cps, pulses) {
-  let milliSecondsPerCycle = (1 / cps) * 10 ** 6;
+  let milliSecondsPerCycle = (1 / cps) * (10 ** 6);
   let cyclePartition = pulses;
   return Math.round(milliSecondsPerCycle / cyclePartition);
 }
@@ -21,7 +22,7 @@ function diffList(xs, ys) {
 }
 
 // Funciones de orden superior para combinar dos Arrays
-// Simulan el funcionamento de las correspondientes funciones en Haskell.
+// Simulan el funcionamento de las correspondientes funciones en Haskell
 
 function zip(xs, ys) {
   let lx = xs.length;
@@ -43,13 +44,15 @@ function zipWith (f, xs, ys) {
   return zip(xs, ys).map(([x,y]) => f(x,y)); // pegado con la función
 }
 
-// Ejemplo: Arrays correspondientes al ritmo (3,8)
-let front = Array(3).fill([1]);
-let back = Array(5).fill([0]);
-console.log(front); // [ [1], [1], [1] ]
-console.log(back); // [ [0], [0], [0], [0], [0] ]
-console.log(zip(front, back)); // [ [[1], [0]], [[1], [0]], [[1], [0]] ]
-console.log(zipWith(append, front, back)); // [ [1,0], [1,0], [1,0] ]
+//////////////////////////////////////////////////////////////////////////////
+// // Ejemplo: Arrays correspondientes al ritmo (3,8)                       //
+// const front = Array(3).fill([1]);                                        //
+// const back = Array(5).fill([0]);                                         //
+// console.log(front); // [ [1], [1], [1] ]                                 //
+// console.log(back); // [ [0], [0], [0], [0], [0] ]                        //
+// console.log(zip(front, back)); // [ [[1],[0]], [[1],[0]], [[1],[0]] ] //
+// console.log(zipWith(append, front, back)); // [ [1,0], [1,0], [1,0] ]    //
+//////////////////////////////////////////////////////////////////////////////
 
 // Algoritmo de Bjorklund
 function bjorklund(front, back) {
@@ -62,10 +65,12 @@ function bjorklund(front, back) {
   }
 }
 
-// Continua ejemplo:
-console.log(bjorklund(front,back)); // [ [1,0,0], [1,0,0], [1,0] ]
+////////////////////////////////////////////////////////////////////////
+// // Continua ejemplo:                                               //
+// console.log(bjorklund(front,back)); // [ [1,0,0], [1,0,0], [1,0] ] //
+////////////////////////////////////////////////////////////////////////
 
-// Genera el patrón euclidiano
+// Generar patrón euclidiano
 function euclideanPattern(onsets, pulses) {
   const front = Array(onsets).fill([1]);
   const back = Array(pulses - onsets).fill([0]);
@@ -73,7 +78,9 @@ function euclideanPattern(onsets, pulses) {
   return bjorklundResult.flat();
 }
 
-// Resultado:
-console.log(euclideanPattern(3,8)); // [ 1,0,0,1,0,0,1,0 ]
+////////////////////////////////////////////////////////////////
+// // Resultado:                                              //
+// console.log(euclideanPattern(3,8)); // [ 1,0,0,1,0,0,1,0 ] //
+////////////////////////////////////////////////////////////////
 
 module.exports = { euclideanPattern }
