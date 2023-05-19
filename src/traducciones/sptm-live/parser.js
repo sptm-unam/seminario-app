@@ -26,6 +26,9 @@ class Parser {
     // Multiple lilypond note
     command =
       command || checks.multipleLily(str, this.state.handlerLilyMultiple)
+    // Euclidean lilypond note pattern
+    command =
+      command || checks.euclideanLily(str, this.state.handlerLilyMultiple)
     // Multiple lilypond note
     command = command || checks.stopMatch(str, this.state.handlerStop)
     // change BPM
