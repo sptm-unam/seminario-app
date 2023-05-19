@@ -34,44 +34,36 @@ function zip(xs, ys) {
   }
 }
 
-// Con `append` como primer argumento juntamos mantenemos las listas
+
+const append = (xs, ys) => xs.concat(ys);
+
+// Con `append` como primer argumento, esta función nos permite juntar las listas
 // en un sólo nivel de arrays anidados
 function zipWith (f, xs, ys) {
   return zip(xs, ys).map(([x,y]) => f(x,y)); // pegado con la función
 }
 
-// Función auxiliar para complementar a zipWith
-const append = (xs, ys) => xs.concat(ys);
-
-// Prueba. Arrays correspondientes al ritmo (3,8)
+// Ejemplo: Arrays correspondientes al ritmo (3,8)
 let front = Array(3).fill([1]);
 let back = Array(5).fill([0]);
-console.log('front', front);
-console.log('back', back);
-
-// Prueba
-console.log('zip(front, back)', zip(front, back));
-console.log('zipWith(append, front, back)', zipWith(append, front, back));
+console.log(front); // [ [1], [1], [1] ]
+console.log(back); // [ [0], [0], [0], [0], [0] ]
+console.log(zip(front, back)); // [ [[1], [0]], [[1], [0]], [[1], [0]] ]
+console.log(zipWith(append, front, back)); // [ [1,0], [1,0], [1,0] ]
 
 // Algoritmo de Bjorklund
 function bjorklund(front, back) {
   if (back.length > 1) {
-    const newFront = zipWith(append, front, back) // front.map((f, i) => f.concat(back[i]));
+    const newFront = zipWith(append, front, back)
     const newBack = diffList(front, back);
-    console.log('newFront', newFront); // debug
-    console.log('newBack', newBack); // debug
     return bjorklund(newFront, newBack);
   } else {
-    console.log('---exit Bjorklund---'); // debug
     return front.concat(back);
   }
 }
 
-// Prueba
-console.log('bjorklund(front, back)', bjorklund(front,back));
-console.log('bjorklund(back, front)', bjorklund(front,back));
-
-
+// Continua ejemplo:
+console.log(bjorklund(front,back)); // [ [1,0,0], [1,0,0], [1,0] ]
 
 // Genera el patrón euclidiano
 function euclideanPattern(onsets, pulses) {
@@ -81,63 +73,7 @@ function euclideanPattern(onsets, pulses) {
   return bjorklundResult.flat();
 }
 
-console.log('euclideanPattern(3,8)', euclideanPattern(3,8));
+// Resultado:
+console.log(euclideanPattern(3,8)); // [ 1,0,0,1,0,0,1,0 ]
 
-// TODO: Comparar con la versión mkontogiannis/euclidean-rhythms
-// Para comparar estilos (mi investigación) y detectar posibles mejoras del código.
-
-/**
- *  Returns the calculated pattern of equally distributed pulses in total steps
- *  based on the euclidean rhythms algorithm described by Godfried Toussaint
- *
- *  @method  getPattern
- *  @param {Number} pulses Number of pulses in the pattern
- *  @param {Number} steps  Number of steps in the pattern (pattern length)
- */
-
-/* EMPIEZA EL CÓDIGO
-export function getPattern(pulses: number, steps: number) {
-  if (pulses < 0 || steps < 0 || steps < pulses) {
-    return [];
-  }
-
-  // Create the two arrays
-  let first = new Array(pulses).fill([1]);
-  let second = new Array(steps - pulses).fill([0]);
-
-  let firstLength = first.length;
-  let minLength = Math.min(firstLength, second.length);
-
-  let loopThreshold = 0;
-  // Loop until at least one array has length gt 2 (1 for first loop)
-  while (minLength > loopThreshold) {
-    // Allow only loopThreshold to be zero on the first loop
-    if (loopThreshold === 0) {
-      loopThreshold = 1;
-    }
-
-    // For the minimum array loop and concat
-    for (let x = 0; x < minLength; x++) {
-      first[x] = [...first[x], ...second[x]];
-    }
-
-    // if the second was the bigger array, slice the remaining elements/arrays and update
-    if (minLength === firstLength) {
-      second = second.slice(minLength);
-    }
-    // Otherwise update the second (smallest array) with the remainders of the first
-    // and update the first array to include only the extended sub-arrays
-    else {
-      second = first.slice(minLength);
-      first = first.slice(0, minLength);
-    }
-    firstLength = first.length;
-    minLength = Math.min(firstLength, second.length);
-  }
-
-  // Build the final array
-  const pattern: number[] = [...first.flat(), ...second.flat()];
-
-  return pattern;
-}
-*/
+module.exports = { euclideanPattern }
