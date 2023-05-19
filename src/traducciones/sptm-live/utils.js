@@ -24,6 +24,8 @@ const letterToNote = (letter) => {
     case 'g':
       note = 7
       break
+    case 'r':
+      note = -40
     default:
       break
   }

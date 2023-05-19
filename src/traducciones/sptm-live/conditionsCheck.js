@@ -1,6 +1,9 @@
+const bjorklund = require('../../../static/js/bjorklund')
+
 const regex = {
   lilyNote: /^([abcdefg])(es|is)?(\'+|\,+)?(\d)?$/m,
-  lilyNoteMulti: /^(([abcdefg])(es|is)?(\'+|\,+)?(\d)?\s?)*$/gm
+  lilyNoteMulti: /^(([abcdefg])(es|is)?(\'+|\,+)?(\d)?\s?)*$/gm,
+  euclideanRhythm:/^([abcdefg])(es|is)?(\'+|\,+)?(\d)?\((\d+)\,(\d+)\)$/m
 }
 
 function midiMatch(str, handlerMidi, handlerFreq) {
@@ -33,6 +36,28 @@ function multipleLily(str, handler) {
       }
       return prev
     }, [])
+    command = `playMultipleMidiNum(${notesList.length})`
+    handler(notesList)
+  }
+  return command
+}
+
+// <lilyNote>(int,int)
+function euclideanLily(str, handler){
+  let command
+  const euclideanMatch = str.match(regex.euclideanRhythm)
+  if (euclideanMatch) {
+    // pattern matching
+    const [_, note, modifier, octave, duration, k, n] = euclideanMatch
+    console.log(euclideanMatch)
+    const event = { note, modifier, octave, duration }
+    // TODO: Corregir la implementación del silencio/rest
+    // const rest = { duration }
+    const rest = { note:"r", modifier, octave, duration }
+    const pattern = bjorklund.euclideanPattern(Number(k),Number(n))
+    const notesList = pattern.map((x) => {
+      if (x === 1) {return event} else { return rest }
+    })
     command = `playMultipleMidiNum(${notesList.length})`
     handler(notesList)
   }
@@ -76,6 +101,7 @@ function sampleMatch(str, handler) {
 module.exports = {
   midiMatch,
   multipleLily,
+  euclideanLily,
   stopMatch,
   bpmMatch,
   sampleMatch
