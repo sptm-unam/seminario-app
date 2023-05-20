@@ -1,66 +1,147 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>Sonido</title>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="../css/style.css" />
-    </head>
+<!-- Aprl 6 4:28 -->
 
-    <body>
-        <header>
-            STPM
-        </header>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description"
+    content="Aplicación web desarrollada en el marco del Seminario Permanente de Tecnología Musical del Posgrado en Música UNAM.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+  <link rel="manifest" href="../favicon/site.webmanifest">
+  <title>SPTM</title>
+</head>
 
-        <nav>
-            <a href="../index.html">inicio</a> sonido <a href="acerca.html">acerca</a> <a href="contacto.html">contacto</a>
+<body>
+  <header>
+        <nav class="navbar">
+          <div class="nav-title">
+            <h1>SPTM</h1>
+          </div>
+          <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+          <ul class="nav">
+            <li class="nav-item"><a for="link_inicio" href="../index.html">inicio</a></li>
+            <li  class="nav-item"><a for="link_sonido" href="#sonido">sonido</a></li>
+            <li  class="nav-item"><a for="link_acerca" href="../index.html#acerca">acerca</a></li>
+            <!-- <li for="link_" class="nav-item"><a href="#contacto">contacto</a></li> -->
+          </ul>
+          <div id="lang" class="switch-lang">
+            <div class="current-lang">
+              <img src="../imgs/mex_icon.png" class="lang-flag" alt="bandera de México">
+            <p class="lang-text"><a href="?lang=es">Esp</a></p>
+            </div>
+
+            <div class="lang-dropdown">
+              <div class="selecting-lang">
+                <a href="/?lang=en"><img src="../imgs/USA_icon.png" class="lang-flag" alt="bandera de EUA">
+              <p class="lang-text">Eng</p></a>
+              </div>
+              <div class="selecting-lang">
+                <a href="/?lang=fr"><img src="../imgs/fr_icon.png" class="lang-flag" alt="bandera de Francia">
+              <p class="lang-text">Fr</p></a>
+              </div>
+            </div>
+          </div>
         </nav>
-        
-        <section>
-            <h1>Sonido</h1>
-	    <p>En algunos navegadores como chorme/chromium es necesario iniciar el audio con un gesto del usuario. Para este fin se puede usar un botón.<p>
-	    <button type="button" id="activar">Activar sonido</button>
-	    <button type="button" id="desactivar">Desactivar sonido</button>
-	    <h2>Ruido blanco</h2>
-	    <button type="button" id="reproducirRuido">Reproducir</button>
-	    <button type="button" id="detenerRuido">Detener</button>
-	    <input id="sliderRuidoBlanco" type="range" min="0" max="1" step="0.01" value="0">
-	    <h2>Sinusoidal</h2>
-	    <button type="button" id="reproducirSine">Reproducir</button>
-	    <button type="button" id="detenerSine">Detener</button>
-	    <input id="sliderSine" type="range" min="0" max="1" step="0.01" value="0">
-            <h2>Acceder micrófono</h2>
-	    <p>La señal del mic sale por los parlantes de la computadora. Por favor, usa audífonos.</p>
-	    <button type="button" id="reproducirMic">Reproducir</button>
-	    <button type="button" id="detenerMic">Detener</button>
-            <h2>Acceder cámara</h2>
-	    <p> Esto no es sonido XP pero ahí va</p>
-	    <button type="button" id="encenderCamara">Encender</button>
-	    <button type="button" id="detenerCamara">Detener</button>
-	    <video autoplay="true" id="videoElement">
-	    </video>
-	    <!-- esto podría enviar un valor para que fuera leído por algo tipo switch-->
-	    <h2>Múltiples muestras en un arreglo</h2>
-	    <p>Ejemplo para relacionar carga y reproducción de archivos locales.</p>
-	    <div>
-	      <input id="audio_file1" type="file" accept="audio/*" />
-	    </div>
-	    <div>
-	      <input id="audio_file2" type="file" accept="audio/*" />
-	    </div>
-        </section>
+  </header>
+  <div id="button-top"></div>
+  <section id="sonido" class="sonido">
+    <!-- <a id="button-top"></a> -->
+    <div class="contenido-sonido">
+      <div class="separador">
+        <h2 for="h2_sonido">Sonido</h2>
+        <p for="descripcion_sonido">
+          En algunos navegadores como chorme/chromium es necesario iniciar el audio con un gesto del usuario. Para este
+          fin se puede usar un botón.
+        </p>
+        <button for="boton_activar_sonido" type="button" id="activar" class="botones-sonido">Activar sonido</button>
+        <button for="boton_desactivar_sonido" type="button" id="desactivar" class="botones-sonido">Desactivar
+          sonido</button>
+      </div>
+      <div class="separador">
+        <h2 for="header_ruido_blanco">Ruido blanco</h2>
+        <p>Agregué un botón para iniciar la variable, esto pensando en el livecodeo. El primer botón inicializa</p>
+        <button for="boton_variable" type="button" id="variableRuido" class="botones-sonido">Variable</button>
+        <button for="boton_reproducir" type="button" id="reproducirRuido" class="botones-sonido">Reproducir</button>
+        <button for="boton_detener" type="button" id="detenerRuido" class="botones-sonido">Detener</button>
+        <input for="slider_ruido" id="sliderRuidoBlanco" type="range" min="0" max="1" step="0.01" value="0"
+          title="Slider de volumen de ruido blanco">
+      </div>
+      <div class="separador">
+        <h2 for="h2_sinusoidal">Sinusoidal</h2>
+        <p>También agregué una variable y un slider más para controlar la frecuencia.</p>
+        <button for="boton_variable" type="button" id="variableSine" class="botones-sonido">Variable</button>
+        <button for="boton_reproducir" type="button" id="reproducirSine" class="botones-sonido">Reproducir</button>
+        <button for="boton_detener" type="button" id="detenerSine" class="botones-sonido">Detener</button>
+        <input id="sliderSine" type="range" min="0" max="1" step="0.01" value="0"
+          title="Slider de volumen de onda sinusoidal">
+        <input id="sliderFreq" type="range" min="1" max="2000" step="1" value="440"
+          title="Slider de frecuencia de onda sinusoidal">
+      </div>
+      <div class="separador">
+        <h2 for="header_mic">Acceder micrófono</h2>
+        <p for="desc_mic">La señal del mic sale por los parlantes de la computadora. Por favor, usa audífonos.</p>
+        <button for="boton_reproducir" type="button" id="reproducirMic" class="botones-sonido">Reproducir</button>
+        <button for="boton_detener" type="button" id="detenerMic" class="botones-sonido">Detener</button>
+      </div>
+      <div class="separador">
+        <h2 for="header_camara">Acceder cámara</h2>
+        <p for="desc_camara">Esto no es sonido XP pero ahí va</p>
+        <div>
+          <button type="button" id="encenderCamara" class="botones-sonido">Encender</button>
+          <button type="button" id="detenerCamara" class="botones-sonido">Detener</button>
+        </div>
+        <video autoplay="true" id="videoElement">
+        </video>
+        <!-- esto podría enviar un valor para que fuera leído por algo tipo switch-->
+      </div>
+  </section>
 
-	<h2>Editor sencillo</h2>
-	
-	<p>Editor sencillo, por el momento no interactúa con webaudioAPI</p>
-	<div id="editor">
-	</div>
-	<button id="run">Run</button>
 
-	<script type="module" src="sonido.js"></script>
-        
-        <footer>
-            @ SPTM 2023
-        </footer>
+  <footer>
+    &copy; SPTM v1.0.3
+    <script>document.write(new Date().getFullYear())</script>
+  </footer>
+  <script type="module" src="../src/inicio.js"></script>
+  <script type="module" src="../src/traducciones/traducciones.js"></script>
+  <script>
+    $('.menu-toggle').click(function () {
+      $(".nav").toggleClass("mobile-nav");
+      $(this).toggleClass("is-active");
+    });
 
-    </body>
+    $('.nav').click(function () {
+      $(".menu-toggle").removeClass("is-active");
+      $(this).removeClass("mobile-nav");
+    });
+  </script>
+
+  <script>
+    var btn = $('#button-top');
+
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 300) {
+        btn.addClass('show');
+      } else {
+        btn.removeClass('show');
+      }
+    });
+
+    btn.on('click', function (e) {
+      e.preventDefault();
+      $('html, body').animate({ scrollTop: 0 }, '300');
+    });
+  </script>
+</body>
+
 </html>
