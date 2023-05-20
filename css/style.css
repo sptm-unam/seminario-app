@@ -6,7 +6,7 @@
   scroll-behavior: smooth;
 }
 
-header {
+.inicio {
   height: 100vh;
   background-color: #000000;
 }
@@ -58,10 +58,43 @@ header h1 {
   text-decoration: none;
 }
 
-.sonido {
+.editorLV {
   display: block;
   overflow: auto;
-  padding: 10%;
+  padding: 1%;
+}
+
+.contenido-editorLV {
+  text-align: center;
+}
+
+.contenido-editorLV h2, p, button {
+  margin: 0.5em;
+}
+
+.botones-editorLV {
+  display: inline-block;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 4px;
+  font-size: 13px;
+  height: 30px;
+  background-color: #0000000d;
+  color: #0e0e10;
+  padding: 0 20px;
+}
+
+.botones-editorLV:hover {
+  background-color: #0000001a;
+}
+
+.sonido {
+  background-color: #f5f5f5;
+  display: block;
+  overflow: auto;
+  padding: 1%;
 }
 
 .contenido-sonido {
@@ -92,6 +125,10 @@ header h1 {
 
 .separador {
   margin: 5em;
+}
+
+.editorLV > button{
+  display: none;
 }
 
 .acerca {
@@ -381,6 +418,22 @@ footer {
 
   .feature-container:nth-child(2) {
     order: -1;
+  }
+
+  .editorLV > button{
+  display: flex;
+  margin: 5% auto;
+  display: inline-block;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 4px;
+  font-size: 13px;
+  height: 30px;
+  background-color: #0000000d;
+  color: #0e0e10;
+  padding: 0 20px;
   }
 }
 

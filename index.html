@@ -19,7 +19,7 @@
 </head>
 
 <body>
-  <header id="inicio">
+  <header id="inicio" class="inicio">
     <div class="page-wrapper">
       <div class="nav-wrapper">
         <nav class="navbar">
@@ -33,36 +33,29 @@
           </div>
           <ul class="nav">
             <li class="nav-item"><a for="link_inicio" href="#inicio">inicio</a></li>
-            <li  class="nav-item"><a for="link_sonido" href="#sonido">sonido</a></li>
-            <li  class="nav-item"><a for="link_acerca" href="#acerca">acerca</a></li>
+            <li class="nav-item"><a for="link_sonido" href="html/sonido.html">sonido</a></li>
+            <li class="nav-item"><a for="link_acerca" href="#acerca">acerca</a></li>
             <!-- <li for="link_" class="nav-item"><a href="#contacto">contacto</a></li> -->
           </ul>
           <div id="lang" class="switch-lang">
             <div class="current-lang">
               <img src="imgs/mex_icon.png" class="lang-flag" alt="bandera de México">
-            <p class="lang-text"><a href="?lang=es">Esp</a></p>
+              <p class="lang-text"><a href="?lang=es">Esp</a></p>
             </div>
 
             <div class="lang-dropdown">
               <div class="selecting-lang">
                 <a href="/?lang=en"><img src="imgs/USA_icon.png" class="lang-flag" alt="bandera de EUA">
-              <p class="lang-text">Eng</p></a>
+                  <p class="lang-text">Eng</p>
+                </a>
               </div>
               <div class="selecting-lang">
                 <a href="/?lang=fr"><img src="imgs/fr_icon.png" class="lang-flag" alt="bandera de Francia">
-              <p class="lang-text">Fr</p></a>
+                  <p class="lang-text">Fr</p>
+                </a>
               </div>
             </div>
           </div>
-
-<!--           <ul class="nav" id="lang">
-            <li><a href="?lang=es">es</a></li>
-            <li><a href="/?lang=en">en</a></li>
-            <li><a href="/?lang=fr">fr</a></li>
-          </ul> -->
-
-
-
         </nav>
       </div>
       <div class="titulo">
@@ -74,74 +67,30 @@
     </div>
   </header>
   <div id="button-top"></div>
-  <section id="sonido" class="sonido">
+  <section id="sonido" class="editorLV">
     <!-- <a id="button-top"></a> -->
     <div class="contenido-sonido">
       <div class="separador">
-        <h2 for="h2_sonido">Sonido</h2>
-        <p for="descripcion_sonido">
-          En algunos navegadores como chorme/chromium es necesario iniciar el audio con un gesto del usuario. Para este
-          fin se puede usar un botón.
-        </p>
-        <button for="boton_activar_sonido" type="button" id="activar" class="botones-sonido">Activar sonido</button>
-        <button for="boton_desactivar_sonido" type="button" id="desactivar" class="botones-sonido">Desactivar
-          sonido</button>
-      </div>
-      <div class="separador">
-        <h2 for="header_ruido_blanco">Ruido blanco</h2>
-        <p>Agregué un botón para iniciar la variable, esto pensando en el livecodeo. El primer botón inicializa</p>
-        <button for="boton_variable" type="button" id="variableRuido" class="botones-sonido">Variable</button>
-        <button for="boton_reproducir" type="button" id="reproducirRuido" class="botones-sonido">Reproducir</button>
-        <button for="boton_detener" type="button" id="detenerRuido" class="botones-sonido">Detener</button>
-        <input for="slider_ruido" id="sliderRuidoBlanco" type="range" min="0" max="1" step="0.01" value="0"
-          title="Slider de volumen de ruido blanco">
-      </div>
-      <div class="separador">
-        <h2 for="h2_sinusoidal">Sinusoidal</h2>
-        <p>También agregué una variable y un slider más para controlar la frecuencia.</p>
-        <button for="boton_variable" type="button" id="variableSine" class="botones-sonido">Variable</button>
-        <button for="boton_reproducir" type="button" id="reproducirSine" class="botones-sonido">Reproducir</button>
-        <button for="boton_detener" type="button" id="detenerSine" class="botones-sonido">Detener</button>
-        <input id="sliderSine" type="range" min="0" max="1" step="0.01" value="0"
-          title="Slider de volumen de onda sinusoidal">
-        <input id="sliderFreq" type="range" min="1" max="2000" step="1" value="440"
-          title="Slider de frecuencia de onda sinusoidal">
-      </div>
-      <div class="separador">
-        <h2 for="header_mic">Acceder micrófono</h2>
-        <p for="desc_mic">La señal del mic sale por los parlantes de la computadora. Por favor, usa audífonos.</p>
-        <button for="boton_reproducir" type="button" id="reproducirMic" class="botones-sonido">Reproducir</button>
-        <button for="boton_detener" type="button" id="detenerMic" class="botones-sonido">Detener</button>
-      </div>
-      <div class="separador">
-        <h2 for="header_camara">Acceder cámara</h2>
-        <p for="desc_camara">Esto no es sonido XP pero ahí va</p>
-        <div>
-          <button type="button" id="encenderCamara" class="botones-sonido">Encender</button>
-          <button type="button" id="detenerCamara" class="botones-sonido">Detener</button>
-        </div>
-        <video autoplay="true" id="videoElement">
-        </video>
-        <!-- esto podría enviar un valor para que fuera leído por algo tipo switch-->
-      </div>
-      <div class="separador">
         <h2 for="header_muestras">Múltiples muestras en un arreglo</h2>
-        <p for="desc_muestras">Ejemplo para relacionar carga y reproducción de archivos locales. Por el momento no pueden coexistir, como que se cancelan, el secuenciador está dentro del mismo módulo de audio</p>
+        <p for="desc_muestras">Ejemplo para relacionar carga y reproducción de archivos locales. Por el momento no
+          pueden coexistir, como que se cancelan, el secuenciador está dentro del mismo módulo de audio</p>
         <div>
           <input id="audio_file1" type="file" accept="audio/*" title="Cargar archivo" />
         </div>
         <div>
           <input id="audio_file2" type="file" accept="audio/*" title="Cargar archivo" />
-        </div> 
-	<button type="button" id="detenerSeq" class="botones-sonido">Detener secuencia</button>
+        </div>
+        <button type="button" id="detenerSeq" class="botones-sonido">Detener secuencia</button>
         <!--Necesitamos poner por aquí una caja de texto para escribir el código para live codear-->
       </div>
-      <div class="separador">
+      <div class="editorLV">
         <h2 for="header_editor">Editor sencillo</h2>
         <div id="editor">
         </div>
+        <button type="button" class="playLV">Play</button>
       </div>
   </section>
+  <div class="separador"></div>
   <section id="acerca" class="acerca">
     <h2 for="header_acerca">acerca de nosotros</h2>
     <p for="desc_acerca">El equipo de desarrollo e investigación de esta app forma parte del Seminario Permanente de
@@ -235,8 +184,6 @@
         </div>
       </div>
     </div>
-  </section>
-  <section id="contacto" class="contacto">
   </section>
 
   <footer>
