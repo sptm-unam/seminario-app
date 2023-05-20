@@ -98,11 +98,29 @@ function sampleMatch(str, handler) {
   return command
 }
 
+function smplsqMatch(str, handler){
+    let command
+    let smpl = str.match(/smplsq\s((?:\d+(?:\.\d*)?|\.\d+)(?:\s(?:\d+(?:\.\d*)?|\.\d+))*)$/);
+    let sq = []; 
+    if(smpl){
+
+	sq = smpl[1].split(' '); 
+	console.log("si cuadra la seq");
+        // console.log(smpl[1].split(' '));
+	handler(sq); 
+    }else{
+    console.log("no cuadra la seq"); 
+    }
+    command = `smplsq(${sq})`
+    return command
+}
+
 module.exports = {
   midiMatch,
   multipleLily,
   euclideanLily,
   stopMatch,
   bpmMatch,
-  sampleMatch
+  sampleMatch,
+  smplsqMatch
 }

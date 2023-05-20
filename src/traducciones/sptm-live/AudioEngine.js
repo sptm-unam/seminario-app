@@ -1,4 +1,6 @@
 const { Sine } = require('../../../SoundEnvironment/Sine')
+const { Player } = require('../../../SoundEnvironment/Player')
+
 const {
   midiToFrequency,
   letterToNote,
@@ -97,7 +99,26 @@ const AudioEngine = function (audioContext) {
     },
     samplePlay: function () {
       alert('sample engine')
-    }
+    },
+    
+      smplsq: function(seq) {
+	  
+	  const audioFile1 = document.getElementById('audio_file1');
+	  
+	  // console.log("smplsq");
+
+	  const smpl = new Player(audioContext, audioFile1)
+	  // smpl.load(audioFile1); 
+	  smpl.sequence(seq);
+	  // smpl.gain(0.5); // state es el estado inicial?
+	  // smpl.startSeq();
+	  // smpl.start(0);
+	  // smpl.startSeq(); 
+	  addElementToEngine(smpl);
+	  printState(); 
+      }
+
+      
   }
 }
 
