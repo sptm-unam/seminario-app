@@ -16,7 +16,6 @@ it('should parse a stop string', () => {
     handlerBpm: jest.fn(),
     handlerSamplePlay: jest.fn()
   }
-
   const parser = new Parser(handlers)
   // Act
   const command = parser.parseString('.')

@@ -9,7 +9,7 @@ import {
 import { tags } from '@lezer/highlight'
 import { javascript } from '@codemirror/lang-javascript'
 import { keymap, KeyBinding } from '@codemirror/view'
-import { SPTMController } from '../traducciones/sptm-live/SPTMController'
+import { SPTMController } from '../sptm-live/SPTMController'
 import { tutorialString } from './tutorialString'
 
 function EditorParser({ noise, sine, parent, parser }) {

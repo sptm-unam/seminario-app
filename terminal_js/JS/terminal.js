@@ -1,5 +1,5 @@
-import { SPTMController } from "../../sptm-live/SPTMController";
-import Parser from "../../sptm-live/parser"
+import { SPTMController } from "../../src/sptm-live/SPTMController";
+import Parser from "../../src/sptm-live/parser"
 
 let userInput, terminalOutput;
 let projAsk = false;

@@ -1,7 +1,7 @@
 import { SptmAudio } from './controlador'
 import { EditorParser } from './editorCodeMirror/editorParser'
 import { AudioSetup, Sine, Noise, Sample } from './audioSetup'
-import { SPTMController } from './traducciones/sptm-live/SPTMController'
+import { SPTMController } from './sptm-live/SPTMController'
 
 var AudioContext = window.AudioContext || window.webkitAudioContext // esto será importante ?
 const audioCtx = new AudioContext()

@@ -20,9 +20,7 @@ class Parser {
     let str = inStr.trim()
     let command = ''
     // Single number in midi or range
-    command =
-      command ||
-      checks.midiMatch(str, this.state.handlerMidi, this.state.handlerFreq)
+    command = command || checks.midiMatch(str, this.state.handlerMidi, this.state.handlerFreq)
     // Multiple lilypond note
     command =
       command || checks.multipleLily(str, this.state.handlerLilyMultiple)
