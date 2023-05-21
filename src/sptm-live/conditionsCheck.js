@@ -1,4 +1,4 @@
-const bjorklund = require('../../../static/js/bjorklund')
+const bjorklund = require('../patrones/bjorklund')
 
 const regex = {
   lilyNote: /^([abcdefg])(es|is)?(\'+|\,+)?(\d)?$/m,
