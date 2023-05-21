@@ -8,7 +8,8 @@ Handlers expected
   handlerLilyMultiple,
   handlerStop,
   handlerBpm,
-  handlerSamplePlay
+  handlerSamplePlay,
+  handlerSmplsq 
 */
 
 class Parser {
@@ -20,7 +21,9 @@ class Parser {
     let str = inStr.trim()
     let command = ''
     // Single number in midi or range
-    command = command || checks.midiMatch(str, this.state.handlerMidi, this.state.handlerFreq)
+    command =
+      command ||
+      checks.midiMatch(str, this.state.handlerMidi, this.state.handlerFreq)
     // Multiple lilypond note
     command =
       command || checks.multipleLily(str, this.state.handlerLilyMultiple)
@@ -34,7 +37,7 @@ class Parser {
     // Sample play, with duration and rate
     command = command || checks.sampleMatch(str, this.state.handlerSamplePlay)
     // smplsq
-    command = command || checks.smplsqMatch(str, this.state.handlerSmplsq);  
+    command = command || checks.smplsqMatch(str, this.state.handlerSmplsq)
     return command
   }
 }

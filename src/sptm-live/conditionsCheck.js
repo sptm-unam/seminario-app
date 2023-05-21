@@ -3,7 +3,7 @@ const bjorklund = require('../patrones/bjorklund')
 const regex = {
   lilyNote: /^([abcdefg])(es|is)?(\'+|\,+)?(\d)?$/m,
   lilyNoteMulti: /^(([abcdefg])(es|is)?(\'+|\,+)?(\d)?\s?)*$/gm,
-  euclideanRhythm:/^([abcdefg])(es|is)?(\'+|\,+)?(\d)?\((\d+)\,(\d+)\)$/m
+  euclideanRhythm: /^([abcdefg])(es|is)?(\'+|\,+)?(\d)?\((\d+)\,(\d+)\)$/m
 }
 
 function midiMatch(str, handlerMidi, handlerFreq) {
@@ -43,7 +43,7 @@ function multipleLily(str, handler) {
 }
 
 // <lilyNote>(int,int)
-function euclideanLily(str, handler){
+function euclideanLily(str, handler) {
   let command
   const euclideanMatch = str.match(regex.euclideanRhythm)
   if (euclideanMatch) {
@@ -53,10 +53,14 @@ function euclideanLily(str, handler){
     const event = { note, modifier, octave, duration }
     // TODO: Corregir la implementación del silencio/rest
     // const rest = { duration }
-    const rest = { note:"r", modifier, octave, duration }
-    const pattern = bjorklund.euclideanPattern(Number(k),Number(n))
+    const rest = { note: 'r', modifier, octave, duration }
+    const pattern = bjorklund.euclideanPattern(Number(k), Number(n))
     const notesList = pattern.map((x) => {
-      if (x === 1) {return event} else { return rest }
+      if (x === 1) {
+        return event
+      } else {
+        return rest
+      }
     })
     command = `playMultipleMidiNum(${notesList.length})`
     handler(notesList)
@@ -98,21 +102,22 @@ function sampleMatch(str, handler) {
   return command
 }
 
-function smplsqMatch(str, handler){
-    let command
-    let smpl = str.match(/smplsq\s((?:\d+(?:\.\d*)?|\.\d+)(?:\s(?:\d+(?:\.\d*)?|\.\d+))*)$/);
-    let sq = []; 
-    if(smpl){
-
-	sq = smpl[1].split(' '); 
-	console.log("si cuadra la seq");
-        // console.log(smpl[1].split(' '));
-	handler(sq); 
-    }else{
-    console.log("no cuadra la seq"); 
-    }
-    command = `smplsq(${sq})`
-    return command
+function smplsqMatch(str, handler) {
+  let command
+  let smpl = str.match(
+    /smplsq\s((?:\d+(?:\.\d*)?|\.\d+)(?:\s(?:\d+(?:\.\d*)?|\.\d+))*)$/
+  )
+  let sq = []
+  if (smpl) {
+    sq = smpl[1].split(' ')
+    console.log('si cuadra la seq')
+    // console.log(smpl[1].split(' '));
+    handler(sq)
+  } else {
+    console.log('no cuadra la seq')
+  }
+  command = `smplsq(${sq})`
+  return command
 }
 
 module.exports = {
