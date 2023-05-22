@@ -102,4 +102,4 @@ function Player(aCtx, audioFile) {
   // self.load(); // esto es mandatory
 }
 
-export { Player }
+module.exports = { Player }
