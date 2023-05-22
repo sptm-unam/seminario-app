@@ -1,5 +1,5 @@
-const { Sine } = require('../../../SoundEnvironment/Sine')
-const { Player } = require('../../../SoundEnvironment/Player')
+const { Sine } = require('../SoundEnvironment/Sine')
+const { Player } = require('../SoundEnvironment/Player')
 
 const {
   midiToFrequency,

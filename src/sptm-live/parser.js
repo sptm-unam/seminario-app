@@ -8,7 +8,8 @@ Handlers expected
   handlerLilyMultiple,
   handlerStop,
   handlerBpm,
-  handlerSamplePlay
+  handlerSamplePlay,
+  handlerSmplsq 
 */
 
 class Parser {
@@ -36,7 +37,7 @@ class Parser {
     // Sample play, with duration and rate
     command = command || checks.sampleMatch(str, this.state.handlerSamplePlay)
     // smplsq
-    command = command || checks.smplsqMatch(str, this.state.handlerSmplsq);  
+    command = command || checks.smplsqMatch(str, this.state.handlerSmplsq)
     return command
   }
 }
