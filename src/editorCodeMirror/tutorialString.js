@@ -11,9 +11,7 @@ c4(3,8)
 g8(5,12)
 
 // El punto detiene la ultima secuencia reproducida
-.
-
-`
+.`
 
 module.exports = {
   tutorialString
