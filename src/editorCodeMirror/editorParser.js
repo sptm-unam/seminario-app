@@ -49,7 +49,21 @@ function EditorParser({ parent, parser, handlePlay }) {
   let view = new EditorView({ state: startState, parent })
 
   this.evaluar = function () {
-    parser.parseString(getCurrentLineText(view))
+    // Revisar si hay seleccion
+    let firstRange = view.state.selection.ranges.at(0)
+    let selectedText = view.state.doc
+      .toString()
+      .substring(firstRange.from, firstRange.to)
+    console.log(selectedText)
+    if (selectedText !== '') {
+      const linesToParse = selectedText.split('\n')
+      console.log(linesToParse)
+      linesToParse.forEach((line) => {
+        parser.parseString(line)
+      })
+    } else {
+      parser.parseString(getCurrentLineText(view))
+    }
 
     return true
   }

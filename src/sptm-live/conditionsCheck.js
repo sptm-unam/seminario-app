@@ -1,9 +1,9 @@
 const bjorklund = require('../patrones/bjorklund')
 
 const regex = {
-  lilyNote: /^([abcdefg])(es|is)?(\'+|\,+)?(\d)?$/m,
-  lilyNoteMulti: /^(([abcdefg])(es|is)?(\'+|\,+)?(\d)?\s?)*$/gm,
-  euclideanRhythm: /^([abcdefg])(es|is)?(\'+|\,+)?(\d)?\((\d+)\,(\d+)\)$/m
+  lilyNote: /^([rabcdefg])(es|is)?(\'+|\,+)?(\d)?$/m,
+  lilyNoteMulti: /^(([rabcdefg])(es|is)?(\'+|\,+)?(\d)?\s?)*$/gm,
+  euclideanRhythm: /^([rabcdefg])(es|is)?(\'+|\,+)?(\d)?\((\d+)\,(\d+)\)$/m
 }
 
 function midiMatch(str, handlerMidi, handlerFreq) {

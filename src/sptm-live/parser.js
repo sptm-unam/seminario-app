@@ -18,6 +18,7 @@ class Parser {
   }
 
   parseString(inStr) {
+    if (inStr === '') return
     let str = inStr.trim()
     let command = ''
     // Single number in midi or range

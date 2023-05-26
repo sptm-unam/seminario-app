@@ -1,5 +1,5 @@
 const sp = {
-  tituloproyecto: 'TITULO DEL PROYECTO',
+  tituloproyecto: 'Chiltepín',
   link_inicio: 'inicio',
   link_sonido: 'sonido',
   link_acerca: 'acerca',
@@ -37,11 +37,14 @@ const sp = {
       de manera colectiva y guiada bajo un flujo de trabajo propio del desarrollo web.
 
       De esta manera el quehacer artístico de sus integrantes encuentra una metodología de desarrollo que integra
-      preguntas que vienen de la práctica musical.`
+      preguntas que vienen de la práctica musical.`,
+  integrantes: 'Integrantes',
+  desarrollador: 'Desarrollador',
+  web_personal: 'Web personal'
 }
 
 const en = {
-  tituloproyecto: 'PROJECT TITLE',
+  tituloproyecto: 'Chiltepín',
   link_inicio: 'home',
   link_sonido: 'sound',
   link_acerca: 'about',
@@ -66,14 +69,15 @@ const en = {
   header_camara: 'Cam access',
   desc_camara: 'This is not XP sound but here goes',
   header_muestras: 'Multiple samples in an array',
-  desc_muestras:
-    'Example to relate upload and playback of a local file,',
+  desc_muestras: 'Example to relate upload and playback of a local file,',
   header_editor: 'Simple editor',
   header_acerca: 'About us',
   desc_acerca: `This app's development and research team is part of the Permanent Seminar of Music Technology of the Postgraduate Program in Music UNAM. Its members have different profiles and interests around music technology, which makes this development an interdisciplinary field to build a sound technology applied to the web.
   The idea arises as a response to a semester dedicated to developing technologies based on programming in a collective and guided way under a web development workflow.
-  In this way, the artistic work of its members finds a development methodology that integrates questions from the musical practice.`
-
+  In this way, the artistic work of its members finds a development methodology that integrates questions from the musical practice.`,
+  integrantes: 'Team',
+  desarrollador: 'Developer',
+  web_personal: 'Web personal'
 }
 const fr = {
   tituloproyecto: 'TITRE DU PROJET',
@@ -114,7 +118,8 @@ const fr = {
       de manera colectiva y guiada bajo un flujo de trabajo propio del desarrollo web.
 
       De esta manera el quehacer artístico de sus integrantes encuentra una metodología de desarrollo que integra
-      preguntas que vienen de la práctica musical.`
+      preguntas que vienen de la práctica musical.`,
+  web_personal: 'Website'
 }
 
 module.exports = {
