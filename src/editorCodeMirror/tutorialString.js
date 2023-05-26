@@ -11,16 +11,7 @@ c4(3,8)
 g8(5,12)
 
 // El punto detiene la ultima secuencia reproducida
-.
-
-// Falta implementar los siguientes
-c
-cis
-cis2
-ces,8
-#samp 1|2
-#samp
-120bpm`
+.`
 
 module.exports = {
   tutorialString

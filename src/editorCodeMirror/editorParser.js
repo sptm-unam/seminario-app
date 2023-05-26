@@ -5,13 +5,27 @@ import { javascript } from '@codemirror/lang-javascript'
 import { keymap } from '@codemirror/view'
 import { tutorialString } from './tutorialString'
 
-function EditorParser({ parent, parser }) {
+function getCurrentLineText(view) {
+  const currentLine = view.state.doc.lineAt(
+    view.state.selection.main.head
+  ).number
+  const cursorText = view.state.doc.text[currentLine - 1]
+  return cursorText
+}
 
+function EditorParser({ parent, parser, handlePlay }) {
   const keymaps = []
+  let currentLineText = ''
   keymaps.push(
     keymap.of({
       key: 'Ctrl-Enter',
       run: () => this.evaluar(),
+      preventDefault: true
+    }),
+
+    keymap.of({
+      key: 'Ctrl-.',
+      run: () => this.stopAll(),
       preventDefault: true
     })
   )
@@ -25,20 +39,34 @@ function EditorParser({ parent, parser }) {
       keymaps,
       basicSetup,
       language.of(javascript()),
-      EditorView.lineWrapping
+      EditorView.lineWrapping,
+      EditorView.updateListener.of((v) => {
+        currentLineText = getCurrentLineText(v)
+      })
     ]
   })
 
   let view = new EditorView({ state: startState, parent })
 
   this.evaluar = function () {
-    const currentLine = view.state.doc.lineAt(
-      view.state.selection.main.head
-    ).number
-    const cursorText = view.state.doc.text[currentLine - 1]
-    parser.parseString(cursorText)
+    parser.parseString(getCurrentLineText(view))
+
     return true
   }
+  this.stopAll = function () {
+    stopLine()
+  }
+
+  function playCurrentLine() {
+    parser.parseString(getCurrentLineText(view))
+  }
+
+  function stopLine() {
+    console.log('STOP ALL')
+    parser.parseString('.')
+  }
+
+  return { view, playCurrentLine, stopLine }
 }
 
 module.exports = { EditorParser }
