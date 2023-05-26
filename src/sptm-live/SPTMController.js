@@ -10,7 +10,8 @@ const SPTMController = function (audioContext) {
     handlerStop: engine.stopAll,
     handlerBpm: engine.changeBPM,
     handlerSamplePlay: engine.samplePlay,
-    handlerSmplsq: engine.smplsq  
+    handlerSmplsq: engine.smplsq,
+    handlerSynthChange: engine.synthChange
   }
   const parser = new Parser(handlers)
   return {

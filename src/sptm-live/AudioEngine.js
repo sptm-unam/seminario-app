@@ -35,7 +35,7 @@ const AudioEngine = function (audioContext) {
     hashNodes[id] = element
     stackNodes.push(id)
   }
-  
+
   function stopAndRemoveLast() {
     if (stackNodes.length > 0) {
       const idPop = stackNodes.pop()
@@ -50,7 +50,7 @@ const AudioEngine = function (audioContext) {
     playMidi: function (midiNum) {
       // Check current oscilator in state
       // create oscilator with current kind
-      const osc = new Sine(audioContext)
+      const osc = new Sine(audioContext, state.synth)
       osc.gain(state.gain)
       // set frequency with midi num
       const freq = midiToFrequency(parseInt(midiNum))
@@ -64,7 +64,7 @@ const AudioEngine = function (audioContext) {
       printState()
     },
     playFreq: function (freqStr) {
-      const osc = new Sine(audioContext)
+      const osc = new Sine(audioContext, state.synth)
       osc.gain(state.gain)
       const freq = parseInt(freqStr)
       osc.playDuration(freq, parseInt(state.duration))
@@ -77,7 +77,7 @@ const AudioEngine = function (audioContext) {
     },
     playLilyMultiple: function (notesList) {
       console.table(notesList)
-      const osc = new Sine(audioContext)
+      const osc = new Sine(audioContext, state.synth)
       const freqList = notesList.map((e) =>
         midiToFrequency(60 + letterToNote(e.note))
       )
@@ -100,25 +100,17 @@ const AudioEngine = function (audioContext) {
     samplePlay: function () {
       alert('sample engine')
     },
-    
-      smplsq: function(seq) {
-	  
-	  const audioFile1 = document.getElementById('audio_file1');
-	  
-	  // console.log("smplsq");
-
-	  const smpl = new Player(audioContext, audioFile1)
-	  // smpl.load(audioFile1); 
-	  smpl.sequence(seq);
-	  // smpl.gain(0.5); // state es el estado inicial?
-	  // smpl.startSeq();
-	  // smpl.start(0);
-	  // smpl.startSeq(); 
-	  addElementToEngine(smpl);
-	  printState(); 
-      }
-
-      
+    smplsq: function (seq) {
+      const audioFile1 = document.getElementById('audio_file1')
+      const smpl = new Player(audioContext, audioFile1)
+      smpl.sequence(seq)
+      addElementToEngine(smpl)
+      printState()
+    },
+    synthChange: function (type) {
+      state.synth = type
+      console.log(state)
+    }
   }
 }
 

@@ -10,6 +10,12 @@ c a e
 a2 b2 e2 g2
 a4 b4 c4 d4 e4
 
+// Cambiar el oscilador de la siguiente secuencia
+// sine, triangle, sawtooth, square
+square
+a3 b3 c3
+sawtooth
+g4 d4 a4
 // Implementado nota simple midi
 60
 // Implementado frequencia simple
