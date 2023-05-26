@@ -41,7 +41,7 @@ function EditorParser({ parent, parser, handlePlay }) {
       language.of(javascript()),
       EditorView.lineWrapping,
       EditorView.updateListener.of((v) => {
-        currentLineText = getCurrentLineText(view)
+        currentLineText = getCurrentLineText(v)
       })
     ]
   })
