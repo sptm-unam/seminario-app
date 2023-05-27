@@ -6,10 +6,8 @@ class Sine {
     this.gainNode = this.audioCtx.createGain()
     this.oscillator.type = type
     this.oscillator.connect(this.gainNode)
-
     this.gainNode.connect(this.audioCtx.destination)
     this.gainNode.gain.setValueAtTime(1, this.audioCtx.currentTime)
-
     this.gainNode.connect(this.audioCtx.destination)
   }
 

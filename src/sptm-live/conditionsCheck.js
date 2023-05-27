@@ -2,8 +2,12 @@ const bjorklund = require('../patrones/bjorklund')
 
 const regex = {
   lilyNote: /^([rabcdefg])(es|is)?(\'+|\,+)?(\d)?$/m,
-  lilyNoteMulti: /^(([rabcdefg])(es|is)?(\'+|\,+)?(\d)?\s?)*$/gm,
-  euclideanRhythm: /^([rabcdefg])(es|is)?(\'+|\,+)?(\d)?\((\d+)\,(\d+)\)$/m
+  lilyNoteMulti: /^(sine|triangle|sawtooth|square)?\s?(([rabcdefg])(es|is)?(\'+|\,+)?(\d)?\s?)+$/m,
+  euclideanRhythm: /^([rabcdefg])(es|is)?(\'+|\,+)?(\d)?\((\d+)\,(\d+)\)$/m,
+
+  synthSelect: /^(sine|square|sawtooth|triangle)$/m,
+  smplsqMatch:
+    /smplsq\s((?:\d+(?:\.\d*)?|\.\d+)(?:\s(?:\d+(?:\.\d*)?|\.\d+))*)$/
 }
 
 function midiMatch(str, handlerMidi, handlerFreq) {
@@ -28,6 +32,7 @@ function multipleLily(str, handler) {
   // Multiple lilypond note
   let lilyMelodyMatch = str.match(regex.lilyNoteMulti)
   if (lilyMelodyMatch) {
+    const [_, synth] = lilyMelodyMatch
     const notesList = str.split(' ').reduce((prev, current) => {
       let lilyOctaveUp = current.match(regex.lilyNote)
       if (lilyOctaveUp) {
@@ -37,7 +42,7 @@ function multipleLily(str, handler) {
       return prev
     }, [])
     command = `playMultipleMidiNum(${notesList.length})`
-    handler(notesList)
+    handler(synth,notesList)
   }
   return command
 }
@@ -63,7 +68,7 @@ function euclideanLily(str, handler) {
       }
     })
     command = `playMultipleMidiNum(${notesList.length})`
-    handler(notesList)
+    handler('sine',notesList)// el primer elemento es el synte, TODO implementar parsing
   }
   return command
 }
@@ -104,19 +109,26 @@ function sampleMatch(str, handler) {
 
 function smplsqMatch(str, handler) {
   let command
-  let smpl = str.match(
-    /smplsq\s((?:\d+(?:\.\d*)?|\.\d+)(?:\s(?:\d+(?:\.\d*)?|\.\d+))*)$/
-  )
+  let smpl = str.match(regex.smplsqMatch)
   let sq = []
   if (smpl) {
     sq = smpl[1].split(' ')
-    console.log('si cuadra la seq')
-    // console.log(smpl[1].split(' '));
     handler(sq)
-  } else {
-    console.log('no cuadra la seq')
+    command = `smplsq(${sq})`
   }
-  command = `smplsq(${sq})`
+  return command
+}
+
+function synthMatch(str, handler) {
+  let command
+  // change BPM
+  let synthMatch = str.match(regex.synthSelect)
+  console.log('test synth')
+  if (synthMatch) {
+    console.log(synthMatch)
+    command = `synthChange(${synthMatch[1]})`
+    handler(synthMatch[1])
+  }
   return command
 }
 
@@ -127,5 +139,6 @@ module.exports = {
   stopMatch,
   bpmMatch,
   sampleMatch,
-  smplsqMatch
+  smplsqMatch,
+  synthMatch
 }

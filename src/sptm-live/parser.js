@@ -10,6 +10,7 @@ Handlers expected
   handlerBpm,
   handlerSamplePlay,
   handlerSmplsq 
+  handlerSynthChange
 */
 
 class Parser {
@@ -39,6 +40,8 @@ class Parser {
     command = command || checks.sampleMatch(str, this.state.handlerSamplePlay)
     // smplsq
     command = command || checks.smplsqMatch(str, this.state.handlerSmplsq)
+    // synth change
+    command = command || checks.synthMatch(str, this.state.handlerSynthChange)
     return command
   }
 }
