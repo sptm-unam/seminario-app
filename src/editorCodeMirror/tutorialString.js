@@ -10,7 +10,7 @@ a2 b2 e2 g2
 a4 b4 c4 d4 e4
 a'' b,,, c'''
 c d e f g' a b c'
-c d e f g a b c' d e f g a b c''
+c d e f g a b c' d e f g a b c'
 // Cambiar el oscilador de la siguiente secuencia
 // sine, triangle, sawtooth, square
 square
