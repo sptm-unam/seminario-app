@@ -75,9 +75,9 @@ const AudioEngine = function (audioContext) {
       addElementToEngine(osc)
       printState()
     },
-    playLilyMultiple: function (notesList) {
+    playLilyMultiple: function (synth, notesList) {
       console.table(notesList)
-      const osc = new Sine(audioContext, state.synth)
+      const osc = new Sine(audioContext, synth || state.synth)
       const freqList = notesList.map((e) =>
         midiToFrequency(60 + letterToNote(e.note))
       )

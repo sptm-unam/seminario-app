@@ -2,7 +2,7 @@ const bjorklund = require('../patrones/bjorklund')
 
 const regex = {
   lilyNote: /^([rabcdefg])(es|is)?(\'+|\,+)?(\d)?$/m,
-  lilyNoteMulti: /^(([rabcdefg])(es|is)?(\'+|\,+)?(\d)?\s?)*$/gm,
+  lilyNoteMulti: /^(sine|triangle|sawtooth|square)?\s?(([rabcdefg])(es|is)?(\'+|\,+)?(\d)?\s?)+$/m,
   euclideanRhythm: /^([rabcdefg])(es|is)?(\'+|\,+)?(\d)?\((\d+)\,(\d+)\)$/m,
 
   synthSelect: /^(sine|square|sawtooth|triangle)$/m,
@@ -32,6 +32,7 @@ function multipleLily(str, handler) {
   // Multiple lilypond note
   let lilyMelodyMatch = str.match(regex.lilyNoteMulti)
   if (lilyMelodyMatch) {
+    const [_, synth] = lilyMelodyMatch
     const notesList = str.split(' ').reduce((prev, current) => {
       let lilyOctaveUp = current.match(regex.lilyNote)
       if (lilyOctaveUp) {
@@ -41,7 +42,7 @@ function multipleLily(str, handler) {
       return prev
     }, [])
     command = `playMultipleMidiNum(${notesList.length})`
-    handler(notesList)
+    handler(synth,notesList)
   }
   return command
 }
@@ -67,7 +68,7 @@ function euclideanLily(str, handler) {
       }
     })
     command = `playMultipleMidiNum(${notesList.length})`
-    handler(notesList)
+    handler('sine',notesList)// el primer elemento es el synte, TODO implementar parsing
   }
   return command
 }
