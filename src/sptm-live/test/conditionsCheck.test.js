@@ -23,37 +23,39 @@ describe('Checky Lily match', () => {
     const expectObj = [{ note: 'c' }]
     const handlerLily = jest.fn()
     checks.multipleLily('c', handlerLily)
-    expect(handlerLily).toHaveBeenCalledWith(expectObj)
+    expect(handlerLily).toHaveBeenCalledWith(undefined, expectObj)
   })
   it('should call lily handler if passed simple lily note with modifier', () => {
     const expectObj = [{ note: 'c', modifier: 'is' }]
     const handlerLily = jest.fn()
     checks.multipleLily('cis', handlerLily)
-    expect(handlerLily).toHaveBeenCalledWith(expectObj)
+    expect(handlerLily).toHaveBeenCalledWith(undefined, expectObj)
   })
   it('should call lily handler if passed simple lily note with modifier "is" and octave up', () => {
     const expectObj = [{ note: 'c', modifier: 'is', octave: "'" }]
     const handlerLily = jest.fn()
     checks.multipleLily("cis'", handlerLily)
-    expect(handlerLily).toHaveBeenCalledWith(expectObj)
+    expect(handlerLily).toHaveBeenCalledWith(undefined, expectObj)
   })
   it('should call lily handler if passed simple lily note with modifier "is" and two octave up', () => {
     const expectObj = [{ note: 'c', modifier: 'is', octave: "''" }]
     const handlerLily = jest.fn()
     checks.multipleLily("cis''", handlerLily)
-    expect(handlerLily).toHaveBeenCalledWith(expectObj)
+    expect(handlerLily).toHaveBeenCalledWith(undefined, expectObj)
   })
   it('should call lily handler if passed simple lily note without modifier "is" and octave up', () => {
     const expectObj = [{ note: 'c', octave: "''" }]
     const handlerLily = jest.fn()
     checks.multipleLily("c''", handlerLily)
-    expect(handlerLily).toHaveBeenCalledWith(expectObj)
+    expect(handlerLily).toHaveBeenCalledWith(undefined, expectObj)
   })
   it('should call lily handler if passed simple lily note with modifier "is", octave up and duration', () => {
-    const expectObj = [{ note: 'c', modifier: 'is', octave: "'", duration: '8' }]
+    const expectObj = [
+      { note: 'c', modifier: 'is', octave: "'", duration: '8' }
+    ]
     const handlerLily = jest.fn()
     checks.multipleLily("cis'8", handlerLily)
-    expect(handlerLily).toHaveBeenCalledWith(expectObj)
+    expect(handlerLily).toHaveBeenCalledWith(undefined, expectObj)
   })
 })
 
@@ -88,7 +90,7 @@ describe('Checky Multiple Lily match', () => {
     ]
     const handlerLily = jest.fn()
     checks.multipleLily('c a b d g', handlerLily)
-    expect(handlerLily).toHaveBeenCalledWith(expectObj)
+    expect(handlerLily).toHaveBeenCalledWith(undefined, expectObj)
   })
   it('should call multiplelily handler if passed simple lily notes list modifiers, octave and durations', () => {
     const expectObj = [
@@ -100,7 +102,7 @@ describe('Checky Multiple Lily match', () => {
     ]
     const handlerLily = jest.fn()
     checks.multipleLily("cis aes'' b,8 d' g4", handlerLily)
-    expect(handlerLily).toHaveBeenCalledWith(expectObj)
+    expect(handlerLily).toHaveBeenCalledWith(undefined, expectObj)
   })
 })
 
@@ -121,10 +123,26 @@ describe('Check BPM match', () => {
 })
 
 describe('Check sample play match', () => {
-  it('should call sample play handler if strin is in format #sample 2|2', () => {
+  it('should call sample play handler if string is in format #sample 2|2', () => {
     const expected = { duration: '2', rate: '2', sample: 'sample' }
     const handlerBPM = jest.fn()
     checks.sampleMatch('#sample 2|2', handlerBPM)
     expect(handlerBPM).toHaveBeenCalledWith(expected)
   })
+})
+
+describe('Check euclidean lily play match', () => {
+  it.todo(
+    'should call euclidean play handler if strin is in format lilyNote(num,num)'
+  )
+  // const expectObj = [
+  //   { duration: undefined, modifier: 'is', note: 'c', octave: undefined },
+  //   { duration: undefined, modifier: 'es', note: 'a', octave: "''" },
+  //   { duration: '8', modifier: undefined, note: 'b', octave: ',' },
+  //   { duration: undefined, modifier: undefined, note: 'd', octave: "'" },
+  //   { duration: '4', modifier: undefined, note: 'g', octave: undefined }
+  // ]
+  // const handlerEuclidean = jest.fn()
+  // checks.euclideanLily('c8(3,5)', handlerEuclidean)
+  // expect(handlerEuclidean).toHaveBeenCalledWith('sine', expectObj)
 })
