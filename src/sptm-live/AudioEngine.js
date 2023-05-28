@@ -81,12 +81,14 @@ const AudioEngine = function (audioContext) {
       const freqList = []
       const durationList = []
       let octaveNum = 0
+      let currentDuration = 1
       for (let index = 0; index < notesList.length; index++) {
         const { note, octave, duration } = notesList[index]
         octaveNum += calculateOctave(octave)
         const freq = midiToFrequency(12 * (octaveNum + 5) + letterToNote(note))
         freqList.push(freq)
-        durationList.push(durationToTime(duration))
+        currentDuration = duration || currentDuration
+        durationList.push(durationToTime(currentDuration))
       }
       osc.playList(freqList, durationList)
       osc.gain(state.gain)
