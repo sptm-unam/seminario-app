@@ -54,7 +54,7 @@ const letterToNote = (letter) => {
 }
 
 const modifierToNumeric = (modifier) => {
-  const value = 0
+  let value = 0
   switch (modifier) {
     case 'is':
       value = 1
@@ -78,6 +78,7 @@ const calculateOctave = (octaveModifier = '') => {
 const durationToTime = (durationString = 1) => 1 / parseInt(durationString)
 
 const createTimeId = () => `${new Date().getTime()}`
+
 module.exports = {
   midiToFrequency,
   letterToNote,

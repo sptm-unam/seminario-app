@@ -5,6 +5,11 @@ it('should instanciate parser', () => {
   expect(parser).toBeDefined()
 })
 
+it('should parse a empty string and no nothing', () => {
+  const parser = new Parser()
+  expect(parser.parseString('')).toBe(undefined)
+})
+
 it('should parse a stop string', () => {
   // Arrange
   const handlers = {
@@ -43,7 +48,7 @@ it('should parse a lily string', () => {
   expect(handlers.handlerLilyMultiple).toHaveBeenCalled()
 })
 
-it.only('should parse a sample sinlge string', () => {
+it('should parse a sample sinlge string', () => {
   // Arrange
   const handlers = {
     handlerMidi: jest.fn(),
