@@ -5,14 +5,15 @@ const {
   midiToFrequency,
   letterToNote,
   durationToTime,
-  createTimeId
+  createTimeId,
+  calculateOctave
 } = require('./utils')
 
 const AudioEngine = function (audioContext) {
   console.log('audio engine')
 
   const state = {
-    synth: 'sin',
+    synth: 'sine',
     duration: '1',
     octave: '2',
     bpm: '60',
@@ -76,14 +77,19 @@ const AudioEngine = function (audioContext) {
       printState()
     },
     playLilyMultiple: function (synth, notesList) {
-      console.table(notesList)
       const osc = new Sine(audioContext, synth || state.synth)
-      const freqList = notesList.map((e) =>
-        midiToFrequency(60 + letterToNote(e.note))
-      )
-      const durationList = notesList.map((e) => durationToTime(e.duration))
-      console.log({ freqList })
-      console.log({ durationList })
+      const freqList = []
+      const durationList = []
+      let octaveNum = 0
+      let currentDuration = 1
+      for (let index = 0; index < notesList.length; index++) {
+        const { note, octave, duration } = notesList[index]
+        octaveNum += calculateOctave(octave)
+        const freq = midiToFrequency(12 * (octaveNum + 5) + letterToNote(note))
+        freqList.push(freq)
+        currentDuration = duration || currentDuration
+        durationList.push(durationToTime(currentDuration))
+      }
       osc.playList(freqList, durationList)
       osc.gain(state.gain)
       state.lastOsc = osc

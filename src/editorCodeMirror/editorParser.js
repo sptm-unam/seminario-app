@@ -9,8 +9,11 @@ function getCurrentLineText(view) {
   const currentLine = view.state.doc.lineAt(
     view.state.selection.main.head
   ).number
-  const cursorText = view.state.doc.text[currentLine - 1]
-  return cursorText
+  if (view.state.doc.text) {
+    return view.state.doc.text[currentLine - 1]
+  } else {
+    return ''
+  }
 }
 
 function EditorParser({ parent, parser, handlePlay }) {
@@ -38,7 +41,6 @@ function EditorParser({ parent, parser, handlePlay }) {
     extensions: [
       keymaps,
       basicSetup,
-      language.of(javascript()),
       EditorView.lineWrapping,
       EditorView.updateListener.of((v) => {
         currentLineText = getCurrentLineText(v)
