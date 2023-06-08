@@ -1,5 +1,5 @@
-const tutorialString = `// Presiona ctrl+enter para correr la linea del cursor o la seleccion
-// Ritmos euclidianos
+const tutorialString = `// Presiona ctrl+enter para correr la seleccion de texto
+// Ritmos euclidianos, de momento solo "sine"
 c4(3,8)
 g8(5,12)
 // Presiona ctrl+. para detener la última secuencia
