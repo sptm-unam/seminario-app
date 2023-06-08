@@ -42,9 +42,11 @@ function EditorParser({ parent, parser, handlePlay }) {
       keymaps,
       basicSetup,
       EditorView.lineWrapping,
-      EditorView.updateListener.of((v) => {
-        currentLineText = getCurrentLineText(v)
-      })
+      // EditorView.updateListener.of((v) => {
+      //   console.log(v)
+      //   currentLineText = getCurrentLineText(v)
+      //   console.log(currentLineText)
+      // })
     ]
   })
 
