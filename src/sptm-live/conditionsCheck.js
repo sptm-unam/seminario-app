@@ -6,8 +6,8 @@ const regex = {
   euclideanRhythm: /^([rabcdefg])(es|is)?(\'+|\,+)?(\d)?\((\d+)\,(\d+)\)$/m,
 
   synthSelect: /^(sine|square|sawtooth|triangle)$/m,
-  smplsqMatch:
-    /smplsq\s((?:\d+(?:\.\d*)?|\.\d+)(?:\s(?:\d+(?:\.\d*)?|\.\d+))*)$/
+  smplsqMatch: /smplsq\s((?:\d+(?:\.\d*)?|\.\d+)(?:\s(?:\d+(?:\.\d*)?|\.\d+))*)$/,
+    grainMatch: /grain\s((?:\d+(?:\.\d*)?|\.\d+)(?:\s(?:\d+(?:\.\d*)?|\.\d+))*)$/
 }
 
 function midiMatch(str, handlerMidi, handlerFreq) {
@@ -130,6 +130,21 @@ function synthMatch(str, handler) {
   return command
 }
 
+function grainMatch(str, handler) {
+    let command
+    let grainMatch = str.match(regex.grainMatch);
+    let par = []
+   
+    if(grainMatch){
+	// console.log("hola"); 
+	par = grainMatch[1].split(' ');  
+	handler(par)
+	console.log(par);
+	command = `grain(${par})`
+    }
+    return command
+}
+
 module.exports = {
   midiMatch,
   multipleLily,
@@ -138,5 +153,6 @@ module.exports = {
   bpmMatch,
   sampleMatch,
   smplsqMatch,
-  synthMatch
+  synthMatch,
+  grainMatch
 }
