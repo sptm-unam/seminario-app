@@ -1,4 +1,4 @@
-import { map_range } from './maprange.js';
+const { map_range } = require('./maprange.js');
 
 function Grain(aCtx){ // audiocontext y el archivo a cargar
 
@@ -173,6 +173,5 @@ Grain.js
 
     
 }
-
 
 module.exports = { Grain } 
