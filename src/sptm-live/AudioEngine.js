@@ -1,5 +1,7 @@
 const { Sine } = require('../SoundEnvironment/Sine')
 const { Player } = require('../SoundEnvironment/Player')
+const { Grain } = require('../SoundEnvironment/Grain')
+const { Load } = require('../SoundEnvironment/Load')
 
 const {
   midiToFrequency,
@@ -116,7 +118,27 @@ const AudioEngine = function (audioContext) {
     synthChange: function (type) {
       state.synth = type
       console.log(state)
-    }
+    },
+      grain: function (params ){
+
+	  const audioFile1 = document.getElementById('audio_file1')
+	  let buffer = 0; 
+	  let reader = new FileReader();    
+	  let grain; 
+	  reader.onload = function (ev) {
+	      audioContext.decodeAudioData(ev.target.result).then(function (buffer2) {
+		  buffer = buffer2; 
+		  console.log("loaded");
+		  grain = new Grain(audioContext);
+		  grain.set(buffer, parseFloat(params[0]), parseFloat(params[1]), parseFloat(params[2]), parseFloat(params[3]), parseFloat(params[4]));
+		  grain.start(); 
+		  
+	      })
+	  }
+	  reader.readAsArrayBuffer(audioFile1.files[0]);
+	  addElementToEngine(grain);
+	  printState(); 
+      }
   }
 }
 

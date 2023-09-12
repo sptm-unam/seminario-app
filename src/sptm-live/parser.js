@@ -9,8 +9,9 @@ Handlers expected
   handlerStop,
   handlerBpm,
   handlerSamplePlay,
-  handlerSmplsq 
-  handlerSynthChange
+  handlerSmplsq,
+  handlerSynthChange,
+  handlerGrain
 */
 
 class Parser {
@@ -42,6 +43,8 @@ class Parser {
     command = command || checks.smplsqMatch(str, this.state.handlerSmplsq)
     // synth change
     command = command || checks.synthMatch(str, this.state.handlerSynthChange)
+    // grain
+    command = command || checks.grainMatch(str, this.state.handlerGrain)
     return command
   }
 }
