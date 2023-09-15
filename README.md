@@ -54,6 +54,7 @@ Generado desde [JSON Crack](https://jsoncrack.com/editor) con `diagrama.json`.
 - Elliot Hernánedez
 - Marianne Teixido
 - Hernani Villaseñor
-- Otros miembros del Posgrado.
+- aldo lombera
+- Otros miembrxs del Posgrado.
 
 México, 2023.  
