@@ -29,7 +29,31 @@ square f3 b3 a3
 // Implementado frequencia simple
 440
 // El punto detiene la ultima secuencia reproducida
-. `
+.
+
+////////////////////////////////////////////////
+
+// Una aproximación alternativa de esta librería es la granulación y la reproducción de muestras.
+// Para ambos casos, es necesario cargar una muestra en la entrada "Seleccionar archivo"
+// Los formatos aceptados son mp3, wav ( probar otros formatos ) 
+
+// smplsq reproduce el archivo cargado en una secuencia. Es ideal para reproducir muestras cortas
+
+smplsq 1 0 1 0
+
+// donde los números funcionan como un secuenciador de pasos, 1 encendido 2 apagado
+
+// grain es un granulador que tiene 5 parámetros
+
+grain 0.5 0.4 0.3 0.2 0.1
+
+// Los parámetros de grain son: 
+// pointer - posición en el buffer. El parámetro va de 0 (inicio del buffer) a 1 (final del buffer)
+// freqScale - cantidad de cambio en términos de frecuencia. 1.0 es normal, 2 el doble, 0.5 la mitad, etc.
+// windowSize - tamaño de cada ventana del grano
+// overlaps - superposición de los granos
+// windowRandRatio - cantidad de aleatoriedad en términos de inicio de reproducción del grano y frecuencia.
+`
 
 module.exports = {
   tutorialString
