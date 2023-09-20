@@ -7,7 +7,7 @@ const letterToNote = (letter) => {
       note = 9
       break
     case 'b':
-      note = 10
+      note = 11
       break
     case 'c':
       note = 0
@@ -28,7 +28,7 @@ const letterToNote = (letter) => {
       note = 9
       break
     case 'si':
-      note = 10
+      note = 11
       break
     case 'do':
       note = 0
