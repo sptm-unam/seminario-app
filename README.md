@@ -55,6 +55,7 @@ Generado desde [JSON Crack](https://jsoncrack.com/editor) con `diagrama.json`.
 - Marianne Teixido
 - Hernani Villaseñor
 - aldo lombera
-- Otros miembrxs del Posgrado.
+- Lu-Yang Puón. Saludos, pandilla
+
 
 México, 2023.  
