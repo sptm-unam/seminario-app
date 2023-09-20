@@ -129,15 +129,14 @@ const AudioEngine = function (audioContext) {
 	      audioContext.decodeAudioData(ev.target.result).then(function (buffer2) {
 		  buffer = buffer2; 
 		  console.log("loaded");
-		  grain = new Grain(audioContext);
+		  grain = new Grain(audioContext, 'grain');
 		  grain.set(buffer, parseFloat(params[0]), parseFloat(params[1]), parseFloat(params[2]), parseFloat(params[3]), parseFloat(params[4]));
 		  grain.start(); 
-		  
+		  addElementToEngine(grain);
+		  printState(); 
 	      })
 	  }
 	  reader.readAsArrayBuffer(audioFile1.files[0]);
-	  addElementToEngine(grain);
-	  printState(); 
       }
   }
 }

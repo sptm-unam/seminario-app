@@ -1,6 +1,6 @@
 const { map_range } = require('./maprange.js');
 
-function Grain(aCtx){ // audiocontext y el archivo a cargar
+function Grain(aCtx, type = 'grain'){ // audiocontext y el archivo a cargar
 
     self = this;
     // se pueden pasar sin ser objetos independientes? Recuerdo que para algo se necesitaban 
