@@ -54,6 +54,7 @@ Generado desde [JSON Crack](https://jsoncrack.com/editor) con `diagrama.json`.
 - Elliot Hernánedez
 - Marianne Teixido
 - Hernani Villaseñor
+- Pablo Silva
 - Arsan
 - aldo lombera
 - Lu-Yang Puón. Saludos, pandilla
