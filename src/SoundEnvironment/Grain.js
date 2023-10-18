@@ -1,22 +1,28 @@
 const { map_range } = require('./maprange.js');
 
-function Grain(aCtx, type = 'grain'){ // audiocontext y el archivo a cargar
+class Grain {
 
-    self = this;
-    // se pueden pasar sin ser objetos independientes? Recuerdo que para algo se necesitaban 
-    self.audioCtx = aCtx;
-    self.buffer = 0;
-    self.rev = 0; 
-    
-    self.futureTickTime = self.audioCtx.currentTime,
-    // self.counter = 1,
-    self.tempo = 120,
-    self.secondsPerBeat = 60 / self.tempo,
-    self.counterTimeValue = (self.secondsPerBeat / 4),
-    self.timerID = undefined,
-    self.isPlaying = false;
-
-    self.overlap = 1; 
+    constructor(aCtx, type = 'grain'){
+	// Player2(aCtx){ // audiocontext y el archivo a cargar
+	
+	self = this;
+	// se pueden pasar sin ser objetos independientes? Recuerdo que para algo se necesitaban 
+	this.audioCtx = aCtx;
+	// self.buffer = 0;
+	this.futureTickTime = this.audioCtx.currentTime;
+	// self.counter = 1,
+	this.tempo = 120;
+	this.secondsPerBeat = 60 / this.tempo;
+	this.counterTimeValue = (this.secondsPerBeat / 4);
+	this.isPlaying = false;
+	this.timerID = undefined;
+	this.gainNode = this.audioCtx.createGain();
+	// En el futuro esto podría conectarse a una cadena de efectos para darle un poco de profundidad y brillo.
+	// Es posible usar este nodo de ganancia para darle una envolvente a cada grano, 
+	this.gainNode.connect(this.audioCtx.destination);
+	this.overlap = 1;
+	this.counter = 0; 
+    }
     // para reproducir la muestra provisionalmente 
 
     /*
@@ -41,7 +47,7 @@ function Grain(aCtx, type = 'grain'){ // audiocontext y el archivo a cargar
    
     // self.set = function(buffer, pointer, freqScale, windowSize, overlaps, windowRandRatio){
 
-    self.set = function(buffer, pointer, freqScale, windowSize, overlaps, windowRandRatio){
+    set = function(buffer, pointer, freqScale, windowSize, overlaps, windowRandRatio){
 
 	// Evaluar si es problemático pasar el buffer si estos parámetros se cambian dinámicamente.
 	// Lo que estoy haciendo es determinar estáticamente con set y dinámicamente con parámetros individuales 
@@ -50,17 +56,25 @@ function Grain(aCtx, type = 'grain'){ // audiocontext y el archivo a cargar
 	//______________________________________________
 	//Parece que es el mismo
 	//______________________________________________
-	// Estos valores tienen que estar al inicio 
 	
-	self.buffer = buffer; // Primero definir el buffer
-	self.pointer = map_range(pointer, 0, 1, 0, self.buffer.duration); // punto de inicio
+	//self.rev = buffer; // no estoy seguro si se sobreescribe buffer 
+
+	// Si está aquí como que se traba, revisar si puede estar en otro lao
+	
+	//Array.prototype.reverse.call( self.rev.getChannelData(0) );
+        //Array.prototype.reverse.call( self.rev.getChannelData(1) );
+
+	// Estos valores tienen que estar al inicio 
+	self = this; 
+	this.buffer = buffer; // Primero definir el buffer
+	this.pointer = map_range(pointer, 0, 1, 0, this.buffer.duration); // punto de inicio
 	// console.log(self.pointer); 
-	self.freqScale = freqScale; // Problema con valores negativos
+	this.freqScale = freqScale; // Problema con valores negativos
 	// self.detune = detune; // se realiza en relación a los valores de freqScale y está dado en cents, donde 0 es el valor original
-	self.windowSize = windowSize; // punto final en el codigo tendria que ser pointer punto de inicio y pointer + wS como final
-	self.overlaps = overlaps; // cantidad de ventanas. Seguramente esto funciona en una tasa de ventanas/s, en SC es posible usar numeros de punto flotante. Esto necesariamente implicaría que tenemos conocimiento del tiempo. 
-	self.windowRandRatio = windowRandRatio; // 
-Grain.js	
+	this.windowSize = windowSize; // punto final en el codigo tendria que ser pointer punto de inicio y pointer + wS como final
+	this.overlaps = overlaps; // cantidad de ventanas. Seguramente esto funciona en una tasa de ventanas/s, en SC es posible usar numeros de punto flotante. Esto necesariamente implicaría que tenemos conocimiento del tiempo. 
+	this.windowRandRatio = windowRandRatio; // 
+	
 	// console.log(self.pointer); 	
 	
     }
@@ -70,35 +84,26 @@ Grain.js
 
     // Esta función generaría los granos 
     
-    self.startGrain = function(time){ // no me queda claro como funciona time
+    startGrain = function(time){ // no me queda claro como funciona time
 
-	let algo = (Math.random() * self.windowRandRatio); // este algo podría ser algo más intersante
-	self.gainNode = self.audioCtx.createGain();
-	// En el futuro esto podría conectarse a una cadena de efectos para darle un poco de profundidad y brillo.
-	// Es posible usar este nodo de ganancia para darle una envolvente a cada grano, 
-	self.gainNode.connect(self.audioCtx.destination);
+	let algo = (Math.random() * this.windowRandRatio); // este algo podría ser algo más intersante
 	// Pensando que el sonido puede estar muy alto
 	// La ganancia podría ser una ponderación de la cantidad de overlaps que se suman
 	// calcular un tiempo de ataque que corresponda con la duración de la ventana
-	self.gainNode.gain.linearRampToValueAtTime(0.5, time + ((self.windowSize+algo)/8)); // Parece que la envolvente funciona 
-	self.gainNode.gain.linearRampToValueAtTime(0, time+self.windowSize+algo); 
-	self.gainNode.gain.setValueAtTime(0.5, self.audioCtx.currentTime);
+	this.gainNode.gain.linearRampToValueAtTime(0.75, time + ((this.windowSize+algo)/8)); // Parece que la envolvente funciona 
+	// self.gainNode.gain.linearRampToValueAtTime(0, time+self.windowSize+algo); 
+	//self.gainNode.gain.setValueAtTime(0.75, self.audioCtx.currentTime);
 	// Mientras tanto la reproducción podría ser en loop.
-	self.source = self.audioCtx.createBufferSource();
-	self.source.connect(self.gainNode);
+	
+	this.source = self.audioCtx.createBufferSource();
+	this.source.connect(this.gainNode);
 
-	if(self.freqScale < 0){
-	    self.source.buffer = self.rev;
-	    // console.log("negativo"); 
-	} else{
-	    self.source.buffer = self.buffer;
-	    // console.log("positivo"); 
-	}
+	this.source.buffer = this.buffer;
 
 	// Esto realmente tendría que estar como en espejo
 	
-	self.source.playbackRate.value = Math.abs(self.freqScale);
-	self.source.detune.value = (algo*1000);
+	this.source.playbackRate.value = this.freqScale;
+	this.source.detune.value = (algo*1000);
 
 	// decidir si puede mantenerse como un factor aparte o si podría depender de windowRandRatio
 	// console.log(self.detune + (algo*100));
@@ -108,39 +113,35 @@ Grain.js
 	// agregar una envolvente para que el sonido no se escuche tan crudo 
 	//----------------------------------------------
 	
-	self.source.start(self.audioCtx.currentTime+time, self.pointer+algo, Math.abs(self.windowSize)+algo);
+	this.source.start(self.audioCtx.currentTime+time, this.pointer+algo,this.windowSize+algo);
 	// de inmediato, los otros dos parámetros indican inicio y final de la reproducción de la muestra. Hay que ver qué sucede si el inicio y el final no dan un resultado deseado.
 	// source.start también podría tener algún tipo de compensación de windowRandRatio
 	// solo se reproduce una vez, como no está en loop desaparece cada verz que termina. Entonces tenemos que implementar algo parecido al reloj de player
     }
 
-    // Para cambiar el volumen 
-    self.gain = function(gain){
-	self.gainNode.gain.setValueAtTime(gain, self.audioCtx.currentTime); 
-    }
 
     // Mientras van a dentro, en el futuro determinar cómo pueden ir afuera
 
-    self.scheduler = function() {
-	if (self.futureTickTime < self.audioCtx.currentTime + 0.1) {
-            self.schedule(self.futureTickTime - self.audioCtx.currentTime);
-            self.playTick();
+    scheduler = function() {
+	if (this.futureTickTime < self.audioCtx.currentTime + 0.1) {
+            this.schedule(this.futureTickTime - self.audioCtx.currentTime);
+            this.playTick();
 	}
 	
-	self.timerID = setTimeout(self.scheduler, 0);
+	//self.timerID = setTimeout(function(){self.scheduler()}, 0);
+	this.timerID = setTimeout(self.scheduler.bind(this), 0); 
+	//requestAnimationFrame(this.scheduler());
+	
     }
 
-    self.playTick = function() {
+    playTick = function() {
 	// console.log(self.counter);
-	let random = Math.random(); 
-	self.secondsPerBeat = (60 / self.tempo)*(random*self.windowRandRatio); // se pone locuaz cuando son valores muy altos pero funciona
+	this.secondsPerBeat = (60 / this.tempo) * this.overlaps; // se pone locuaz cuando son valores muy altos pero funciona
 	// self.secondsPerBeat = self.overlap; // a ver si funciona pasando oberlap 
-	self.counterTimeValue = (self.secondsPerBeat / 1);
-	// self.counter += 1; // Creo que ya no es necesario tener un contador 
-	self.futureTickTime += self.counterTimeValue;
-
+	this.counterTimeValue = (this.secondsPerBeat / 1);
+	// self.counter += 1; // Creo que ya no es necesario tener un contador
+	this.futureTickTime += this.counterTimeValue;
 	// Esto ya no aplica porque no hay secuencia 
-
 	/*
 	if(self.counter == self.seq.length){
 	    self.counter = 0; 
@@ -149,29 +150,29 @@ Grain.js
 
     }    
 
-    self.schedule = function(time){
+    schedule = function(time){
 
 	// if ya no aplica no hay secuencia
 	
 	//if(self.seq[self.counter] == 1){ 
-	self.startGrain(time);
+	this.startGrain(time);
 	// console.log("otro algo"); 
 	//}
     }
 
-    self.start = function(){
+    start = function(){
 	// self.sheduler();
-	self.counter = 0;
-	self.futureTickTime = self.audioCtx.currentTime;
-	self.scheduler(); 
+	this.counter = 0;
+	this.futureTickTime = this.audioCtx.currentTime;
+	this.scheduler(); 
     }
     
-    self.stop = function(){
-	clearTimeout(self.timerID);
+    stop = function(){
+	clearTimeout(this.timerID);
     }
-
-
     
 }
+
+
 
 module.exports = { Grain } 
